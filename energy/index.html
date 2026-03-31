@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRAL POWER Energy Drink | Built for Raid Night</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Russo+One&family=Exo+2:wght@400;600;700;800;900&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --purple-dark: #0a0014;
+  --purple-mid: #1a0a3e;
+  --purple-light: #3d1a8e;
+  --blue-electric: #00d4ff;
+  --blue-glow: #0088ff;
+  --green-neon: #39ff14;
+  --gold: #ffd700;
+  --gold-dark: #b8960c;
+  --orange-hot: #ff6a00;
+  --red-wrath: #ff2244;
+  --white: #ffffff;
+  --gray-light: #cccccc;
+  --gray-mid: #666666;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Exo 2', 'Trebuchet MS', sans-serif;
+  background: var(--purple-dark);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="none" stroke="%2300d4ff" stroke-width="2"/><circle cx="10" cy="10" r="2" fill="%2300d4ff"/></svg>') 10 10, auto;
+}
+
+/* ============================================
+   STAR PARTICLE BACKGROUND
+   ============================================ */
+.stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stars .star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* ============================================
+   SCROLLING TICKER / MARQUEE
+   ============================================ */
+.ticker-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #ff0055, #ff6a00, #ffd700, #39ff14, #00d4ff, #7b2fff, #ff0055);
+  background-size: 400% 100%;
+  animation: tickerGradient 4s linear infinite;
+  padding: 4px 0;
+  overflow: hidden;
+  font-family: 'Teko', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #000;
+  border-bottom: 2px solid rgba(255,215,0,0.5);
+}
+
+@keyframes tickerGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+.ticker-content {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerScroll 25s linear infinite;
+}
+
+.ticker-content span {
+  padding: 0 40px;
+  flex-shrink: 0;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.main-nav {
+  position: fixed;
+  top: 26px; left: 0; right: 0;
+  z-index: 999;
+  background: linear-gradient(180deg, #1a0a3e 0%, #0d0520 100%);
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, transparent, var(--blue-electric), var(--gold), var(--blue-electric), transparent) 1;
+  padding: 0 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 2px 10px rgba(0,136,255,0.3);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 22px;
+  background: linear-gradient(180deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 8px rgba(255,215,0,0.5));
+  letter-spacing: 3px;
+}
+
+.nav-logo .bolt {
+  -webkit-text-fill-color: var(--blue-electric);
+  filter: drop-shadow(0 0 6px var(--blue-electric));
+}
+
+.nav-links {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 8px 16px;
+  color: var(--gray-light);
+  text-decoration: none;
+  font-family: 'Teko', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  background: rgba(0,212,255,0.15);
+  text-shadow: 0 0 10px var(--blue-electric);
+}
+
+.nav-links a.active {
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.nav-cta {
+  font-family: 'Teko', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  background: linear-gradient(180deg, #ffd700 0%, #ff8c00 50%, #cc6600 100%);
+  color: #000;
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(255,215,0,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  box-shadow: 0 0 25px rgba(255,215,0,0.7), inset 0 1px 0 rgba(255,255,255,0.5);
+  transform: scale(1.05);
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 80px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(61,26,142,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(0,136,255,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(123,47,255,0.2) 0%, transparent 70%),
+    linear-gradient(180deg, var(--purple-dark) 0%, #0d0520 100%);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: heroGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes heroGlowPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-partnership {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.2));
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  padding: 6px 24px;
+  font-family: 'Teko', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px rgba(255,215,0,0.2);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+  50% { box-shadow: 0 0 30px rgba(255,215,0,0.5); }
+}
+
+.hero-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1;
+  margin-bottom: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #ffd700 30%, #ff8c00 60%, #ff6a00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(255,215,0,0.5)) drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+  letter-spacing: 6px;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.5)) drop-shadow(0 4px 8px rgba(0,0,0,0.8)); }
+  50% { filter: drop-shadow(0 0 50px rgba(255,215,0,0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.8)); }
+}
+
+.hero-subtitle {
+  font-family: 'Russo One', sans-serif;
+  font-size: clamp(16px, 3vw, 28px);
+  color: var(--blue-electric);
+  text-shadow: 0 0 20px rgba(0,212,255,0.5);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.hero-tagline {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--gray-light);
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-tagline em {
+  color: var(--green-neon);
+  text-shadow: 0 0 15px rgba(57,255,20,0.5);
+  font-style: normal;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+/* Web 2.0 Glossy Button */
+.btn-glossy {
+  display: inline-block;
+  padding: 16px 48px;
+  font-family: 'Teko', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: none;
+}
+
+.btn-glossy::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 8px 8px 0 0;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #39ff14 0%, #20cc00 40%, #0d8a00 100%);
+  color: #000;
+  border: 2px solid #39ff14;
+  box-shadow:
+    0 4px 15px rgba(57,255,20,0.4),
+    0 2px 4px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 8px 30px rgba(57,255,20,0.6),
+    0 4px 8px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(180deg, #00d4ff 0%, #0088cc 40%, #005580 100%);
+  color: #fff;
+  border: 2px solid #00d4ff;
+  box-shadow:
+    0 4px 15px rgba(0,212,255,0.3),
+    0 2px 4px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 8px 30px rgba(0,212,255,0.5),
+    0 4px 8px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 36px;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.hero-stat-label {
+  font-family: 'Teko', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+}
+
+/* ============================================
+   SECTION SHARED STYLES
+   ============================================ */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 80px 20px;
+}
+
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 48px);
+  text-align: center;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #fff 0%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(255,215,0,0.3));
+  letter-spacing: 4px;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-family: 'Teko', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue-electric);
+  text-shadow: 0 0 10px rgba(0,212,255,0.4);
+  margin-bottom: 60px;
+}
+
+.section-divider {
+  width: 200px;
+  height: 3px;
+  margin: 0 auto 60px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border: none;
+}
+
+/* ============================================
+   BANNER AD
+   ============================================ */
+.banner-ad {
+  max-width: 728px;
+  margin: 0 auto 60px;
+  background: linear-gradient(135deg, #1a0a3e, #0d0520);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 0 20px rgba(255,215,0,0.2), 0 4px 12px rgba(0,0,0,0.5);
+  overflow: hidden;
+  position: relative;
+  animation: adPulse 3s ease-in-out infinite;
+}
+
+@keyframes adPulse {
+  0%, 100% { border-color: var(--gold); }
+  50% { border-color: var(--blue-electric); }
+}
+
+.banner-ad::before {
+  content: 'AD';
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 9px;
+  color: var(--gray-mid);
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 1px;
+}
+
+.banner-ad-text {
+  flex: 1;
+}
+
+.banner-ad-text h3 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.banner-ad-text p {
+  font-size: 13px;
+  color: var(--gray-light);
+}
+
+.banner-ad .btn-glossy {
+  padding: 8px 24px;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   FLAVORS SECTION
+   ============================================ */
+#flavors {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(61,26,142,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(0,136,255,0.2) 0%, transparent 40%),
+    linear-gradient(180deg, #0d0520 0%, var(--purple-dark) 50%, #0d0520 100%);
+}
+
+.flavors-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.flavor-card {
+  background: linear-gradient(180deg, rgba(26,10,62,0.9) 0%, rgba(13,5,32,0.95) 100%);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 40px 30px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.flavor-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 30px rgba(255,215,0,0.2);
+}
+
+.flavor-card.moonfire:hover { border-color: #ff8c00; box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 30px rgba(255,140,0,0.3); }
+.flavor-card.starfall:hover { border-color: #7b2fff; box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 30px rgba(123,47,255,0.3); }
+.flavor-card.wrath:hover { border-color: #ff2244; box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 30px rgba(255,34,68,0.3); }
+
+/* NEW badge */
+.flavor-badge {
+  position: absolute;
+  top: 16px;
+  right: -30px;
+  background: linear-gradient(135deg, #ff0055, #ff4400);
+  color: white;
+  font-family: 'Teko', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 40px;
+  transform: rotate(35deg);
+  box-shadow: 0 2px 8px rgba(255,0,85,0.5);
+}
+
+/* CSS ENERGY DRINK CAN */
+.can-wrapper {
+  width: 120px;
+  height: 200px;
+  margin: 0 auto 24px;
+  position: relative;
+  perspective: 300px;
+}
+
+.can {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 12px 12px 16px 16px;
+  overflow: hidden;
+  box-shadow:
+    -8px 0 20px rgba(0,0,0,0.4),
+    8px 0 20px rgba(0,0,0,0.2),
+    0 8px 20px rgba(0,0,0,0.5);
+  transition: transform 0.4s;
+}
+
+.flavor-card:hover .can {
+  transform: rotateY(-5deg) scale(1.05);
+}
+
+/* Can lid */
+.can::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 20px;
+  background: linear-gradient(180deg, #888 0%, #555 50%, #666 100%);
+  border-radius: 12px 12px 0 0;
+  border-bottom: 2px solid #333;
+  z-index: 2;
+}
+
+/* Glossy highlight */
+.can::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 10px;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.can-body {
+  position: absolute;
+  top: 20px; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+}
+
+/* Moonfire Mango */
+.moonfire .can-body {
+  background: linear-gradient(180deg, #ff8c00 0%, #ff6a00 30%, #cc4400 70%, #993300 100%);
+}
+
+/* Starfall Berry */
+.starfall .can-body {
+  background: linear-gradient(180deg, #7b2fff 0%, #5a1acc 30%, #3d0d99 70%, #220066 100%);
+}
+
+/* Wrath Grape */
+.wrath .can-body {
+  background: linear-gradient(180deg, #8b0030 0%, #660033 30%, #440022 70%, #220011 100%);
+}
+
+.can-brand {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 0 6px rgba(255,255,255,0.5);
+  margin-bottom: 2px;
+}
+
+.can-flavor {
+  font-family: 'Russo One', sans-serif;
+  font-size: 11px;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.can-icon {
+  font-size: 32px;
+  margin: 6px 0;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+}
+
+.can-volume {
+  font-family: 'Teko', sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+  margin-top: auto;
+}
+
+.flavor-name {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.moonfire .flavor-name { color: #ff8c00; text-shadow: 0 0 15px rgba(255,140,0,0.5); }
+.starfall .flavor-name { color: #9b6dff; text-shadow: 0 0 15px rgba(155,109,255,0.5); }
+.wrath .flavor-name { color: #ff4466; text-shadow: 0 0 15px rgba(255,68,102,0.5); }
+
+.flavor-desc {
+  font-size: 14px;
+  color: var(--gray-light);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.flavor-desc strong {
+  color: var(--green-neon);
+}
+
+.flavor-price {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255,215,0,0.4);
+}
+
+.flavor-price-note {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 12px;
+  color: var(--gray-mid);
+  margin-top: 4px;
+}
+
+.flavor-price .old-price {
+  font-size: 16px;
+  color: var(--gray-mid);
+  text-decoration: line-through;
+  text-shadow: none;
+  margin-right: 8px;
+}
+
+/* ============================================
+   STARBURST / SALE BADGE
+   ============================================ */
+.starburst {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff0055, #ff4400);
+  clip-path: polygon(50% 0%, 61% 15%, 78% 5%, 74% 24%, 95% 28%, 82% 40%, 100% 50%, 82% 60%, 95% 72%, 74% 76%, 78% 95%, 61% 85%, 50% 100%, 39% 85%, 22% 95%, 26% 76%, 5% 72%, 18% 60%, 0% 50%, 18% 40%, 5% 28%, 26% 24%, 22% 5%, 39% 15%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  animation: starburstSpin 20s linear infinite;
+  box-shadow: 0 0 20px rgba(255,0,85,0.5);
+}
+
+@keyframes starburstSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.starburst-text {
+  animation: starburstCounterSpin 20s linear infinite;
+  font-family: 'Teko', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  line-height: 1.1;
+}
+
+@keyframes starburstCounterSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* ============================================
+   NUTRITION FACTS
+   ============================================ */
+#nutrition {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(0,136,255,0.15) 0%, transparent 50%),
+    linear-gradient(180deg, #0d0520 0%, var(--purple-dark) 100%);
+}
+
+.nutrition-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .nutrition-container { grid-template-columns: 1fr; }
+}
+
+/* Supplement Facts Panel */
+.supplement-facts {
+  background: #ffffff;
+  color: #000;
+  border: 2px solid #000;
+  padding: 6px 8px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  max-width: 380px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.supplement-facts h2 {
+  font-size: 28px;
+  font-weight: 900;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0 0 2px;
+  color: #000;
+  -webkit-text-fill-color: #000;
+  background: none;
+  filter: none;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.supplement-facts .serving-info {
+  font-size: 12px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+.supplement-facts .thick-bar {
+  height: 10px;
+  background: #000;
+  margin: 2px 0;
+}
+
+.supplement-facts .medium-bar {
+  height: 4px;
+  background: #000;
+  margin: 2px 0;
+}
+
+.supplement-facts .thin-bar {
+  height: 1px;
+  background: #000;
+  margin: 1px 0;
+}
+
+.supplement-facts .nutrient-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.supplement-facts .nutrient-row.indent {
+  padding-left: 20px;
+}
+
+.supplement-facts .nutrient-row .bold {
+  font-weight: 700;
+}
+
+.supplement-facts .nutrient-row .dv {
+  font-weight: 700;
+}
+
+.supplement-facts .daily-value-note {
+  font-size: 10px;
+  padding: 4px 0;
+  border-top: 1px solid #000;
+  margin-top: 4px;
+}
+
+.supplement-facts .dagger-note {
+  font-size: 10px;
+  padding: 2px 0;
+}
+
+/* Nutrition side content */
+.nutrition-info {
+  padding: 20px 0;
+}
+
+.nutrition-info h3 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--blue-electric);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.nutrition-callouts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nutrition-callout {
+  background: linear-gradient(135deg, rgba(26,10,62,0.8), rgba(13,5,32,0.9));
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nutrition-callout-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.nutrition-callout h4 {
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.nutrition-callout p {
+  font-size: 13px;
+  color: var(--gray-light);
+  line-height: 1.4;
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+#testimonials {
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(61,26,142,0.3) 0%, transparent 50%),
+    linear-gradient(180deg, var(--purple-dark) 0%, #0d0520 100%);
+}
+
+.testimonials-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.testimonial-card {
+  background: linear-gradient(180deg, rgba(26,10,62,0.8), rgba(13,5,32,0.9));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  font-size: 64px;
+  color: rgba(255,215,0,0.2);
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  line-height: 1;
+}
+
+.testimonial-stars {
+  color: var(--gold);
+  font-size: 16px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.testimonial-text {
+  font-size: 14px;
+  color: var(--gray-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.testimonial-avatar.druid { background: linear-gradient(135deg, #ff7700, #cc4400); }
+.testimonial-avatar.mage { background: linear-gradient(135deg, #3fc7ff, #1a6eff); }
+.testimonial-avatar.warlock { background: linear-gradient(135deg, #9b59b6, #6c3483); }
+
+.testimonial-name {
+  font-family: 'Teko', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.testimonial-role {
+  font-size: 11px;
+  color: var(--gray-mid);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   PROMO / CTA SECTION
+   ============================================ */
+#promo {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #0d0520 0%, var(--purple-dark) 50%, #0d0520 100%);
+  text-align: center;
+}
+
+.promo-box {
+  max-width: 700px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(26,10,62,0.9) 0%, rgba(13,5,32,0.95) 100%);
+  border: 3px solid var(--gold);
+  border-radius: 20px;
+  padding: 50px 40px;
+  position: relative;
+  box-shadow:
+    0 0 40px rgba(255,215,0,0.2),
+    0 16px 48px rgba(0,0,0,0.5),
+    inset 0 0 60px rgba(255,215,0,0.05);
+}
+
+.promo-limited {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff0055, #ff4400);
+  color: white;
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 6px 28px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+  animation: limitedPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes limitedPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,0,85,0.5); }
+}
+
+.promo-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(24px, 4vw, 36px);
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+  margin-bottom: 12px;
+  letter-spacing: 3px;
+}
+
+.promo-subtitle {
+  font-size: 18px;
+  color: var(--gray-light);
+  margin-bottom: 30px;
+}
+
+.promo-code-box {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  border: 2px dashed var(--gold);
+  border-radius: 10px;
+  padding: 8px 8px 8px 24px;
+  margin-bottom: 30px;
+  gap: 12px;
+}
+
+.promo-code-label {
+  font-family: 'Teko', sans-serif;
+  font-size: 16px;
+  color: var(--gray-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.promo-code {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--green-neon);
+  text-shadow: 0 0 15px rgba(57,255,20,0.5);
+  letter-spacing: 4px;
+  user-select: all;
+}
+
+.promo-copy-btn {
+  background: linear-gradient(180deg, #39ff14, #20cc00);
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: 'Teko', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.promo-copy-btn:hover { transform: scale(1.05); }
+
+.promo-countdown {
+  margin-bottom: 30px;
+}
+
+.promo-countdown-label {
+  font-family: 'Teko', sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red-wrath);
+  margin-bottom: 10px;
+  animation: countdownBlink 1s ease-in-out infinite;
+}
+
+@keyframes countdownBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.countdown-digits {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.countdown-unit {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  min-width: 60px;
+}
+
+.countdown-number {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--white);
+  display: block;
+}
+
+.countdown-label {
+  font-family: 'Teko', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+.promo-stock {
+  font-family: 'Teko', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red-wrath);
+  margin-bottom: 24px;
+  animation: stockPulse 2s ease-in-out infinite;
+}
+
+@keyframes stockPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.promo-stock .stock-count {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ============================================
+   LEADERBOARD AD (728x90 banner style)
+   ============================================ */
+.leaderboard-ad {
+  max-width: 728px;
+  margin: 40px auto;
+  height: 90px;
+  background: linear-gradient(135deg, #0d0520, #1a0a3e);
+  border: 2px solid var(--blue-electric);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,212,255,0.2);
+  z-index: 1;
+}
+
+.leaderboard-ad::before {
+  content: 'ADVERTISEMENT';
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 8px;
+  color: var(--gray-mid);
+  letter-spacing: 1px;
+}
+
+.leaderboard-ad::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  animation: adShine 3s ease-in-out infinite;
+}
+
+@keyframes adShine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.leaderboard-ad h3 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 20px;
+  background: linear-gradient(180deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+}
+
+.leaderboard-ad p {
+  font-size: 13px;
+  color: var(--gray-light);
+}
+
+.leaderboard-ad .btn-glossy {
+  padding: 6px 20px;
+  font-size: 13px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, #0d0520, #050208);
+  border-top: 2px solid;
+  border-image: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent) 1;
+  padding: 60px 20px 30px;
+}
+
+.footer-top {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h4 {
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+  color: var(--gray-mid);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+  color: var(--blue-electric);
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer-social a:hover {
+  background: rgba(0,212,255,0.2);
+  border-color: var(--blue-electric);
+}
+
+.footer-seen {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.footer-seen h4 {
+  font-family: 'Teko', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 16px;
+}
+
+.footer-seen-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  opacity: 0.3;
+}
+
+.footer-seen-logos span {
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+}
+
+.footer-bottom {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.footer-disclaimer {
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: var(--gray-mid);
+}
+
+/* ============================================
+   FLOATING SIDE AD
+   ============================================ */
+.side-ad {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  background: linear-gradient(180deg, #1a0a3e, #0d0520);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 16px 12px;
+  text-align: center;
+  z-index: 100;
+  box-shadow: 0 0 20px rgba(255,215,0,0.2), 0 8px 32px rgba(0,0,0,0.6);
+  display: none;
+}
+
+@media (min-width: 1400px) {
+  .side-ad { display: block; }
+}
+
+.side-ad-close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--gray-mid);
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.side-ad h4 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.side-ad p {
+  font-size: 11px;
+  color: var(--gray-light);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.side-ad .btn-glossy {
+  padding: 6px 16px;
+  font-size: 12px;
+  width: 100%;
+}
+
+.side-ad .ad-label {
+  font-size: 8px;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+/* ============================================
+   POPUP OVERLAY
+   ============================================ */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup {
+  background: linear-gradient(180deg, #1a0a3e, #0d0520);
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 20px 60px rgba(0,0,0,0.8);
+  transform: scale(0.9);
+  transition: transform 0.3s;
+}
+
+.popup-overlay.active .popup {
+  transform: scale(1);
+}
+
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--gray-mid);
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.popup-close:hover { color: var(--white); }
+
+.popup h3 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.popup p {
+  font-size: 14px;
+  color: var(--gray-light);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.popup .fake-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--white);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.popup .fake-input:focus {
+  border-color: var(--blue-electric);
+}
+
+.popup .fake-input::placeholder {
+  color: var(--gray-mid);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-value { font-size: 28px; }
+  .flavors-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .leaderboard-ad { height: auto; padding: 16px; flex-direction: column; text-align: center; }
+  .promo-box { padding: 30px 20px; }
+  .promo-code-box { flex-direction: column; padding: 16px; }
+}
+
+/* ============================================
+   LENS FLARE EFFECT
+   ============================================ */
+.lens-flare {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,215,0,0.1) 30%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: flareDrift 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes flareDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  25% { transform: translate(30px, -20px) scale(1.2); opacity: 0.6; }
+  50% { transform: translate(-20px, 30px) scale(0.8); opacity: 0.2; }
+  75% { transform: translate(40px, 10px) scale(1.1); opacity: 0.5; }
+}
+
+/* ============================================
+   ENERGY LINES ANIMATION
+   ============================================ */
+.energy-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue-electric), transparent);
+  opacity: 0.2;
+  animation: energyMove 6s linear infinite;
+}
+
+@keyframes energyMove {
+  0% { transform: translateX(-100%); opacity: 0; }
+  20% { opacity: 0.3; }
+  80% { opacity: 0.3; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== STAR BACKGROUND ===================== -->
+<div class="stars" id="stars"></div>
+
+<!-- ===================== TICKER BAR ===================== -->
+<div class="ticker-bar">
+  <div class="ticker-content" id="tickerContent">
+    <span>FREE SHIPPING ON ORDERS OVER $49.99</span>
+    <span>USE CODE DREAMGROVE FOR 15% OFF</span>
+    <span>NEW FLAVOR: MOONFIRE MANGO NOW AVAILABLE</span>
+    <span>OFFICIAL ENERGY DRINK OF DREAMGROVE.GG</span>
+    <span>FUEL YOUR RAID. FUEL YOUR GRIND.</span>
+    <span>ZERO SUGAR. MAXIMUM ASTRAL POWER.</span>
+    <span>FREE SHIPPING ON ORDERS OVER $49.99</span>
+    <span>USE CODE DREAMGROVE FOR 15% OFF</span>
+    <span>NEW FLAVOR: MOONFIRE MANGO NOW AVAILABLE</span>
+    <span>OFFICIAL ENERGY DRINK OF DREAMGROVE.GG</span>
+    <span>FUEL YOUR RAID. FUEL YOUR GRIND.</span>
+    <span>ZERO SUGAR. MAXIMUM ASTRAL POWER.</span>
+  </div>
+</div>
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <div class="nav-logo">ASTRAL<span class="bolt">&#x26A1;</span>POWER</div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#flavors">Flavors</a></li>
+      <li><a href="#nutrition">Nutrition</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#promo">Deal</a></li>
+    </ul>
+    <a href="#promo" class="nav-cta">Shop Now</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO SECTION ===================== -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="lens-flare" style="top: 15%; left: 10%;"></div>
+  <div class="lens-flare" style="top: 60%; right: 5%; animation-delay: -3s;"></div>
+
+  <div class="hero-content">
+    <div class="hero-partnership">&#x2728; Official Partner of Dreamgrove.gg &#x2728;</div>
+    <h1 class="hero-title">ASTRAL POWER</h1>
+    <p class="hero-subtitle">Energy Drink</p>
+    <p class="hero-tagline">"Built for <em>Long Raid Nights</em>"</p>
+    <div class="hero-buttons">
+      <a href="#flavors" class="btn-glossy btn-primary">Explore Flavors</a>
+      <a href="#promo" class="btn-glossy btn-secondary">Get 15% Off</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">150</div>
+        <div class="hero-stat-label">Astral Power / Serving</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">0g</div>
+        <div class="hero-stat-label">Sugar</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">25+</div>
+        <div class="hero-stat-label">Vitamins & Buffs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">3</div>
+        <div class="hero-stat-label">Epic Flavors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BANNER AD ===================== -->
+<div class="banner-ad">
+  <div class="banner-ad-text">
+    <h3>ASTRAL POWER x DREAMGROVE</h3>
+    <p>Exclusive collab — Fuel the theory, crush the parse. Limited edition tubs available now.</p>
+  </div>
+  <a href="#promo" class="btn-glossy btn-primary" style="font-size: 13px; padding: 8px 20px;">Shop Collab</a>
+</div>
+
+<!-- ===================== FLAVORS SECTION ===================== -->
+<section id="flavors">
+  <h2 class="section-title">Choose Your Flavor</h2>
+  <p class="section-subtitle">Three formulas. One mission. Total domination.</p>
+
+  <div class="flavors-grid">
+
+    <!-- Moonfire Mango -->
+    <div class="flavor-card moonfire">
+      <div class="starburst">
+        <span class="starburst-text">NEW!</span>
+      </div>
+      <div class="flavor-badge">HOT</div>
+      <div class="can-wrapper">
+        <div class="can">
+          <div class="can-body moonfire">
+            <span class="can-brand">ASTRAL POWER</span>
+            <span class="can-icon">&#x1F319;</span>
+            <span class="can-flavor">MOONFIRE<br>MANGO</span>
+            <span class="can-volume">16 FL OZ (473 mL)</span>
+          </div>
+        </div>
+      </div>
+      <h3 class="flavor-name">Moonfire Mango</h3>
+      <p class="flavor-desc">
+        Ignite your senses with a <strong>blazing tropical burst</strong> that hits harder than a Balance Druid's Moonfire spam.
+        Each sip applies a stacking HoT of pure focus. <strong>+15% Haste to your APM.</strong>
+      </p>
+      <div class="flavor-price">
+        <span class="old-price">$39.99</span>$33.99
+      </div>
+      <div class="flavor-price-note">40 servings per tub</div>
+    </div>
+
+    <!-- Starfall Berry -->
+    <div class="flavor-card starfall">
+      <div class="starburst">
+        <span class="starburst-text">#1<br>SELLER</span>
+      </div>
+      <div class="can-wrapper">
+        <div class="can">
+          <div class="can-body starfall">
+            <span class="can-brand">ASTRAL POWER</span>
+            <span class="can-icon">&#x2B50;</span>
+            <span class="can-flavor">STARFALL<br>BERRY</span>
+            <span class="can-volume">16 FL OZ (473 mL)</span>
+          </div>
+        </div>
+      </div>
+      <h3 class="flavor-name">Starfall Berry</h3>
+      <p class="flavor-desc">
+        A cosmic cascade of <strong>mixed berry euphoria</strong> that rains down like a perfectly placed Starfall.
+        AoE refreshment for the whole raid group. <strong>+10% Mastery to your gameplay.</strong>
+      </p>
+      <div class="flavor-price">
+        <span class="old-price">$39.99</span>$33.99
+      </div>
+      <div class="flavor-price-note">40 servings per tub</div>
+    </div>
+
+    <!-- Wrath Grape -->
+    <div class="flavor-card wrath">
+      <div class="starburst">
+        <span class="starburst-text">BOLD</span>
+      </div>
+      <div class="can-wrapper">
+        <div class="can">
+          <div class="can-body wrath">
+            <span class="can-brand">ASTRAL POWER</span>
+            <span class="can-icon">&#x1F525;</span>
+            <span class="can-flavor">WRATH<br>GRAPE</span>
+            <span class="can-volume">16 FL OZ (473 mL)</span>
+          </div>
+        </div>
+      </div>
+      <h3 class="flavor-name">Wrath Grape</h3>
+      <p class="flavor-desc">
+        Unleash the fury with this <strong>dark, intense grape vengeance</strong> that channels pure Wrath-era energy.
+        When the boss is at 20%, you execute. <strong>+20% Critical Strike focus.</strong>
+      </p>
+      <div class="flavor-price">
+        <span class="old-price">$39.99</span>$33.99
+      </div>
+      <div class="flavor-price-note">40 servings per tub</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== LEADERBOARD AD ===================== -->
+<div class="leaderboard-ad">
+  <h3>ASTRAL POWER</h3>
+  <p>The official energy drink of competitive raiders everywhere.</p>
+  <a href="#promo" class="btn-glossy btn-primary" style="font-size: 12px; padding: 6px 18px;">Learn More</a>
+</div>
+
+<!-- ===================== NUTRITION SECTION ===================== -->
+<section id="nutrition">
+  <h2 class="section-title">Supplement Facts</h2>
+  <p class="section-subtitle">Transparent label. No proprietary blends. No debuffs.</p>
+
+  <div class="nutrition-container">
+
+    <div class="supplement-facts">
+      <h2>Supplement Facts</h2>
+      <div class="serving-info">
+        Serving Size: 1 Scoop (7g)<br>
+        Servings Per Container: 40
+      </div>
+      <div class="thick-bar"></div>
+      <div class="nutrient-row">
+        <span class="bold">Amount Per Serving</span>
+        <span class="dv">% DV*</span>
+      </div>
+      <div class="medium-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Calories</span></span>
+        <span>15</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Total Carbohydrate</span> 4g</span>
+        <span class="dv">1%</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Total Sugars 0g</span>
+        <span></span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Includes 0g Added Sugars</span>
+        <span class="dv">0%</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Vitamin C</span> (as Ascorbic Acid) 250mg</span>
+        <span class="dv">278%</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Vitamin B6</span> (as Pyridoxine HCl) 10mg</span>
+        <span class="dv">588%</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Vitamin B12</span> (as Methylcobalamin) 425mcg</span>
+        <span class="dv">17,708%</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Niacin</span> (as Niacinamide) 15mg</span>
+        <span class="dv">94%</span>
+      </div>
+      <div class="medium-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Astral Power Complex</span></span>
+        <span></span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Astral Power (Caffeine) per serving</span>
+        <span class="bold">150 AP</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>L-Tyrosine</span>
+        <span>1000mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Taurine</span>
+        <span>750mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>L-Theanine</span>
+        <span>200mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Elune's Tear Extract&dagger;</span>
+        <span>100mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Dreamfoil Concentrate&dagger;</span>
+        <span>75mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Peacebloom Polyphenols&dagger;</span>
+        <span>50mg</span>
+      </div>
+      <div class="medium-bar"></div>
+      <div class="nutrient-row">
+        <span><span class="bold">Focus Aura Blend</span></span>
+        <span></span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Alpha-GPC</span>
+        <span>150mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Astragalus Root Extract</span>
+        <span>100mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="nutrient-row indent">
+        <span>Innervate CoQ10 Complex&dagger;</span>
+        <span>25mg</span>
+      </div>
+      <div class="thin-bar"></div>
+      <div class="daily-value-note">
+        * Percent Daily Values are based on a 2,000 calorie diet.<br>
+        &dagger; Daily Value not established.
+      </div>
+      <div class="dagger-note">
+        <strong>Other Ingredients:</strong> Citric Acid, Natural & Artificial Flavors, Silicon Dioxide, Sucralose, Acesulfame Potassium, FD&C Blue No. 1, FD&C Red No. 40.
+      </div>
+    </div>
+
+    <div class="nutrition-info">
+      <h3>Why Astral Power?</h3>
+      <div class="nutrition-callouts">
+        <div class="nutrition-callout">
+          <div class="nutrition-callout-icon">&#x26A1;</div>
+          <div>
+            <h4>150 Astral Power Per Serving</h4>
+            <p>Perfectly calibrated to keep you in the zone through prog nights without the jitters. Enough AP to keep your rotation tight for the full encounter.</p>
+          </div>
+        </div>
+        <div class="nutrition-callout">
+          <div class="nutrition-callout-icon">&#x1F9E0;</div>
+          <div>
+            <h4>Focus Aura Blend</h4>
+            <p>Our proprietary blend of nootropics acts like a permanent Innervate for your brain. React faster, call mechanics cleaner, parse higher.</p>
+          </div>
+        </div>
+        <div class="nutrition-callout">
+          <div class="nutrition-callout-icon">&#x1F33F;</div>
+          <div>
+            <h4>Herbal Reagents</h4>
+            <p>Infused with Dreamfoil, Peacebloom, and Elune's Tear extracts — the same reagents trusted by alchemists across Azeroth for generations.</p>
+          </div>
+        </div>
+        <div class="nutrition-callout">
+          <div class="nutrition-callout-icon">&#x1F6AB;</div>
+          <div>
+            <h4>Zero Sugar. Zero Debuffs.</h4>
+            <p>No sugar crash, no Weakened Soul, no Mortal Strike healing debuff. Just clean, sustained energy from pull to kill.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== BANNER AD 2 ===================== -->
+<div class="banner-ad" style="border-color: var(--green-neon);">
+  <div class="banner-ad-text">
+    <h3 style="background: linear-gradient(180deg, #39ff14, #20cc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DREAMGROVE EXCLUSIVE</h3>
+    <p>Readers get free shipping + a bonus shaker with code DREAMGROVE. While supplies last.</p>
+  </div>
+  <a href="#promo" class="btn-glossy btn-primary" style="font-size: 13px; padding: 8px 20px;">Claim Offer</a>
+</div>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials">
+  <h2 class="section-title">Trusted by Top Parsers</h2>
+  <p class="section-subtitle">Don't take our word for it. Take theirs.</p>
+
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p class="testimonial-text">
+        "Switched from coffee to Astral Power halfway through our Mythic prog and immediately noticed the difference. My Starfall uptime went from 94% to 99%. Coincidence? I think not."
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar druid">&#x1F43B;</div>
+        <div>
+          <div class="testimonial-name">Lunarbark</div>
+          <div class="testimonial-role">Balance Druid &bull; &lt;Celestial Wrath&gt; &bull; World 85</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p class="testimonial-text">
+        "I literally cannot raid without Starfall Berry anymore. We wiped 200 times on Mythic and the only thing keeping me sane was knowing I had 40 servings left in the tub. Genuinely amazing flavor."
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar mage">&#x2744;</div>
+        <div>
+          <div class="testimonial-name">Frostweave</div>
+          <div class="testimonial-role">Frost Mage &bull; &lt;Parse Police&gt; &bull; World 210</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p class="testimonial-text">
+        "My guild master bought the whole raid team a tub each. Now if you don't have Astral Power in your webcam, you get benched. It's basically a mandatory consumable at this point. We call it our 'Flask of Focus.'"
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar warlock">&#x1F525;</div>
+        <div>
+          <div class="testimonial-name">Shadowburner</div>
+          <div class="testimonial-role">Destruction Warlock &bull; &lt;Eternal Flames&gt; &bull; World 45</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== PROMO / CTA SECTION ===================== -->
+<section id="promo">
+  <div class="promo-box">
+    <div class="promo-limited">&#x1F525; Limited Time Offer &#x1F525;</div>
+    <h2 class="promo-title">15% OFF YOUR FIRST ORDER</h2>
+    <p class="promo-subtitle">Exclusive deal for Dreamgrove readers. Don't miss your chance to power up.</p>
+
+    <div class="promo-code-box">
+      <span class="promo-code-label">Use Code:</span>
+      <span class="promo-code" id="promoCode">DREAMGROVE</span>
+      <button class="promo-copy-btn" onclick="copyCode()">Copy</button>
+    </div>
+
+    <div class="promo-countdown">
+      <div class="promo-countdown-label">&#x23F0; Offer Expires In:</div>
+      <div class="countdown-digits">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="countHours">02</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="countMinutes">47</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="countSeconds">33</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-stock">
+      &#x26A0; Only <span class="stock-count" id="stockCount">47</span> tubs left in stock!
+    </div>
+
+    <a href="#" class="btn-glossy btn-primary" style="font-size: 26px; padding: 18px 60px;" onclick="event.preventDefault();">
+      SHOP NOW &rarr;
+    </a>
+
+    <p style="margin-top: 16px; font-size: 11px; color: var(--gray-mid);">
+      Free shipping on orders over $49.99 &bull; 30-day money back guarantee &bull; Satisfaction or your gold refunded
+    </p>
+  </div>
+</section>
+
+<!-- ===================== BOTTOM LEADERBOARD AD ===================== -->
+<div class="leaderboard-ad" style="margin-bottom: 0;">
+  <h3>&#x26A1; ASTRAL POWER</h3>
+  <p>Subscribe & save 20% — auto-ship every 30 days so you never run dry mid-prog.</p>
+  <a href="#" class="btn-glossy btn-secondary" style="font-size: 12px; padding: 6px 18px;" onclick="event.preventDefault();">Subscribe</a>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">All Flavors</a></li>
+        <li><a href="#">Starter Kit</a></li>
+        <li><a href="#">Shakers & Merch</a></li>
+        <li><a href="#">Bundle & Save</a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns & Refunds</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Wholesale Inquiries</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Astral Power</a></li>
+        <li><a href="#">Ambassador Program</a></li>
+        <li><a href="#">Affiliate Program</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <div class="footer-social">
+        <a href="#" title="Twitter/X">&#x1D54F;</a>
+        <a href="#" title="Instagram">&#x1F4F7;</a>
+        <a href="#" title="TikTok">&#x266A;</a>
+        <a href="#" title="Discord">&#x1F3AE;</a>
+        <a href="#" title="YouTube">&#x25B6;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-seen">
+    <h4>As Featured On</h4>
+    <div class="footer-seen-logos">
+      <span>WOWHEAD</span>
+      <span>DREAMGROVE</span>
+      <span>RAIDER.IO</span>
+      <span>ICICLIPS</span>
+      <span>MMO-CHAMPION</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-disclaimer">
+      *These statements have not been evaluated by the Cenarion Circle or any regulatory body in Azeroth or on Earth.
+      This product is not intended to diagnose, treat, cure, or prevent any disease, curse, or magical debuff.
+      "Astral Power" is used as a unit of measurement for caffeine content and does not imply actual celestial energy.
+      World of Warcraft, Moonfire, Starfall, Innervate, and related terms are trademarks of Blizzard Entertainment, Inc.
+      Astral Power Energy is not affiliated with or endorsed by Blizzard Entertainment.
+      Individual results may vary. Do not exceed recommended dosage. Consult your healer before use.
+      Not responsible for wipes, gray parses, or standing in fire. Must be 18+ to purchase. Void where prohibited by the Horde.
+    </p>
+    <p class="footer-copyright">
+      &copy; 2026 Astral Power Energy LLC. All rights reserved. A subsidiary of Totally Real Beverages, Inc.
+    </p>
+  </div>
+</footer>
+
+<!-- ===================== FLOATING SIDE AD ===================== -->
+<div class="side-ad" id="sideAd">
+  <button class="side-ad-close" onclick="document.getElementById('sideAd').style.display='none'">&times;</button>
+  <h4>ASTRAL POWER</h4>
+  <p>Moonfire Mango is HERE. The flavor your taste buds have been waiting for.</p>
+  <a href="#flavors" class="btn-glossy btn-primary">Try It Now</a>
+  <div class="ad-label">SPONSORED</div>
+</div>
+
+<!-- ===================== EMAIL POPUP ===================== -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">&times;</button>
+    <h3>&#x26A1; WAIT! DON'T GO!</h3>
+    <p>Sign up for our newsletter and get an <strong style="color: var(--green-neon);">EXTRA 5% OFF</strong> on top of your DREAMGROVE discount. Plus exclusive flavor drops, raid tips, and more.</p>
+    <input type="email" class="fake-input" placeholder="Enter your email address...">
+    <br>
+    <a href="#" class="btn-glossy btn-primary" style="font-size: 18px; padding: 12px 40px; width: 100%; display: block; text-align: center;" onclick="event.preventDefault(); closePopup();">
+      YES, I WANT 5% MORE OFF
+    </a>
+    <p style="margin-top: 12px; font-size: 11px; color: var(--gray-mid); cursor: pointer;" onclick="closePopup()">
+      No thanks, I hate saving gold.
+    </p>
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// Generate stars
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = (Math.random() * 5) + 's';
+    star.style.animationDuration = (2 + Math.random() * 4) + 's';
+    const size = Math.random() * 2 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    container.appendChild(star);
+  }
+})();
+
+// Countdown timer (resets when it hits 0)
+(function() {
+  let total = 2 * 3600 + 47 * 60 + 33; // 2h 47m 33s
+  function update() {
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    document.getElementById('countHours').textContent = String(h).padStart(2, '0');
+    document.getElementById('countMinutes').textContent = String(m).padStart(2, '0');
+    document.getElementById('countSeconds').textContent = String(s).padStart(2, '0');
+    total--;
+    if (total < 0) total = 2 * 3600 + 47 * 60 + 33; // reset
+  }
+  setInterval(update, 1000);
+})();
+
+// Fake stock decreasing
+(function() {
+  const el = document.getElementById('stockCount');
+  let stock = 47;
+  setInterval(function() {
+    if (Math.random() > 0.6) {
+      stock = Math.max(3, stock - 1);
+      el.textContent = stock;
+      if (stock <= 10) {
+        el.style.color = '#ff2244';
+      }
+    }
+  }, 8000);
+})();
+
+// Copy promo code
+function copyCode() {
+  const code = document.getElementById('promoCode').textContent;
+  navigator.clipboard.writeText(code).catch(function(){});
+  const btn = document.querySelector('.promo-copy-btn');
+  btn.textContent = 'Copied!';
+  setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+}
+
+// Exit-intent popup (shows once)
+(function() {
+  let shown = false;
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY < 10 && !shown) {
+      shown = true;
+      document.getElementById('popupOverlay').classList.add('active');
+    }
+  });
+  // Also show after 30 seconds if not yet shown
+  setTimeout(function() {
+    if (!shown) {
+      shown = true;
+      document.getElementById('popupOverlay').classList.add('active');
+    }
+  }, 30000);
+})();
+
+function closePopup() {
+  document.getElementById('popupOverlay').classList.remove('active');
+}
+
+// Active nav link highlighting on scroll
+(function() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', function() {
+    let current = '';
+    sections.forEach(function(section) {
+      const top = section.offsetTop - 120;
+      if (window.scrollY >= top) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

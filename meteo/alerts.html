@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Severe Weather Alerts — Azeroth Weather Service</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>
+        <a href="index.html">Home</a> &middot;
+        <a href="alerts.html">All Alerts</a> &middot;
+        <a href="about.html">About AWS</a>
+      </div>
+      <div>
+        Server Time: <span id="server-time"></span> AST &middot; Realm Status: <span style="color:#66cc44;">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo">
+        <div class="logo-icon">⛈️</div>
+        <div class="logo-text">
+          <h1>Azeroth Weather Service</h1>
+          <div class="tagline">Official Meteorological Authority Since Year 24</div>
+        </div>
+      </div>
+      <div class="header-search">
+        <label for="zone-select-header" style="font-size:10px;color:#5a7a9a;">Zone:</label>
+        <select id="zone-select-header" class="zone-select"></select>
+        <button class="btn-go" onclick="document.getElementById('zone-select-header').dispatchEvent(new Event('change'))">Go</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">Forecast</a>
+      <a href="hourly.html" class="nav-link">Hourly</a>
+      <a href="alerts.html" class="nav-link active">Severe Weather</a>
+      <a href="marine.html" class="nav-link">Marine</a>
+      <a href="aviation.html" class="nav-link">Aviation</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- Ticker -->
+  <div class="ticker-strip">
+    <div class="ticker-content" id="ticker"></div>
+  </div>
+
+  <!-- Alerts Content -->
+  <div class="page-wrap">
+
+    <div class="content-main" style="max-width:100%;width:100%;">
+
+      <!-- Alert Summary Banner -->
+      <div class="panel" style="margin-top:0;">
+        <div class="panel-header" style="background:linear-gradient(to bottom,#f0dcc8,#edd4b8);">
+          <h2 style="color:#cc5500;">🚨 Active Severe Weather Alerts Across Azeroth</h2>
+          <span class="panel-link" id="alert-count"></span>
+        </div>
+        <div class="panel-body" style="padding:8px 12px;font-size:11px;color:#3a5575;line-height:1.6;">
+          The following alerts are currently active. Click any alert to expand details. Alerts are issued by
+          the Azeroth Weather Service regional offices and verified by the Kirin Tor Meteorological Bureau
+          (accuracy not guaranteed, especially in zones affected by Old God corruption, dragon fire, or
+          undead necromantic weather systems).
+        </div>
+      </div>
+
+      <!-- Filter Controls -->
+      <div style="display:flex;gap:10px;margin:10px 0;flex-wrap:wrap;align-items:center;">
+        <label style="font-size:10px;color:#5a7a9a;text-transform:uppercase;">Filter by severity:</label>
+        <button class="btn-filter active" onclick="filterAlerts('all')" data-filter="all" style="font-family:Verdana;font-size:10px;padding:3px 10px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#2a3548;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">All</button>
+        <button class="btn-filter" onclick="filterAlerts('Extreme')" data-filter="Extreme" style="font-family:Verdana;font-size:10px;padding:3px 10px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#ff4444;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">Extreme</button>
+        <button class="btn-filter" onclick="filterAlerts('Severe')" data-filter="Severe" style="font-family:Verdana;font-size:10px;padding:3px 10px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#ff8c00;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">Severe</button>
+        <button class="btn-filter" onclick="filterAlerts('Moderate')" data-filter="Moderate" style="font-family:Verdana;font-size:10px;padding:3px 10px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#4488cc;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">Moderate</button>
+        <button class="btn-filter" onclick="filterAlerts('Advisory')" data-filter="Advisory" style="font-family:Verdana;font-size:10px;padding:3px 10px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#66aa33;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">Advisory</button>
+
+        <label style="font-size:10px;color:#5a7a9a;text-transform:uppercase;margin-left:20px;">Continent:</label>
+        <select id="continent-filter" onchange="applyFilters()" style="font-family:Verdana;font-size:10px;padding:3px 8px;background:linear-gradient(to bottom,#f0f5fc,#e4eaf2);color:#2a3548;border:1px solid #b8c8dc;border-radius:3px;cursor:pointer;">
+          <option value="all">All Continents</option>
+          <option value="Kalimdor">Kalimdor</option>
+          <option value="Eastern Kingdoms">Eastern Kingdoms</option>
+          <option value="Outland">Outland</option>
+          <option value="Northrend">Northrend</option>
+        </select>
+      </div>
+
+      <!-- Alerts List -->
+      <div class="alerts-list" id="alerts-list"></div>
+
+      <!-- Alert Statistics -->
+      <div class="panel" style="margin-top:15px;">
+        <div class="panel-header">
+          <h2>Alert Statistics — Past 30 Days</h2>
+        </div>
+        <div class="panel-body">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Zone</th>
+                <th style="padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Extreme</th>
+                <th style="padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Severe</th>
+                <th style="padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Moderate</th>
+                <th style="padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Advisory</th>
+                <th style="padding:5px 8px;border-bottom:1px solid #c0d0e4;font-size:10px;color:#7a8ea5;">Total</th>
+              </tr>
+            </thead>
+            <tbody id="stats-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    Azeroth Weather Service &copy; Year 24–34 of the Third War. All rights reserved.<br>
+    A division of the Kirin Tor Meteorological Bureau, Dalaran.<br>
+    Alert accuracy: "It depends." Not responsible for injuries sustained while reading alerts in a combat zone.<br>
+    <a href="about.html">About</a> &middot; <a href="index.html">Forecast</a>
+  </footer>
+
+  <script src="weather-data.js"></script>
+  <script>
+    (function() {
+      populateZoneSelects();
+
+      // Server time
+      function updateServerTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        document.getElementById('server-time').textContent = `${h}:${m}:${s}`;
+      }
+      updateServerTime();
+      setInterval(updateServerTime, 1000);
+
+      // Ticker
+      document.getElementById('ticker').innerHTML = buildTickerContent();
+
+      // Build alerts
+      const allAlerts = getAllAlerts();
+      document.getElementById('alert-count').textContent = `${allAlerts.length} active alerts`;
+
+      let currentSeverityFilter = 'all';
+      let currentContinentFilter = 'all';
+
+      function renderAlerts() {
+        const list = document.getElementById('alerts-list');
+        list.innerHTML = '';
+
+        const filtered = allAlerts.filter(a => {
+          if (currentSeverityFilter !== 'all' && a.severity !== currentSeverityFilter) return false;
+          const zone = ZONES[a.zoneId];
+          if (currentContinentFilter !== 'all' && zone && zone.continent !== currentContinentFilter) return false;
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          list.innerHTML = '<div class="panel"><div class="panel-body text-center" style="padding:20px;color:#7a8ea5;">No alerts match the current filters. Nagrand is still perfect, if you\'re looking for good news.</div></div>';
+          return;
+        }
+
+        filtered.forEach((a, i) => {
+          const sevClass = a.severity === 'Extreme' ? 'severity-extreme' :
+                           a.severity === 'Severe' ? 'severity-severe' :
+                           a.severity === 'Moderate' ? 'severity-moderate' : 'severity-advisory';
+          const entry = document.createElement('div');
+          entry.className = 'alert-entry';
+          entry.innerHTML = `
+            <div class="alert-entry-header" onclick="this.parentElement.classList.toggle('open')">
+              <span class="severity-badge ${sevClass}">${a.severity}</span>
+              <span class="alert-entry-title">${a.label}</span>
+              <span class="alert-entry-zone">${a.zone}</span>
+              <span class="alert-entry-time">${a.time}</span>
+            </div>
+            <div class="alert-entry-body">
+              <p>${a.detail}</p>
+              <hr style="border:none;border-top:1px solid #c0d0e4;margin:8px 0;">
+              <p style="font-size:10px;color:#7a8ea5;">
+                <strong>Issued by:</strong> Azeroth Weather Service — ${a.zone} Regional Office<br>
+                <strong>Valid until:</strong> Further notice (or next expansion)<br>
+                <strong>Recommended action:</strong> Consult your local innkeeper for shelter options.
+                ${a.severity === 'Extreme' ? '<br><strong>Note:</strong> If you are already dead, this alert does not apply to you. Seek a Spirit Healer.' : ''}
+              </p>
+            </div>`;
+          list.appendChild(entry);
+        });
+      }
+
+      window.filterAlerts = function(severity) {
+        currentSeverityFilter = severity;
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.filter === severity);
+          if (btn.dataset.filter === severity) {
+            btn.style.borderColor = '#6a9fd8';
+            btn.style.background = 'linear-gradient(to bottom,#D1DEF0,#c3d2e8)';
+          } else {
+            btn.style.borderColor = '#b8c8dc';
+            btn.style.background = 'linear-gradient(to bottom,#f0f5fc,#e4eaf2)';
+          }
+        });
+        renderAlerts();
+      };
+
+      window.applyFilters = function() {
+        currentContinentFilter = document.getElementById('continent-filter').value;
+        renderAlerts();
+      };
+
+      renderAlerts();
+
+      // Stats table
+      const statsBody = document.getElementById('stats-body');
+      const fakeStats = {
+        durotar: [0, 8, 2, 1],
+        winterspring: [12, 18, 5, 2],
+        "thousand-needles": [1, 3, 15, 8],
+        darkshore: [30, 30, 0, 0],
+        "elwynn-forest": [0, 0, 1, 12],
+        westfall: [2, 14, 8, 4],
+        stranglethorn: [3, 10, 12, 6],
+        tanaris: [5, 12, 6, 2],
+        ungoro: [4, 8, 10, 5],
+        tirisfal: [6, 12, 8, 3],
+        zangarmarsh: [1, 5, 18, 10],
+        nagrand: [0, 0, 0, 1],
+        icecrown: [15, 22, 8, 3],
+        barrens: [0, 4, 6, 30],
+      };
+
+      ZONE_LIST.forEach(z => {
+        const s = fakeStats[z.id] || [0,0,0,0];
+        const total = s.reduce((a,b) => a+b, 0);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;">
+            <a href="index.html#${z.id}">${z.name}</a>
+          </td>
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;text-align:center;color:${s[0]>0?'#ff4444':'#3a5575'};">${s[0]}</td>
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;text-align:center;color:${s[1]>0?'#ff8c00':'#3a5575'};">${s[1]}</td>
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;text-align:center;color:${s[2]>0?'#4488cc':'#3a5575'};">${s[2]}</td>
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;text-align:center;color:${s[3]>0?'#66aa33':'#3a5575'};">${s[3]}</td>
+          <td style="padding:4px 8px;border-bottom:1px solid #e8eef5;font-size:11px;text-align:center;font-weight:bold;color:#1a3050;">${total}</td>`;
+        statsBody.appendChild(tr);
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Calculator — PuggersInsurance.com</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>Licensed & Bonded in All Realms (US, EU, OCE, KR, TW)</span>
+      <div>
+        <a href="tel:+18005558PUG">1-800-555-8PUG</a>
+        <a href="claims.html">File a Claim</a>
+        <a href="calculator.html">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-shield"><span class="logo-shield-inner">P</span></div>
+          <div class="logo-text">
+            <span class="logo-name">PuggersInsurance</span>
+            <span class="logo-tagline">Protecting Your Keys Since 2004</span>
+          </div>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="coverage.html">Coverage Plans</a></li>
+        <li><a href="claims.html">Claims</a></li>
+        <li><a href="risk.html">Risk Tables</a></li>
+        <li><a href="calculator.html">Premium Calculator</a></li>
+        <li><a href="terms.html">Terms & Fine Print</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <h1>Premium Calculator</h1>
+    <p>Get your personalized quote in under 30 seconds</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="content-box">
+        <h2>Build Your Quote</h2>
+        <p>Enter your typical Mythic+ group details below. Our algorithm uses actuarial data from over 2.4 million insured keystones to calculate your personalized monthly premium.</p>
+
+        <div class="info-box">
+          <strong>How it works:</strong> Your premium is calculated based on key level, group composition, time of day, day of week, and dungeon selection. Each factor has a risk multiplier (see our <a href="risk.html">Risk Assessment Tables</a> for full data). All multipliers are applied to a $4.99 base rate.
+        </div>
+
+        <hr class="divider">
+
+        <!-- KEY LEVEL -->
+        <div class="form-group">
+          <label>Key Level <small>(+2 to +30)</small></label>
+          <input type="number" id="key-level" class="form-control" min="2" max="30" value="15" style="max-width: 200px;">
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="margin-bottom: 15px;">Group Composition</h3>
+        <p style="color:var(--text-muted); font-size:0.9em; margin-bottom:15px;">Select the spec for each group member. This determines melee/ranged balance, utility availability, and role-specific risk factors.</p>
+
+        <div class="form-row">
+          <!-- TANK -->
+          <div class="form-group">
+            <label>Tank</label>
+            <select id="tank-spec" class="form-control">
+              <option value="warrior-prot">Protection Warrior</option>
+              <option value="paladin-prot">Protection Paladin</option>
+              <option value="dk-blood">Blood Death Knight</option>
+              <option value="demon-hunter-veng">Vengeance Demon Hunter</option>
+              <option value="monk-brew">Brewmaster Monk</option>
+              <option value="druid-guardian">Guardian Druid</option>
+            </select>
+          </div>
+
+          <!-- HEALER -->
+          <div class="form-group">
+            <label>Healer</label>
+            <select id="healer-spec" class="form-control">
+              <option value="priest-holy">Holy Priest</option>
+              <option value="priest-disc">Discipline Priest</option>
+              <option value="paladin-holy">Holy Paladin</option>
+              <option value="shaman-resto">Restoration Shaman</option>
+              <option value="druid-resto">Restoration Druid</option>
+              <option value="monk-mw">Mistweaver Monk</option>
+              <option value="evoker-pres">Preservation Evoker</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- DPS 1 -->
+          <div class="form-group">
+            <label>DPS 1</label>
+            <select id="dps1-spec" class="form-control">
+              <optgroup label="Melee DPS">
+                <option value="warrior-arms">Arms Warrior</option>
+                <option value="warrior-fury">Fury Warrior</option>
+                <option value="paladin-ret">Retribution Paladin</option>
+                <option value="dk-frost">Frost Death Knight</option>
+                <option value="dk-unholy">Unholy Death Knight</option>
+                <option value="demon-hunter-havoc">Havoc Demon Hunter</option>
+                <option value="monk-ww">Windwalker Monk</option>
+                <option value="rogue-any">Rogue (Any Spec)</option>
+                <option value="shaman-enh">Enhancement Shaman</option>
+                <option value="druid-feral">Feral Druid</option>
+              </optgroup>
+              <optgroup label="Ranged DPS">
+                <option value="mage-any" selected>Mage (Any Spec)</option>
+                <option value="warlock-any">Warlock (Any Spec)</option>
+                <option value="hunter-any">Hunter (Any Spec)</option>
+                <option value="shaman-ele">Elemental Shaman</option>
+                <option value="druid-balance">Balance Druid</option>
+                <option value="priest-shadow">Shadow Priest</option>
+                <option value="evoker-dev">Devastation Evoker</option>
+                <option value="evoker-aug">Augmentation Evoker</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- DPS 2 -->
+          <div class="form-group">
+            <label>DPS 2</label>
+            <select id="dps2-spec" class="form-control">
+              <optgroup label="Melee DPS">
+                <option value="warrior-arms">Arms Warrior</option>
+                <option value="warrior-fury">Fury Warrior</option>
+                <option value="paladin-ret">Retribution Paladin</option>
+                <option value="dk-frost">Frost Death Knight</option>
+                <option value="dk-unholy">Unholy Death Knight</option>
+                <option value="demon-hunter-havoc">Havoc Demon Hunter</option>
+                <option value="monk-ww">Windwalker Monk</option>
+                <option value="rogue-any">Rogue (Any Spec)</option>
+                <option value="shaman-enh">Enhancement Shaman</option>
+                <option value="druid-feral">Feral Druid</option>
+              </optgroup>
+              <optgroup label="Ranged DPS">
+                <option value="mage-any">Mage (Any Spec)</option>
+                <option value="warlock-any" selected>Warlock (Any Spec)</option>
+                <option value="hunter-any">Hunter (Any Spec)</option>
+                <option value="shaman-ele">Elemental Shaman</option>
+                <option value="druid-balance">Balance Druid</option>
+                <option value="priest-shadow">Shadow Priest</option>
+                <option value="evoker-dev">Devastation Evoker</option>
+                <option value="evoker-aug">Augmentation Evoker</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- DPS 3 -->
+          <div class="form-group">
+            <label>DPS 3</label>
+            <select id="dps3-spec" class="form-control">
+              <optgroup label="Melee DPS">
+                <option value="warrior-arms">Arms Warrior</option>
+                <option value="warrior-fury">Fury Warrior</option>
+                <option value="paladin-ret">Retribution Paladin</option>
+                <option value="dk-frost">Frost Death Knight</option>
+                <option value="dk-unholy">Unholy Death Knight</option>
+                <option value="demon-hunter-havoc">Havoc Demon Hunter</option>
+                <option value="monk-ww">Windwalker Monk</option>
+                <option value="rogue-any">Rogue (Any Spec)</option>
+                <option value="shaman-enh">Enhancement Shaman</option>
+                <option value="druid-feral">Feral Druid</option>
+              </optgroup>
+              <optgroup label="Ranged DPS">
+                <option value="mage-any">Mage (Any Spec)</option>
+                <option value="warlock-any">Warlock (Any Spec)</option>
+                <option value="hunter-any" selected>Hunter (Any Spec)</option>
+                <option value="shaman-ele">Elemental Shaman</option>
+                <option value="druid-balance">Balance Druid</option>
+                <option value="priest-shadow">Shadow Priest</option>
+                <option value="evoker-dev">Devastation Evoker</option>
+                <option value="evoker-aug">Augmentation Evoker</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <!-- spacer -->
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="margin-bottom: 15px;">When Do You Run?</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Typical Time of Day</label>
+            <select id="time-of-day" class="form-control">
+              <option value="morning">Morning (6 AM – 12 PM)</option>
+              <option value="afternoon">Afternoon (12 PM – 6 PM)</option>
+              <option value="evening" selected>Evening (6 PM – 11 PM)</option>
+              <option value="late-night">Late Night (11 PM – 2 AM)</option>
+              <option value="after-midnight">After Midnight (2 AM – 6 AM)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Typical Day of Week</label>
+            <select id="day-of-week" class="form-control">
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday (Reset Day)</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday" selected>Thursday</option>
+              <option value="friday">Friday</option>
+              <option value="saturday">Saturday</option>
+              <option value="sunday">Sunday</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="margin-bottom: 15px;">Dungeon Selection</h3>
+
+        <div class="form-group">
+          <label>Which dungeon are you running?</label>
+          <select id="dungeon" class="form-control" style="max-width: 400px;">
+            <option value="mists">Mists of Tirna Scithe</option>
+            <option value="ara-kara">Ara-Kara, City of Echoes</option>
+            <option value="city-of-threads">City of Threads</option>
+            <option value="necrotic-wake">The Necrotic Wake</option>
+            <option value="stonevault" selected>The Stonevault</option>
+            <option value="dawnbreaker">Dawnbreaker</option>
+            <option value="mechagon-workshop">Mechagon: Workshop</option>
+            <option value="grim-batol">Grim Batol</option>
+            <option value="siege">Siege of Boralus</option>
+            <option value="mechagon-junkyard">Mechagon: Junkyard</option>
+            <option value="random">Random Dungeon (I'll take whatever I get)</option>
+          </select>
+        </div>
+
+        <hr class="divider">
+
+        <div class="text-center" style="margin-top: 20px;">
+          <button id="calc-btn" class="btn btn-gold" style="font-size: 16px; padding: 15px 40px;">
+            Calculate My Premium
+          </button>
+        </div>
+
+        <p id="risk-rating-display" style="display:none; text-align:center; margin-top:15px; font-size: 1.1em; font-weight: 600;"></p>
+
+        <!-- RESULT -->
+        <div class="calc-result" id="calc-result">
+          <!-- Filled by JavaScript -->
+        </div>
+      </div>
+
+      <!-- SCENARIOS -->
+      <div class="content-box">
+        <h2>Sample Scenarios</h2>
+        <p>Not sure how the calculator works? Here are some example configurations and their estimated premiums:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Key</th>
+              <th>Comp</th>
+              <th>When</th>
+              <th>Est. Premium</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"The Safe Run"</td>
+              <td>+12</td>
+              <td>Prot Pally, Resto Shaman, Mage, Lock, Hunter</td>
+              <td>Thursday afternoon</td>
+              <td>$10.22/mo</td>
+              <td><span class="risk-badge risk-low">Low</span></td>
+            </tr>
+            <tr>
+              <td>"Average PUG"</td>
+              <td>+17</td>
+              <td>Blood DK, Holy Priest, Rogue, DH, Ret Pally</td>
+              <td>Saturday evening</td>
+              <td>$48.90/mo</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+            </tr>
+            <tr>
+              <td>"Tuesday Chaos"</td>
+              <td>+20</td>
+              <td>Guardian Druid, Disc Priest, 3× Melee</td>
+              <td>Tuesday late night</td>
+              <td>$215.40/mo</td>
+              <td><span class="risk-badge risk-extreme">Extreme</span></td>
+            </tr>
+            <tr>
+              <td>"The Nightmare"</td>
+              <td>+25</td>
+              <td>Bear Tank, MW Monk, 3× Melee, no lust</td>
+              <td>Sunday 3 AM, Junkyard</td>
+              <td>$4,812.67/mo</td>
+              <td><span class="risk-badge risk-catastrophic">Catastrophic</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-box warning">
+          <strong>Reminder:</strong> These are estimates only. Actual premiums are calculated at time of policy binding. Rates are subject to seasonal adjustments and <a href="terms.html">Acts of Blizzard exclusions</a>.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>PuggersInsurance</h4>
+          <p>Providing peace of mind to Pick-Up Groups across Azeroth since 2004.</p>
+          <p>NAIC# 00000-PUG &bull; Licensed in all 50 realms</p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="coverage.html">Key Depletion Coverage</a></li>
+            <li><a href="coverage.html">Ninja Loot Protection</a></li>
+            <li><a href="coverage.html">Healer DC Policy</a></li>
+            <li><a href="coverage.html">Tank Rage-Quit Rider</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="claims.html">File a Claim</a></li>
+            <li><a href="risk.html">Risk Tables</a></li>
+            <li><a href="calculator.html">Calculator</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <p>📞 1-800-555-8PUG</p>
+          <p>📧 claims@puggersinsurance.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2004–2026 PuggersInsurance.com &bull; <a href="terms.html">Terms</a> &bull; <a href="terms.html#privacy">Privacy</a></p>
+        <p style="margin-top:6px;">Not affiliated with Blizzard Entertainment. This is a parody website.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claims Process — PuggersInsurance.com</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>Licensed & Bonded in All Realms (US, EU, OCE, KR, TW)</span>
+      <div>
+        <a href="tel:+18005558PUG">1-800-555-8PUG</a>
+        <a href="claims.html">File a Claim</a>
+        <a href="calculator.html">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-shield"><span class="logo-shield-inner">P</span></div>
+          <div class="logo-text">
+            <span class="logo-name">PuggersInsurance</span>
+            <span class="logo-tagline">Protecting Your Keys Since 2004</span>
+          </div>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="coverage.html">Coverage Plans</a></li>
+        <li><a href="claims.html">Claims</a></li>
+        <li><a href="risk.html">Risk Tables</a></li>
+        <li><a href="calculator.html">Premium Calculator</a></li>
+        <li><a href="terms.html">Terms & Fine Print</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <h1>Claims Process</h1>
+    <p>Filing a claim is easier than timing a +2. We promise.</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- HOW IT WORKS -->
+      <div class="content-box">
+        <h2>How to File a Claim</h2>
+        <p>Our streamlined claims process was designed by former PUG survivors who know that after a bad run, the last thing you want is paperwork. Follow these simple steps:</p>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-step-content">
+              <h3>Document the Incident</h3>
+              <p>Take a screenshot of your Raider.IO run summary, combat log, or Details! meter. If the incident involved chat toxicity, screenshot the chat log. The more evidence, the faster your claim processes.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-content">
+              <h3>Submit Your Claim Form</h3>
+              <p>Fill out the claim form below with your policy number, incident details, and supporting documentation. Our system accepts screenshots in PNG, JPG, and WebP formats. Warcraft Logs links are also accepted.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-content">
+              <h3>Adjuster Review</h3>
+              <p>A certified claims adjuster (all adjusters hold a minimum 3,000 Raider.IO score) will review your submission. They may request additional documentation such as MDT routes or talent screenshots.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-content">
+              <h3>Wait 3–5 Business Dungeons</h3>
+              <p>Standard claims are processed within 3–5 business dungeons (approximately 2–4 calendar days). Priority claims on Mythic plans are processed same-dungeon (within 24 hours).</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-content">
+              <h3>Receive Your Payout</h3>
+              <p>Approved claims are paid out as: key restoration credit, gold-equivalent premium credit, or direct gold deposit to your character's mailbox (processing fees may apply to gold deposits).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>Turnaround Times:</strong> Bronze plan: 3–5 business dungeons &bull; Gold plan: 2–3 business dungeons &bull; Mythic plan: Same-dungeon processing (24 hours)
+        </div>
+      </div>
+
+      <hr class="divider divider-gold">
+
+      <!-- CLAIM FORM -->
+      <div class="content-box" id="file-claim">
+        <h2>File a New Claim</h2>
+        <p>Complete all required fields. Incomplete claims will be returned and may delay processing.</p>
+
+        <form onsubmit="event.preventDefault(); alert('Thank you for your submission! Your claim ID is PUG-' + Math.floor(Math.random()*90000+10000) + '. You will receive a confirmation via in-game mail within 1 business dungeon.');">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Policy Number <small>(required)</small></label>
+              <input type="text" class="form-control" placeholder="e.g., PUG-GOLD-00001" required>
+            </div>
+            <div class="form-group">
+              <label>Character Name & Realm <small>(required)</small></label>
+              <input type="text" class="form-control" placeholder="e.g., Thrällgrimm-Area52" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Incident Date <small>(required)</small></label>
+              <input type="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Claim Type <small>(required)</small></label>
+              <select class="form-control" required>
+                <option value="">— Select claim type —</option>
+                <option value="key-depletion">Key Depletion</option>
+                <option value="ninja-loot">Ninja Looting</option>
+                <option value="healer-dc">Healer Disconnect</option>
+                <option value="tank-ragequit">Tank Rage-Quit</option>
+                <option value="raid-wipe">Raid Wipe (Raid Night Bundle)</option>
+                <option value="pvp-loss">PvP Rating Loss</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Dungeon / Instance</label>
+              <input type="text" class="form-control" placeholder="e.g., Siege of Boralus +18">
+            </div>
+            <div class="form-group">
+              <label>Key Level</label>
+              <input type="number" class="form-control" min="2" max="30" placeholder="e.g., 18">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Incident Description <small>(required — be specific)</small></label>
+            <textarea class="form-control" rows="5" placeholder="Describe what happened. Include details like: what went wrong, who was responsible, at what point in the dungeon it occurred, and any relevant context. Example: 'Healer disconnected on the second boss pull at 40% HP. Group wiped. Healer did not return for 3 minutes. Key depleted by 47 seconds.'" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Supporting Evidence URLs</label>
+            <textarea class="form-control" rows="3" placeholder="Paste links to: Raider.IO run page, Warcraft Logs report, screenshots (uploaded to imgur or similar). One URL per line."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Raider.IO Score at Time of Incident</label>
+              <input type="number" class="form-control" placeholder="e.g., 2450">
+            </div>
+            <div class="form-group">
+              <label>Were You Using Voice Comms?</label>
+              <select class="form-control">
+                <option value="yes">Yes — Discord/Voice</option>
+                <option value="no">No — Text only</option>
+                <option value="partial">Partial — Some members in voice</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" required>
+              I certify that the information provided is true and accurate. I understand that filing a fraudulent claim is a violation of PuggersInsurance policy and may result in immediate coverage termination and a permanent Raider.IO note.
+            </label>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-gold">Submit Claim</button>
+          </div>
+        </form>
+      </div>
+
+      <hr class="divider divider-gold">
+
+      <!-- CLAIMS STATUS CHECKER -->
+      <div class="content-box" id="status">
+        <h2>Check Claim Status</h2>
+        <p>Already filed a claim? Enter your Claim ID below to check its current status.</p>
+
+        <div class="form-row" style="align-items:end;">
+          <div class="form-group">
+            <label>Claim ID</label>
+            <input type="text" id="claim-id-input" class="form-control" placeholder="e.g., 48291 or PUG-48291">
+          </div>
+          <div class="form-group">
+            <button id="check-status-btn" class="btn btn-navy" type="button">Check Status</button>
+          </div>
+        </div>
+
+        <div class="status-box" id="status-result">
+          <!-- Filled by JavaScript -->
+        </div>
+      </div>
+
+      <!-- COMMON QUESTIONS -->
+      <div class="content-box">
+        <h2>Claims FAQ</h2>
+
+        <div class="two-col">
+          <div>
+            <h4>What evidence do I need?</h4>
+            <p>At minimum: a Raider.IO link or screenshot showing the depleted key. For Ninja Loot claims, an item screenshot showing the loot roll. For Healer DC claims, combat log timestamps. More evidence = faster processing.</p>
+
+            <h4>Can I file a claim for a key I depleted myself?</h4>
+            <p>No. Self-caused depletion is not covered. Our adjusters will review combat performance data. If you died 14 times on trash, that's on you.</p>
+
+            <h4>What counts as a "business dungeon"?</h4>
+            <p>One business dungeon is equivalent to approximately 30-45 minutes of processing time, or roughly one completed Mythic+ run. Business dungeons do not accrue during weekly maintenance.</p>
+          </div>
+          <div>
+            <h4>My claim was denied. Can I appeal?</h4>
+            <p>Yes. Appeals must be filed within 2 weekly resets of the denial. Include additional evidence and a written statement. Appeals are reviewed by a Senior Adjuster (minimum 3,500 Raider.IO score).</p>
+
+            <h4>Is there a limit on how many claims I can file?</h4>
+            <p>See your plan details. Bronze: 3/month, Gold: 8/month, Mythic: unlimited. Excessive claims may trigger a policy review (but honestly, if you're filing that many claims, maybe stop pugging +25s at 3 AM).</p>
+
+            <h4>Can I file a claim for emotional damages?</h4>
+            <p>Emotional distress coverage is included automatically with Tank Rage-Quit claims ($5 flat fee). For other scenarios, emotional damages require the "Mental Health Rider" add-on ($3.99/mo).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>PuggersInsurance</h4>
+          <p>Providing peace of mind to Pick-Up Groups across Azeroth since 2004.</p>
+          <p>NAIC# 00000-PUG &bull; Licensed in all 50 realms</p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="coverage.html">Key Depletion Coverage</a></li>
+            <li><a href="coverage.html">Ninja Loot Protection</a></li>
+            <li><a href="coverage.html">Healer DC Policy</a></li>
+            <li><a href="coverage.html">Tank Rage-Quit Rider</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="claims.html">File a Claim</a></li>
+            <li><a href="risk.html">Risk Tables</a></li>
+            <li><a href="calculator.html">Calculator</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <p>📞 1-800-555-8PUG</p>
+          <p>📧 claims@puggersinsurance.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2004–2026 PuggersInsurance.com &bull; <a href="terms.html">Terms</a> &bull; <a href="terms.html#privacy">Privacy</a></p>
+        <p style="margin-top:6px;">Not affiliated with Blizzard Entertainment. This is a parody website.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

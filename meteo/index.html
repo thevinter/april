@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azeroth Weather Service — Your Trusted Source for Azerothian Forecasts</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>
+        <a href="index.html">Home</a> &middot;
+        <a href="alerts.html">All Alerts</a> &middot;
+        <a href="about.html">About AWS</a>
+      </div>
+      <div>
+        Server Time: <span id="server-time"></span> AST &middot; Realm Status: <span style="color:#66cc44;">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo">
+        <div class="logo-icon">⛈️</div>
+        <div class="logo-text">
+          <h1>Azeroth Weather Service</h1>
+          <div class="tagline">Official Meteorological Authority Since Year 24</div>
+        </div>
+      </div>
+      <div class="header-search">
+        <label for="zone-select-header" style="font-size:10px;color:#6a8bb5;">Zone:</label>
+        <select id="zone-select-header" class="zone-select"></select>
+        <button class="btn-go" onclick="document.getElementById('zone-select-header').dispatchEvent(new Event('change'))">Go</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link active">Forecast</a>
+      <a href="hourly.html" class="nav-link">Hourly</a>
+      <a href="alerts.html" class="nav-link">Severe Weather</a>
+      <a href="marine.html" class="nav-link">Marine</a>
+      <a href="aviation.html" class="nav-link">Aviation</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- Ticker -->
+  <div class="ticker-strip">
+    <div class="ticker-content" id="ticker"></div>
+  </div>
+
+  <!-- Zone Hero -->
+  <div class="zone-hero">
+    <div class="zone-hero-placeholder" id="zone-hero">
+      <div class="zone-hero-label">
+        <span class="zone-name" id="hero-zone-name">—</span>
+        <span class="zone-region" id="hero-zone-region">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="page-wrap">
+
+    <!-- Left: Main Content -->
+    <div class="content-main">
+
+      <!-- Alerts for this zone -->
+      <div id="zone-alerts"></div>
+
+      <!-- Current Conditions -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Current Conditions</h2>
+          <span class="panel-link update-time" id="update-time"></span>
+        </div>
+        <div class="panel-body">
+          <div class="current-conditions">
+            <div class="current-temp-block">
+              <div class="current-temp-icon" id="cur-icon"></div>
+              <div class="current-temp-value" id="cur-temp"></div>
+              <div class="current-feels-like" id="cur-feels"></div>
+              <div class="current-condition-label" id="cur-cond"></div>
+            </div>
+            <div class="current-details">
+              <table>
+                <tr><td>Humidity</td><td id="cur-humidity"></td></tr>
+                <tr><td>Wind</td><td id="cur-wind"></td></tr>
+                <tr><td>Barometric Pressure</td><td id="cur-pressure"></td></tr>
+                <tr><td>UV Index</td><td id="cur-uv"></td></tr>
+                <tr><td>Visibility</td><td id="cur-visibility"></td></tr>
+                <tr><td>Dew Point</td><td id="cur-dewpoint"></td></tr>
+                <tr><td>Chance of Rain</td><td id="cur-rain"></td></tr>
+                <tr>
+                  <td>Old God Proximity</td>
+                  <td id="cur-oldgod" class="text-arcane"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-Day Forecast -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>7-Day Forecast</h2>
+          <span class="panel-link">Extended Forecast &raquo;</span>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="forecast-table">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding-left:10px;">Day</th>
+                <th></th>
+                <th>Conditions</th>
+                <th>Hi</th>
+                <th>Lo</th>
+                <th>Humidity</th>
+                <th>Wind</th>
+              </tr>
+            </thead>
+            <tbody id="forecast-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 7-Day Temperature Graph -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>7-Day Temperature Graph — <span id="graph-zone-label"></span></h2>
+        </div>
+        <div class="panel-body" style="padding:4px;">
+          <div class="graph-wrap" id="temp-graph"></div>
+        </div>
+      </div>
+
+      <!-- Overall Azeroth Forecast -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Overall Azeroth Forecast</h2>
+          <span class="panel-link update-time" id="azeroth-update-time"></span>
+        </div>
+        <div class="panel-body" style="padding:0;" id="azeroth-overview"></div>
+      </div>
+
+      <!-- All-Zone Temperature Comparison Graph -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Temperature Comparison — All Zones</h2>
+        </div>
+        <div class="panel-body" style="padding:4px;">
+          <div class="graph-wrap" id="all-zone-temp-graph"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Sidebar -->
+    <div class="content-sidebar">
+
+      <!-- AD PLACEHOLDER -->
+      <div class="sidebar-ad">
+        <img src="insurance.jpg" alt="Goblin Insurance Co. — We cover Cataclysm damage!">
+      </div>
+
+      <!-- Zone Special Metric -->
+      <div class="mini-panel">
+        <div class="mini-panel-header" id="special-metric-label">Special Metric</div>
+        <div class="mini-panel-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span id="special-metric-value" style="font-weight:bold;"></span>
+          </div>
+          <div class="meter-bar">
+            <div class="meter-fill" id="special-metric-meter"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Zones Quick View -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Other Zones</div>
+        <div class="mini-panel-body">
+          <ul id="other-zones-list"></ul>
+        </div>
+      </div>
+
+      <!-- Trivia / Fun Fact -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Weather Trivia</div>
+        <div class="mini-panel-body" style="font-size:10px;line-height:1.5;color:#5a7a9a;">
+          <strong class="text-gold">Did you know?</strong><br>
+          The highest temperature ever recorded in Azeroth was 1,564°C during the Deathwing flyover of Stormwind.
+          The coldest was -80°C in Icecrown during the Lich King's "Winter Veil cancellation tantrum" of Year 27.
+        </div>
+      </div>
+
+      <!-- AD PLACEHOLDER 2 -->
+      <div class="sidebar-ad-small">
+        <img src="umbrellas.png" alt="Proudmoore's Umbrella Emporium — Rain or Blight, we've got you covered!">
+      </div>
+
+      <!-- Continent Conditions -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Continent Summary</div>
+        <div class="mini-panel-body" style="font-size:10px;line-height:1.6;">
+          <strong>Kalimdor:</strong> Dry south, frozen north, flooded middle. Normal.<br>
+          <strong>Eastern Kingdoms:</strong> Pleasant in Elwynn, dusty in Westfall, plagued in Tirisfal. Standard.<br>
+          <strong>Outland:</strong> Mushrooms and perfection. Don't ask.<br>
+          <strong>Northrend:</strong> Cold. Dead. Still cold.
+        </div>
+      </div>
+
+      <!-- Today's Moon Phase -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Moon Phase — White Lady &amp; Blue Child</div>
+        <div class="mini-panel-body text-center" style="font-size:10px;">
+          <div style="font-size:32px;margin:4px 0;">🌖 🌘</div>
+          <div>White Lady: Waning Gibbous</div>
+          <div>Blue Child: Waning Crescent</div>
+          <div class="text-muted" style="margin-top:4px;">Worgen transformation risk: Moderate</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    Azeroth Weather Service &copy; Year 24–34 of the Third War. All rights reserved.<br>
+    A division of the Kirin Tor Meteorological Bureau, Dalaran.<br>
+    Forecast accuracy: approximately 12% (we're trying, okay?). Not responsible for acts of Old Gods, Dragon Aspects, or Warchiefs.<br>
+    <a href="about.html">About</a> &middot; <a href="alerts.html">Alerts</a> &middot;
+    <a href="#">Contact</a> &middot; <a href="#">Careers (we need a new Darkshore correspondent)</a>
+  </footer>
+
+  <script src="weather-data.js"></script>
+  <script>
+    (function() {
+      // Init zone selects
+      populateZoneSelects();
+
+      const zone = getCurrentZone();
+      const zoneId = getCurrentZoneId();
+
+      // Server time
+      function updateServerTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        document.getElementById('server-time').textContent = `${h}:${m}:${s}`;
+      }
+      updateServerTime();
+      setInterval(updateServerTime, 1000);
+
+      // Ticker
+      document.getElementById('ticker').innerHTML = buildTickerContent();
+
+      // Hero
+      document.getElementById('hero-zone-name').textContent = zone.name;
+      document.getElementById('hero-zone-region').textContent = zone.region;
+
+      // Alerts
+      const alertsDiv = document.getElementById('zone-alerts');
+      zone.alerts.forEach(a => {
+        const cls = a.type === 'danger' ? 'alert-danger' :
+                    a.type === 'flood' ? 'alert-flood' :
+                    a.type === 'info' ? 'alert-info' : 'alert-warning';
+        const icon = a.type === 'danger' ? '🚨' :
+                     a.type === 'flood' ? '🌊' :
+                     a.type === 'info' ? 'ℹ️' : '⚠️';
+        alertsDiv.innerHTML += `
+          <div class="alert-banner ${cls}">
+            <span class="alert-icon">${icon}</span>
+            <div class="alert-text">
+              <span class="alert-type">${a.label}</span>
+              <span class="alert-detail">${a.detail}</span>
+            </div>
+          </div>`;
+      });
+
+      // Current Conditions
+      document.getElementById('cur-icon').textContent = zone.currentIcon;
+      document.getElementById('cur-temp').innerHTML = `${zone.currentTemp}<sup>°C</sup>`;
+      document.getElementById('cur-cond').textContent = zone.currentCondition;
+      document.getElementById('cur-feels').innerHTML = `
+        <span class="old-god-tip">
+          Feels like <span class="feels-temp">${zone.feelsLike}°C</span>
+          <span class="tip-content">
+            <strong>🔮 Old God Proximity Factor</strong><br>
+            ${zone.oldGodProximity}<br><br>
+            Temperature modifier: ${zone.oldGodModifier}<br><br>
+            <em>"Feels Like" accounts for wind chill, humidity, and the soul-crushing
+            existential dread emanating from nearby Old God entities.</em>
+          </span>
+        </span>`;
+      document.getElementById('cur-humidity').textContent = zone.humidity;
+      document.getElementById('cur-wind').textContent = zone.wind;
+      document.getElementById('cur-pressure').textContent = zone.pressure;
+      document.getElementById('cur-uv').textContent = zone.uvIndex;
+      document.getElementById('cur-visibility').textContent = zone.visibility;
+      document.getElementById('cur-dewpoint').textContent = zone.dewPoint;
+      document.getElementById('cur-rain').textContent = zone.rainChance;
+      document.getElementById('cur-oldgod').textContent = zone.oldGodProximity;
+
+      document.getElementById('update-time').textContent = getUpdateTime();
+
+      // 7-Day Forecast
+      const days = getForecastDays();
+      const tbody = document.getElementById('forecast-body');
+      zone.forecast.forEach((f, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="forecast-day">${days[i].label}</td>
+          <td class="forecast-icon">${f.icon}</td>
+          <td class="forecast-cond">${f.cond}</td>
+          <td class="forecast-hi">${f.hi}°</td>
+          <td class="forecast-lo">${f.lo}°</td>
+          <td>${f.hum}</td>
+          <td>${f.wind}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // Special Metric
+      if (zone.specialMetric) {
+        document.getElementById('special-metric-label').textContent = zone.specialMetric.label;
+        document.getElementById('special-metric-value').textContent = zone.specialMetric.value;
+        document.getElementById('special-metric-meter').className = 'meter-fill ' + zone.specialMetric.level;
+      }
+
+      // 7-Day Temperature Graph
+      document.getElementById('graph-zone-label').textContent = zone.name;
+      const forecastDays = getForecastDays();
+      const tempGraphData = zone.forecast.map((f, i) => ({
+        label: forecastDays[i].short,
+        value: f.hi,
+        color: f.hi > 50 ? '#ff4422' : f.hi > 30 ? '#ff8c4a' : f.hi > 10 ? '#ffd100' : f.hi > -10 ? '#88ccff' : '#4488cc',
+      }));
+      document.getElementById('temp-graph').innerHTML =
+        '<div class="graph-label">High Temperature (°C)</div>' +
+        svgBarGraph(tempGraphData, { width: 620, height: 140, unit: '°C' }) +
+        '<div class="graph-label" style="margin-top:8px;">Low Temperature (°C)</div>' +
+        svgBarGraph(zone.forecast.map((f, i) => ({
+          label: forecastDays[i].short,
+          value: f.lo,
+          color: f.lo > 30 ? '#ff6644' : f.lo > 10 ? '#ffd100' : f.lo > -10 ? '#88ccff' : '#4488cc',
+        })), { width: 620, height: 130, unit: '°C' });
+
+      // Overall Azeroth Forecast
+      const continents = getZonesByContinent();
+      const overviewEl = document.getElementById('azeroth-overview');
+      let overviewHTML = '';
+      for (const [continent, zones] of Object.entries(continents)) {
+        const icon = CONTINENT_ICONS[continent] || '🌍';
+        overviewHTML += `<div class="continent-header"><span class="continent-icon">${icon}</span> ${continent}</div>`;
+        overviewHTML += '<div class="zone-card-grid">';
+        zones.forEach(z => {
+          overviewHTML += `
+            <div class="zone-card">
+              <span class="zc-icon">${z.currentIcon}</span>
+              <div class="zc-info">
+                <div class="zc-name"><a href="#${z.id}" onclick="location.reload()">${z.name}</a></div>
+                <div class="zc-cond">${z.currentCondition}</div>
+              </div>
+              <div class="zc-temp">${z.currentTemp}<sup>°C</sup></div>
+            </div>`;
+        });
+        overviewHTML += '</div>';
+      }
+      overviewEl.innerHTML = overviewHTML;
+      document.getElementById('azeroth-update-time').textContent = getUpdateTime();
+
+      // All-Zone Temperature Comparison
+      const allZoneData = ZONE_LIST.map(z => {
+        const d = ZONES[z.id];
+        return {
+          label: z.name.length > 8 ? z.name.substring(0,7) + '…' : z.name,
+          value: d.currentTemp,
+          color: d.currentTemp > 50 ? '#ff2200' : d.currentTemp > 30 ? '#ff8c4a' : d.currentTemp > 10 ? '#ffd100' : d.currentTemp > -10 ? '#88ccff' : '#4488cc',
+        };
+      });
+      document.getElementById('all-zone-temp-graph').innerHTML =
+        '<div class="graph-label">Current Temperature by Zone (°C)</div>' +
+        svgBarGraph(allZoneData, { width: 620, height: 180, unit: '°C' });
+
+      // Other Zones list
+      const otherList = document.getElementById('other-zones-list');
+      ZONE_LIST.forEach(z => {
+        if (z.id === zoneId) return;
+        const data = ZONES[z.id];
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#${z.id}" onclick="location.reload()">${z.name}</a>
+          <span style="float:right;color:#5a7a9a;">${data.currentTemp}°C ${data.currentIcon}</span>`;
+        otherList.appendChild(li);
+      });
+    })();
+  </script>
+
+</body>
+</html>

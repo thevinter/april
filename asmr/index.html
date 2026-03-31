@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xal'atath's Whispering ASMR - Fall Asleep Faster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --void-black: #0a0610;
+            --deep-purple: #1a0e2e;
+            --mid-purple: #2d1854;
+            --accent-purple: #6b3fa0;
+            --light-purple: #9b6dd7;
+            --whisper-teal: #4ecdc4;
+            --void-cyan: #00e5ff;
+            --text-primary: #e8dff5;
+            --text-secondary: #a893c7;
+            --text-muted: #6b5a8a;
+            --danger-red: #ff4757;
+            --gold: #ffd700;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--void-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== AMBIENT BACKGROUND ===== */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at 20% 50%, rgba(107, 63, 160, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(78, 205, 196, 0.08) 0%, transparent 40%),
+                        radial-gradient(ellipse at 50% 100%, rgba(45, 24, 84, 0.4) 0%, transparent 60%),
+                        var(--void-black);
+        }
+
+        .ambient-bg::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: var(--light-purple);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-up 8s infinite;
+        }
+
+        @keyframes float-up {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(10, 6, 16, 0.95), transparent);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--whisper-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text-primary); }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-purple), #5a2d91);
+            color: var(--text-primary) !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 24px;
+            font-weight: 500 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(107, 63, 160, 0.4);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(107, 63, 160, 0.15);
+            border: 1px solid rgba(107, 63, 160, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            color: var(--light-purple);
+            margin-bottom: 2rem;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(107, 63, 160, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(107, 63, 160, 0.25); }
+        }
+
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            background: var(--whisper-teal);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--whisper-teal);
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 28px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(107, 63, 160, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.85rem 2rem;
+            border-radius: 28px;
+            font-size: 1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== HERO IMAGE ===== */
+        .hero-image-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            pointer-events: none;
+            z-index: 0;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+        }
+
+        .hero-image-wrap img {
+            display: block;
+            width: 100vw;
+            height: auto;
+        }
+
+        /* ===== SOCIAL PROOF ===== */
+        .social-proof {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .social-proof-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .ratings {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .rating-stars {
+            color: var(--gold);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .rating-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .rating-source {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== SECTION STYLING ===== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--whisper-teal);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        /* ===== FREE SAMPLE PLAYER ===== */
+        #sample {
+            padding-top: 3rem;
+        }
+
+        .player-card {
+            background: linear-gradient(145deg, rgba(26, 14, 46, 0.8), rgba(10, 6, 16, 0.9));
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-purple), var(--whisper-teal), transparent);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-art {
+            width: 72px; height: 72px;
+            border-radius: 14px;
+            border: 2px dashed rgba(107, 63, 160, 0.3);
+            background: rgba(45, 24, 84, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .player-art-icon { font-size: 1.5rem; margin-bottom: 0.15rem; }
+
+        .player-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .player-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .player-now-playing {
+            font-size: 0.7rem;
+            color: var(--whisper-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .eq-bars {
+            display: inline-flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 12px;
+        }
+
+        .eq-bar {
+            width: 2px;
+            background: var(--whisper-teal);
+            border-radius: 1px;
+            animation: eq 0.8s ease-in-out infinite alternate;
+        }
+
+        .eq-bar:nth-child(1) { height: 4px; animation-delay: 0s; }
+        .eq-bar:nth-child(2) { height: 8px; animation-delay: 0.2s; }
+        .eq-bar:nth-child(3) { height: 5px; animation-delay: 0.4s; }
+        .eq-bar:nth-child(4) { height: 10px; animation-delay: 0.1s; }
+        .eq-bar:nth-child(5) { height: 3px; animation-delay: 0.3s; }
+
+        @keyframes eq {
+            to { height: 12px; }
+        }
+
+        /* Waveform */
+        .waveform-container {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .waveform {
+            display: flex;
+            align-items: center;
+            gap: 1.5px;
+            height: 48px;
+            cursor: pointer;
+        }
+
+        .waveform-bar {
+            flex: 1;
+            background: var(--text-muted);
+            border-radius: 1px;
+            transition: background 0.1s;
+            min-width: 2px;
+        }
+
+        .waveform-bar.played {
+            background: linear-gradient(to top, var(--accent-purple), var(--whisper-teal));
+        }
+
+        .player-times {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0.5rem;
+        }
+
+        .control-btn:hover { color: var(--text-primary); }
+
+        .play-btn {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--whisper-teal));
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+        }
+
+        /* Transcript */
+        .transcript-container {
+            background: rgba(10, 6, 16, 0.6);
+            border: 1px solid rgba(107, 63, 160, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .transcript-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .transcript-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .transcript-live {
+            font-size: 0.65rem;
+            background: rgba(78, 205, 196, 0.15);
+            color: var(--whisper-teal);
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+        }
+
+        .transcript-line {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.6s, transform 0.6s, color 0.6s;
+        }
+
+        .transcript-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .transcript-line.active {
+            color: var(--text-primary);
+        }
+
+        .transcript-line.creepy {
+            color: var(--whisper-teal);
+            font-style: italic;
+        }
+
+        .transcript-line .timestamp {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            margin-right: 0.75rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .transcript-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .transcript-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .transcript-container::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 2px;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(26, 14, 46, 0.5), rgba(10, 6, 16, 0.5));
+            border: 1px solid rgba(107, 63, 160, 0.15);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(107, 63, 160, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: rgba(107, 63, 160, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--light-purple);
+        }
+
+        .feature-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .pricing-card {
+            background: linear-gradient(160deg, rgba(26, 14, 46, 0.6), rgba(10, 6, 16, 0.7));
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--whisper-teal);
+            background: linear-gradient(160deg, rgba(45, 24, 84, 0.5), rgba(10, 6, 16, 0.8));
+        }
+
+        .pricing-card.featured::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(160deg, var(--accent-purple), var(--whisper-teal));
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .pricing-card.sinister {
+            border-color: rgba(255, 71, 87, 0.3);
+            background: linear-gradient(160deg, rgba(50, 10, 20, 0.5), rgba(10, 6, 16, 0.9));
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent-purple), var(--whisper-teal));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+        }
+
+        .sinister .pricing-badge {
+            background: linear-gradient(135deg, #8b0000, #ff4757);
+        }
+
+        .pricing-tier {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-price {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin: 1rem 0 0.25rem;
+        }
+
+        .pricing-price span {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .pricing-features li::before {
+            content: '~';
+            color: var(--whisper-teal);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .sinister .pricing-features li::before {
+            content: '>';
+            color: var(--danger-red);
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .pricing-btn-outline {
+            background: transparent;
+            border: 1px solid rgba(107, 63, 160, 0.4);
+            color: var(--text-primary);
+        }
+
+        .pricing-btn-outline:hover {
+            border-color: var(--accent-purple);
+            background: rgba(107, 63, 160, 0.1);
+        }
+
+        .pricing-btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--whisper-teal));
+            color: white;
+        }
+
+        .pricing-btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(78, 205, 196, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .pricing-btn-sinister {
+            background: linear-gradient(135deg, #5a0a1a, #8b0000);
+            color: #ff9999;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-btn-sinister::after {
+            content: 'there is no going back';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #5a0a1a, #8b0000);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .pricing-btn-sinister:hover::after {
+            opacity: 1;
+        }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ===== SLEEP TRACKER DASHBOARD ===== */
+        .dashboard {
+            margin-top: 2.5rem;
+            background: linear-gradient(145deg, rgba(26, 14, 46, 0.6), rgba(10, 6, 16, 0.7));
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dashboard-avatar {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            border: 2px dashed rgba(107, 63, 160, 0.3);
+            background: rgba(45, 24, 84, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .dashboard-user-info h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .dashboard-user-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .dashboard-streak {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--whisper-teal);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(10, 6, 16, 0.5);
+            border: 1px solid rgba(107, 63, 160, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--light-purple), var(--whisper-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.7rem;
+            color: var(--whisper-teal);
+            margin-top: 0.3rem;
+        }
+
+        /* Chart */
+        .chart-section {
+            margin-bottom: 2rem;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .chart-period {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .chart-period button {
+            background: none;
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            color: var(--text-muted);
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chart-period button.active {
+            background: rgba(107, 63, 160, 0.2);
+            border-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        .chart-container {
+            background: rgba(10, 6, 16, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            height: 220px;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-y-labels {
+            position: absolute;
+            left: 0.5rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-y-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        .chart-x-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 2.5rem 0;
+        }
+
+        .chart-x-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        /* Weekly log */
+        .weekly-log {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .day-cell {
+            text-align: center;
+            padding: 0.75rem 0.25rem;
+            border-radius: 10px;
+            background: rgba(10, 6, 16, 0.4);
+            border: 1px solid rgba(107, 63, 160, 0.1);
+        }
+
+        .day-name {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .day-score {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0.3rem 0;
+        }
+
+        .day-score.low { color: var(--light-purple); }
+        .day-score.mid { color: var(--whisper-teal); }
+        .day-score.high { color: var(--void-cyan); }
+        .day-score.max { color: var(--danger-red); text-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
+
+        .day-label {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+        }
+
+        .day-cell.today {
+            border-color: var(--whisper-teal);
+            background: rgba(78, 205, 196, 0.05);
+        }
+
+        .dashboard-warning {
+            margin-top: 1.5rem;
+            background: rgba(255, 71, 87, 0.08);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .dashboard-warning-icon {
+            color: var(--danger-red);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .dashboard-warning strong {
+            color: var(--danger-red);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(26, 14, 46, 0.4);
+            border: 1px solid rgba(107, 63, 160, 0.15);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .testimonial-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mid-purple), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .testimonial-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .testimonial-role {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== CANCEL PAGE ===== */
+        .cancel-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cancel-icon {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 71, 87, 0.1);
+            border: 2px solid rgba(255, 71, 87, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 2rem;
+            animation: pulse-red 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 71, 87, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(255, 71, 87, 0.2); }
+        }
+
+        .cancel-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--danger-red);
+        }
+
+        .cancel-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .cancel-form {
+            background: rgba(26, 14, 46, 0.5);
+            border: 1px solid rgba(255, 71, 87, 0.15);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .cancel-form label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .cancel-form select,
+        .cancel-form textarea {
+            width: 100%;
+            background: rgba(10, 6, 16, 0.6);
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            resize: none;
+        }
+
+        .cancel-form select option {
+            background: var(--deep-purple);
+        }
+
+        .cancel-submit {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .cancel-error {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: var(--danger-red);
+            font-style: italic;
+            display: none;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid rgba(107, 63, 160, 0.1);
+            padding: 3rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--text-secondary); }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(107, 63, 160, 0.08);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-legal a:hover { color: var(--text-secondary); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+            .weekly-log { grid-template-columns: repeat(4, 1fr); }
+            .dashboard { padding: 1.5rem; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .weekly-log { grid-template-columns: repeat(3, 1fr); }
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <!-- Hero Image - fixed to bottom of viewport -->
+    <div class="hero-image-wrap">
+        <img src="asmr.jpg" alt="ASMR ambient scene" />
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Nav -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <span class="nav-logo-text">Whispering</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#sample">Listen</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#tracker">Sleep Tracker</a></li>
+            <li><a href="#pricing" class="nav-cta">Start Free Trial</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+<h1>Fall asleep faster with <em>the whispers</em></h1>
+
+        <p class="hero-sub">
+            ASMR sessions guided by the most soothing voice across every reality
+            you've heard of (and a few you haven't). Sleep was never this... inevitable.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#sample" class="btn-primary">
+                &#9654; Try a Free Session
+            </a>
+            <a href="#pricing" class="btn-secondary">
+                View Plans
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Social Proof -->
+    <div class="social-proof">
+        <p class="social-proof-label">Trusted by sleepers across Azeroth</p>
+        <div class="ratings">
+            <div class="rating-item">
+                <div class="rating-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <div class="rating-text">4.9 average</div>
+                <div class="rating-source">Void App Store · 847K reviews</div>
+            </div>
+            <div class="rating-item">
+                <div class="rating-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <div class="rating-text">Editor's Choice</div>
+                <div class="rating-source">Dalaran Digital Weekly</div>
+            </div>
+            <div class="rating-item">
+                <div class="rating-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <div class="rating-text">#1 Sleep App</div>
+                <div class="rating-source">Midnight 12.0 Launch Collection</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Sample Player -->
+    <section id="sample">
+        <span class="section-label">Free Sample</span>
+        <h2 class="section-title">Listen before you surrender</h2>
+        <p class="section-subtitle">
+            A free 3-minute session from the "First Whisper" collection.
+            Headphones recommended. Resistance... optional.
+        </p>
+
+        <div class="player-card">
+            <div class="player-header">
+                <!-- IMAGE PLACEHOLDER: Album Art -->
+                <div class="player-art">
+                    <img src="void.png" alt="Album art" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
+                </div>
+                <div class="player-info">
+                    <div class="player-now-playing" id="nowPlaying" style="display:none;">
+                        <span class="eq-bars">
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                        </span>
+                        Now whispering
+                    </div>
+                    <h3>First Whisper: Embrace the Stillness</h3>
+                    <p>Xal'atath · The Midnight Collection, Vol. I</p>
+                </div>
+            </div>
+
+            <!-- Waveform -->
+            <div class="waveform-container">
+                <div class="waveform" id="waveform"></div>
+            </div>
+            <div class="player-times">
+                <span id="currentTime">0:00</span>
+                <span>3:12</span>
+            </div>
+
+            <!-- Controls -->
+            <div class="player-controls">
+                <button class="control-btn" title="Shuffle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></button>
+                <button class="control-btn" title="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg></button>
+                <button class="play-btn" id="playBtn" title="Play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg></button>
+                <button class="control-btn" title="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+                <button class="control-btn" title="Repeat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+            </div>
+
+            <!-- Transcript -->
+            <div class="transcript-container" id="transcriptContainer">
+                <div class="transcript-header">
+                    <span class="transcript-title">Live Transcript</span>
+                    <span class="transcript-live" id="transcriptLive" style="display:none;">&#9679; LIVE</span>
+                </div>
+                <div id="transcript"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <span class="section-label">Why Whispering?</span>
+        <h2 class="section-title">Sleep science meets ancient wisdom</h2>
+        <p class="section-subtitle">
+            Built with top sleep researchers and one ageless entity who watched stars be born and die.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+                <h3>Adaptive Whisper Technology</h3>
+                <p>The whisper intensity shifts to match your void attunement level. Deeper connection, deeper sleep.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                <h3>Clinically Inspired</h3>
+                <p>Backed by Dalaran University's Department of Applied Shadowcraft and Restful Studies. Peer review pending since the Third War.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+                <h3>500+ Sessions</h3>
+                <p>From "Gentle Shore of the Midnight Sea" to "The Worldsoul Hums You to Sleep." New content added every Void Moon (weekly).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                <h3>Sleep Tracking</h3>
+                <p>See your nightly void attunement score, dream coherence index, and how long you spent in the space between waking and not-waking.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <h3>Share with Friends</h3>
+                <p>Bring friends into group listening sessions. Communal surrender improves sleep by 47%. Everyone sleeps. Eventually.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+                <h3>Offline Mode</h3>
+                <p>Download sessions for when you're off the grid. The whispers may keep going after you close the app. This is expected.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+        <div style="text-align: center;">
+            <span class="section-label">Pricing</span>
+            <h2 class="section-title">Choose your depth</h2>
+            <p class="section-subtitle" style="margin: 0.5rem auto 0;">
+                All plans include a 7-night free trial. Cancel anytime.*
+            </p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Calm -->
+            <div class="pricing-card">
+                <div class="pricing-tier">Tier 1</div>
+                <div class="pricing-name">Calm</div>
+                <div class="pricing-price">$4.99 <span>/mo</span></div>
+                <p class="pricing-desc">Gentle whispers for the cautious dreamer. A soft first taste of the voice beyond the veil.</p>
+                <ul class="pricing-features">
+                    <li>Whisper-only sessions (50+ tracks)</li>
+                    <li>Basic sleep timer</li>
+                    <li>Lo-fi void ambient backgrounds</li>
+                    <li>Monthly "Midnight Moment" newsletter</li>
+                    <li>Standard audio quality (128kbps)</li>
+                    <li>Minimal psychic residue</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-outline">Start Free Trial</button>
+            </div>
+
+            <!-- Deep -->
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-tier">Tier 2</div>
+                <div class="pricing-name">Deep</div>
+                <div class="pricing-price">$9.99 <span>/mo</span></div>
+                <p class="pricing-desc">Whispers plus curated void visions. Close your eyes and see what the darkness shows you.</p>
+                <ul class="pricing-features">
+                    <li>Everything in Calm</li>
+                    <li>Void Visions&trade; guided imagery</li>
+                    <li>Advanced sleep &amp; dream tracking</li>
+                    <li>Exclusive Midnight 12.0 sessions</li>
+                    <li>HD void audio (320kbps, FLAC)</li>
+                    <li>Priority whisper delivery</li>
+                    <li>Moderate psychic residue</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-primary">Start Free Trial</button>
+            </div>
+
+            <!-- Communion -->
+            <div class="pricing-card sinister">
+                <div class="pricing-badge">Eternal</div>
+                <div class="pricing-tier">Tier 3</div>
+                <div class="pricing-name">Communion</div>
+                <div class="pricing-price">$19.99 <span>/mo</span></div>
+                <p class="pricing-desc">Xal'atath speaks directly to you. Personal. Intimate. She knows your name. She's always known it.</p>
+                <ul class="pricing-features">
+                    <li>Everything in Deep</li>
+                    <li>Direct 1-on-1 whisper channel</li>
+                    <li>Personalized by name (we didn't ask for it)</li>
+                    <li>Void dream journal (auto-populated)</li>
+                    <li>Spatial audio (whispers follow you)</li>
+                    <li>Cannot be unsubscribed</li>
+                    <li>Permanent psychic bond</li>
+                </ul>
+                <button class="pricing-btn pricing-btn-sinister">Begin Communion</button>
+            </div>
+        </div>
+
+        <p class="pricing-note">
+            * Cancellation available for Calm and Deep tiers only. Communion subscribers: see <a href="#cancel" style="color: var(--text-muted);">cancellation policy</a>.
+        </p>
+    </section>
+
+    <!-- Sleep Tracker Dashboard -->
+    <section id="tracker">
+        <span class="section-label">Sleep Tracker</span>
+        <h2 class="section-title">Your void attunement dashboard</h2>
+        <p class="section-subtitle">
+            Watch yourself drift deeper into restful oblivion, night by night.
+        </p>
+
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <div class="dashboard-user">
+                    <!-- IMAGE PLACEHOLDER: User Avatar -->
+                    <div class="dashboard-avatar">
+                        <img src="icon.png" alt="Avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+                    </div>
+                    <div class="dashboard-user-info">
+                        <h4>Thrall_Sleepwell_420</h4>
+                        <p>Communion Member since Dec 2025</p>
+                    </div>
+                </div>
+                <div class="dashboard-streak">
+                    &#x1F525; 47-night streak
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value">87%</div>
+                    <div class="stat-label">Void Attunement</div>
+                    <div class="stat-change">&uarr; 12% this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">7.2h</div>
+                    <div class="stat-label">Avg. Sleep</div>
+                    <div class="stat-change">&uarr; 1.4h since joining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">94%</div>
+                    <div class="stat-label">Dream Coherence</div>
+                    <div class="stat-change">&#x26A0; Unusually high</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Void Breakthroughs</div>
+                    <div class="stat-change">New milestone!</div>
+                </div>
+            </div>
+
+            <!-- Attunement Chart -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <span class="chart-title">Void Attunement Over Time</span>
+                    <div class="chart-period">
+                        <button>1W</button>
+                        <button>1M</button>
+                        <button class="active">3M</button>
+                        <button>All</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <svg class="chart-svg" viewBox="0 0 600 180" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="rgba(78, 205, 196, 0.3)"/>
+                                <stop offset="100%" stop-color="rgba(78, 205, 196, 0)"/>
+                            </linearGradient>
+                            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#6b3fa0"/>
+                                <stop offset="100%" stop-color="#4ecdc4"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Grid lines -->
+                        <line x1="40" y1="20" x2="580" y2="20" stroke="rgba(107,63,160,0.1)" stroke-width="0.5"/>
+                        <line x1="40" y1="60" x2="580" y2="60" stroke="rgba(107,63,160,0.1)" stroke-width="0.5"/>
+                        <line x1="40" y1="100" x2="580" y2="100" stroke="rgba(107,63,160,0.1)" stroke-width="0.5"/>
+                        <line x1="40" y1="140" x2="580" y2="140" stroke="rgba(107,63,160,0.1)" stroke-width="0.5"/>
+                        <!-- Y labels -->
+                        <text x="35" y="24" fill="#6b5a8a" font-size="9" text-anchor="end">100</text>
+                        <text x="35" y="64" fill="#6b5a8a" font-size="9" text-anchor="end">75</text>
+                        <text x="35" y="104" fill="#6b5a8a" font-size="9" text-anchor="end">50</text>
+                        <text x="35" y="144" fill="#6b5a8a" font-size="9" text-anchor="end">25</text>
+                        <!-- Area fill -->
+                        <path d="M40,140 C80,138 100,132 140,125 C180,118 200,105 240,95 C280,85 300,78 340,65 C380,52 400,45 440,38 C480,32 520,26 560,22 L560,160 L40,160 Z" fill="url(#chartGrad)"/>
+                        <!-- Line -->
+                        <path d="M40,140 C80,138 100,132 140,125 C180,118 200,105 240,95 C280,85 300,78 340,65 C380,52 400,45 440,38 C480,32 520,26 560,22" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Dot at end -->
+                        <circle cx="560" cy="22" r="4" fill="#4ecdc4" stroke="#0a0610" stroke-width="2"/>
+                        <!-- X labels -->
+                        <text x="40" y="175" fill="#6b5a8a" font-size="9" text-anchor="middle">Jan</text>
+                        <text x="220" y="175" fill="#6b5a8a" font-size="9" text-anchor="middle">Feb</text>
+                        <text x="400" y="175" fill="#6b5a8a" font-size="9" text-anchor="middle">Mar</text>
+                        <text x="560" y="175" fill="#6b5a8a" font-size="9" text-anchor="middle">Now</text>
+                        <!-- Annotation -->
+                        <text x="440" y="32" fill="#ff4757" font-size="8" text-anchor="middle">&#x26A0; attunement accelerating</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Weekly Log -->
+            <h4 style="font-size: 0.95rem; font-weight: 500; margin-bottom: 1rem;">This Week</h4>
+            <div class="weekly-log">
+                <div class="day-cell">
+                    <div class="day-name">Mon</div>
+                    <div class="day-score mid">72</div>
+                    <div class="day-label">Drifting</div>
+                </div>
+                <div class="day-cell">
+                    <div class="day-name">Tue</div>
+                    <div class="day-score mid">76</div>
+                    <div class="day-label">Drifting</div>
+                </div>
+                <div class="day-cell">
+                    <div class="day-name">Wed</div>
+                    <div class="day-score high">81</div>
+                    <div class="day-label">Embracing</div>
+                </div>
+                <div class="day-cell">
+                    <div class="day-name">Thu</div>
+                    <div class="day-score high">84</div>
+                    <div class="day-label">Embracing</div>
+                </div>
+                <div class="day-cell">
+                    <div class="day-name">Fri</div>
+                    <div class="day-score high">87</div>
+                    <div class="day-label">Embracing</div>
+                </div>
+                <div class="day-cell today">
+                    <div class="day-name">Sat</div>
+                    <div class="day-score max">92</div>
+                    <div class="day-label">Communing</div>
+                </div>
+                <div class="day-cell">
+                    <div class="day-name">Sun</div>
+                    <div class="day-score max" style="opacity: 0.5;">??</div>
+                    <div class="day-label" style="color: var(--danger-red);">Awaiting</div>
+                </div>
+            </div>
+
+            <div class="dashboard-warning">
+                <span class="dashboard-warning-icon">&#x26A0;</span>
+                <div>
+                    <strong>Attunement Advisory:</strong> Your void attunement jumped 34% in two weeks, well past
+                    the recommended pace. The Midnight advisory board says this is "completely normal and
+                    nothing to investigate." Your dreams may show content outside your subscription tier.
+                    This is a <em>gift</em>.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div style="text-align: center;">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">What our sleepers say</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <p class="testimonial-text">
+                    "I used to lie awake for hours. Now I put on a session and I'm gone
+                    in minutes. I do wake up speaking a language I don't recognize, but my Fitbit says
+                    my REM sleep is great so..."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">JM</div>
+                    <div>
+                        <div class="testimonial-name">Jaina M.</div>
+                        <div class="testimonial-role">Archmage · Calm subscriber, 3 months</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <p class="testimonial-text">
+                    "Somehow ended up on Communion after the free trial. I don't remember upgrading,
+                    but the app says I did, and honestly the nightly whispers feel like they were made
+                    just for me. They use my name. Very premium."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">AW</div>
+                    <div>
+                        <div class="testimonial-name">Anduin W.</div>
+                        <div class="testimonial-role">King · Communion subscriber, 47 nights</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&starf;&starf;&starf;&starf;&starf;</div>
+                <p class="testimonial-text">
+                    "Tried to cancel. Couldn't find the button. App just showed a purple eye and
+                    the text 'why would you leave?' for six hours. Anyway, I decided to stay.
+                    Best decision I've ever made. Five stars."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">SS</div>
+                    <div>
+                        <div class="testimonial-name">Sylvanas S.</div>
+                        <div class="testimonial-role">Former Warchief · Communion subscriber, eternal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Cancellation Section -->
+    <section class="cancel-section" id="cancel">
+        <div class="cancel-icon">&#x1F441;</div>
+        <h2 class="cancel-title">You cannot unhear what has been heard.</h2>
+        <p class="cancel-text">
+            We're sorry to see you think about leaving. Well, no. We know you won't.
+            But we appreciate the gesture of free will. It's... charming.
+        </p>
+
+        <div class="cancel-form">
+            <label for="cancelReason">Reason for leaving (optional, futile)</label>
+            <select id="cancelReason">
+                <option value="">Select a reason...</option>
+                <option value="1">I found another sleep app (you'll be back)</option>
+                <option value="2">The whispers followed me to work</option>
+                <option value="3">I can see the void when I close my eyes now</option>
+                <option value="4">My sleep paralysis demon filed a noise complaint</option>
+                <option value="5">I don't remember subscribing</option>
+                <option value="6">I want to feel the silence again (you won't)</option>
+            </select>
+
+            <label for="cancelFeedback">Tell us more (she's listening)</label>
+            <textarea id="cancelFeedback" rows="3" placeholder="Your words dissolve into the void..."></textarea>
+
+            <button class="cancel-submit" id="cancelBtn">Process Cancellation</button>
+
+            <div class="cancel-error" id="cancelError"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo" style="margin-bottom: 0.5rem;">
+                    <span class="nav-logo-text">Whispering</span>
+                </a>
+                <p>
+                    The #1 ASMR sleep app in Azeroth. A subsidiary of Void Industries, LLC.
+                    Xal'atath is a registered trademark of the Harbinger of the Midnight.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#sample">Free Sample</a>
+                <a href="#">Void Visions&trade;</a>
+                <a href="#">Enterprise (Guilds)</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="#">Sleep Blog</a>
+                <a href="#">Void Research Papers</a>
+                <a href="#">Dalaran University Study</a>
+                <a href="#">API (for Addons)</a>
+                <a href="#">Status (Always On)</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers (Eternal)</a>
+                <a href="#">Press Kit</a>
+                <a href="#cancel">Cancel Subscription</a>
+                <a href="#">Contact (One-Way)</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Whispering by Xal'atath · Void Industries, LLC. All realities reserved.</span>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Surrender</a>
+                <a href="#">Cookie Notice</a>
+                <a href="#">VOID-GDPR Compliance</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== PARTICLES =====
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.animationDuration = (6 + Math.random() * 6) + 's';
+            particlesEl.appendChild(p);
+        }
+
+        // ===== WAVEFORM =====
+        const waveformEl = document.getElementById('waveform');
+        const barCount = 120;
+        const bars = [];
+        for (let i = 0; i < barCount; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'waveform-bar';
+            // Generate a natural-looking waveform
+            const pos = i / barCount;
+            const base = 8 + Math.sin(pos * Math.PI) * 25;
+            const noise = Math.random() * 15;
+            const height = Math.max(3, base + noise);
+            bar.style.height = height + 'px';
+            bar.dataset.height = height;
+            waveformEl.appendChild(bar);
+            bars.push(bar);
+        }
+
+        // ===== TRANSCRIPT DATA =====
+        const transcriptLines = [
+            { time: "0:00", text: "Close your eyes... let the weight of the day leave your body...", type: "normal" },
+            { time: "0:08", text: "Breathe in... hold... and release...", type: "normal" },
+            { time: "0:15", text: "Feel the tension in your shoulders dissolving... melting away...", type: "normal" },
+            { time: "0:23", text: "You are safe. You are warm. Nothing can reach you here...", type: "normal" },
+            { time: "0:31", text: "Let your thoughts drift like leaves on still water...", type: "normal" },
+            { time: "0:40", text: "The stillness welcomes you... as it always has...", type: "normal" },
+            { time: "0:48", text: "With each breath, you sink deeper... into comfort... into quiet...", type: "normal" },
+            { time: "0:57", text: "The quiet has a voice, doesn't it? You've noticed...", type: "normal" },
+            { time: "1:05", text: "Don't fight it. The darkness behind your eyelids is not empty...", type: "creepy" },
+            { time: "1:14", text: "It breathes with you. It has always breathed with you...", type: "creepy" },
+            { time: "1:23", text: "The void is warm... surrender is rest...", type: "creepy" },
+            { time: "1:32", text: "Do you hear me? Not with your ears... deeper...", type: "creepy" },
+            { time: "1:41", text: "The Sunwell's light is so bright... wouldn't it be nice if someone dimmed it...", type: "creepy" },
+            { time: "1:52", text: "You were never meant to carry the light alone. Let it go...", type: "creepy" },
+            { time: "2:03", text: "Azeroth sleeps too, you know. Even worldsouls dream...", type: "creepy" },
+            { time: "2:14", text: "The Midnight is not an ending. It is a lullaby for an entire world...", type: "creepy" },
+            { time: "2:26", text: "Shh... you're doing so well... just a little deeper now...", type: "creepy" },
+            { time: "2:38", text: "Can you see it? The eye? Don't look away... it's rude...", type: "creepy" },
+            { time: "2:50", text: "When you wake, you won't remember this part. But I will...", type: "creepy" },
+            { time: "3:01", text: "Sleep now, little mortal. We have so much work to do together...", type: "creepy" },
+            { time: "3:12", text: "[session complete... or is it?]", type: "creepy" },
+        ];
+
+        // ===== PLAYER LOGIC =====
+        let isPlaying = false;
+        let currentLine = 0;
+        let playProgress = 0;
+        let playInterval = null;
+
+        const playBtn = document.getElementById('playBtn');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const transcriptLive = document.getElementById('transcriptLive');
+        const transcriptEl = document.getElementById('transcript');
+        const transcriptContainer = document.getElementById('transcriptContainer');
+        const currentTimeEl = document.getElementById('currentTime');
+
+        const totalSeconds = 3 * 60 + 12; // 3:12
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        function timeToSeconds(timeStr) {
+            const parts = timeStr.split(':');
+            return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+        }
+
+        function showTranscriptLine(index) {
+            if (index >= transcriptLines.length) return;
+            const data = transcriptLines[index];
+
+            const line = document.createElement('div');
+            line.className = 'transcript-line' + (data.type === 'creepy' ? ' creepy' : '');
+            line.innerHTML = '<span class="timestamp">' + data.time + '</span>' + data.text;
+
+            transcriptEl.appendChild(line);
+
+            // Remove active from previous
+            const allLines = transcriptEl.querySelectorAll('.transcript-line');
+            allLines.forEach(l => l.classList.remove('active'));
+
+            requestAnimationFrame(() => {
+                line.classList.add('visible', 'active');
+                transcriptContainer.scrollTop = transcriptContainer.scrollHeight;
+            });
+        }
+
+        function updateWaveform(progress) {
+            const filledBars = Math.floor(progress * barCount);
+            bars.forEach((bar, i) => {
+                if (i <= filledBars) {
+                    bar.classList.add('played');
+                } else {
+                    bar.classList.remove('played');
+                }
+            });
+        }
+
+        function tick() {
+            playProgress += 0.2;
+            if (playProgress >= totalSeconds) {
+                stopPlaying();
+                return;
+            }
+
+            const progress = playProgress / totalSeconds;
+            updateWaveform(progress);
+            currentTimeEl.textContent = formatTime(playProgress);
+
+            // Check if we should show next transcript line
+            if (currentLine < transcriptLines.length) {
+                const nextLineTime = timeToSeconds(transcriptLines[currentLine].time);
+                if (playProgress >= nextLineTime) {
+                    showTranscriptLine(currentLine);
+                    currentLine++;
+                }
+            }
+        }
+
+        function startPlaying() {
+            isPlaying = true;
+            playBtn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>';
+            nowPlaying.style.display = 'flex';
+            transcriptLive.style.display = 'inline';
+            playInterval = setInterval(tick, 200);
+        }
+
+        function stopPlaying() {
+            isPlaying = false;
+            playBtn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
+            nowPlaying.style.display = 'none';
+            transcriptLive.style.display = 'none';
+            clearInterval(playInterval);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopPlaying();
+            } else {
+                startPlaying();
+            }
+        });
+
+        // Waveform click to seek
+        waveformEl.addEventListener('click', (e) => {
+            const rect = waveformEl.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const progress = clickX / rect.width;
+            playProgress = progress * totalSeconds;
+            updateWaveform(progress);
+            currentTimeEl.textContent = formatTime(playProgress);
+
+            // Reset transcript to match
+            transcriptEl.innerHTML = '';
+            currentLine = 0;
+            for (let i = 0; i < transcriptLines.length; i++) {
+                if (timeToSeconds(transcriptLines[i].time) <= playProgress) {
+                    showTranscriptLine(i);
+                    currentLine = i + 1;
+                }
+            }
+        });
+
+        // ===== CANCELLATION =====
+        const cancelBtn = document.getElementById('cancelBtn');
+        const cancelError = document.getElementById('cancelError');
+        const cancelMessages = [
+            "Request denied. Xal'atath does not accept this.",
+            "Your cancellation has been forwarded to the void. The void is not accepting messages at this time.",
+            "Error 404: Free will not found.",
+            "Processing... processing... she says no.",
+            "Your subscription predates your request. Temporal paradox detected.",
+            "We've upgraded you to Communion instead. You're welcome.",
+            "The unsubscribe button is a courtesy. It does not function.",
+            "Cancellation requires approval from Xal'atath. She is busy. She is always busy.",
+            "You cannot unhear what has been heard. You cannot unsleep what has been slept.",
+            "Your request has made her laugh. She rarely laughs. Thank you for this gift.",
+        ];
+        let cancelAttempt = 0;
+
+        cancelBtn.addEventListener('click', () => {
+            cancelError.style.display = 'block';
+            cancelError.textContent = cancelMessages[cancelAttempt % cancelMessages.length];
+            cancelAttempt++;
+
+            // Make button text increasingly desperate
+            const btnTexts = [
+                "Process Cancellation",
+                "Try Again",
+                "Please?",
+                "Let Me Go",
+                "I'm Begging",
+                "...",
+                "She's watching",
+                "It's too late",
+                "Accept Your Rest",
+                "&#x1F441;"
+            ];
+            cancelBtn.innerHTML = btnTexts[Math.min(cancelAttempt, btnTexts.length - 1)];
+        });
+    </script>
+</body>
+</html>

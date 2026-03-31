@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hourly Forecast — Azeroth Weather Service</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>
+        <a href="index.html">Home</a> &middot;
+        <a href="alerts.html">All Alerts</a> &middot;
+        <a href="about.html">About AWS</a>
+      </div>
+      <div>
+        Server Time: <span id="server-time"></span> AST &middot; Realm Status: <span style="color:#66cc44;">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo">
+        <div class="logo-icon">⛈️</div>
+        <div class="logo-text">
+          <h1>Azeroth Weather Service</h1>
+          <div class="tagline">Official Meteorological Authority Since Year 24</div>
+        </div>
+      </div>
+      <div class="header-search">
+        <label for="zone-select-header" style="font-size:10px;color:#5a7a9a;">Zone:</label>
+        <select id="zone-select-header" class="zone-select"></select>
+        <button class="btn-go" onclick="document.getElementById('zone-select-header').dispatchEvent(new Event('change'))">Go</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">Forecast</a>
+      <a href="hourly.html" class="nav-link active">Hourly</a>
+      <a href="alerts.html" class="nav-link">Severe Weather</a>
+      <a href="marine.html" class="nav-link">Marine</a>
+      <a href="aviation.html" class="nav-link">Aviation</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- Ticker -->
+  <div class="ticker-strip">
+    <div class="ticker-content" id="ticker"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="page-wrap">
+    <div class="content-main">
+
+      <!-- Zone title -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>24-Hour Forecast — <span id="hourly-zone-name"></span></h2>
+          <span class="panel-link update-time" id="update-time"></span>
+        </div>
+        <div class="panel-body" style="padding:4px 10px 10px;">
+          <div style="font-size:10px;color:#5a7a9a;margin-bottom:6px;">
+            Hourly conditions for the next 24 hours. Current hour highlighted.
+            All times in Azeroth Standard Time (AST).
+          </div>
+        </div>
+      </div>
+
+      <!-- Temperature line graph -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Hourly Temperature</h2>
+        </div>
+        <div class="panel-body" style="padding:4px;">
+          <div class="graph-wrap" id="hourly-temp-graph"></div>
+        </div>
+      </div>
+
+      <!-- Wind speed graph -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Hourly Wind Speed</h2>
+        </div>
+        <div class="panel-body" style="padding:4px;">
+          <div class="graph-wrap" id="hourly-wind-graph"></div>
+        </div>
+      </div>
+
+      <!-- Humidity graph -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Hourly Humidity</h2>
+        </div>
+        <div class="panel-body" style="padding:4px;">
+          <div class="graph-wrap" id="hourly-humidity-graph"></div>
+        </div>
+      </div>
+
+      <!-- Hourly table -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Hour-by-Hour Detail</h2>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="hourly-table">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding-left:8px;">Time</th>
+                <th></th>
+                <th>Conditions</th>
+                <th>Temp</th>
+                <th>Feels Like</th>
+                <th>Humidity</th>
+                <th>Wind (km/h)</th>
+              </tr>
+            </thead>
+            <tbody id="hourly-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="content-sidebar">
+
+      <div class="sidebar-ad">
+        <img src="goblin.jpg" alt="Goblin Weather Instruments™ — 60% accurate, 100% overpriced">
+      </div>
+
+      <!-- Quick current conditions -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Current — <span id="sidebar-zone"></span></div>
+        <div class="mini-panel-body text-center">
+          <div style="font-size:36px;" id="sidebar-icon"></div>
+          <div style="font-family:Georgia,serif;font-size:28px;color:#1a3050;" id="sidebar-temp"></div>
+          <div style="font-size:10px;color:#5a7a9a;" id="sidebar-cond"></div>
+        </div>
+      </div>
+
+      <div class="mini-panel">
+        <div class="mini-panel-header">Peak Conditions Today</div>
+        <div class="mini-panel-body" style="font-size:10px;line-height:1.7;" id="peak-conditions"></div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    Azeroth Weather Service &copy; Year 24–34 of the Third War. All rights reserved.<br>
+    A division of the Kirin Tor Meteorological Bureau, Dalaran.<br>
+    <a href="about.html">About</a> &middot; <a href="alerts.html">Alerts</a> &middot;
+    <a href="index.html">Forecast</a>
+  </footer>
+
+  <script src="weather-data.js"></script>
+  <script>
+    (function() {
+      populateZoneSelects();
+      const zone = getCurrentZone();
+      const zoneId = getCurrentZoneId();
+
+      // Server time
+      function updateServerTime() {
+        const now = new Date();
+        document.getElementById('server-time').textContent =
+          `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      }
+      updateServerTime();
+      setInterval(updateServerTime, 1000);
+
+      document.getElementById('ticker').innerHTML = buildTickerContent();
+      document.getElementById('hourly-zone-name').textContent = zone.name;
+      document.getElementById('update-time').textContent = getUpdateTime();
+
+      // Sidebar
+      document.getElementById('sidebar-zone').textContent = zone.name;
+      document.getElementById('sidebar-icon').textContent = zone.currentIcon;
+      document.getElementById('sidebar-temp').innerHTML = zone.currentTemp + '<sup style="font-size:14px;color:#5a7a9a;">°C</sup>';
+      document.getElementById('sidebar-cond').textContent = zone.currentCondition;
+
+      // Generate hourly data
+      const hourly = generateHourly(zone);
+      const currentHour = new Date().getHours();
+
+      // Hourly table
+      const tbody = document.getElementById('hourly-body');
+      hourly.forEach((h, i) => {
+        const tr = document.createElement('tr');
+        if (i === currentHour) tr.className = 'h-now';
+        tr.innerHTML = `
+          <td class="h-time">${h.hour}${i === currentHour ? ' ◀' : ''}</td>
+          <td class="h-icon">${h.icon}</td>
+          <td style="color:#8ab4d6;">${h.cond}</td>
+          <td class="h-temp">${h.temp}°</td>
+          <td class="h-feels">${h.feelsLike}°</td>
+          <td>${h.humidity}%</td>
+          <td>${h.wind}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // Temperature graph
+      document.getElementById('hourly-temp-graph').innerHTML =
+        '<div class="graph-label">Temperature (°C) — 24 hours</div>' +
+        svgLineGraph(hourly.map(h => ({ label: h.hour.substring(0,2), value: h.temp })), {
+          width: 620, height: 130, color: '#ffd100', fillBelow: true,
+        });
+
+      // Wind graph
+      document.getElementById('hourly-wind-graph').innerHTML =
+        '<div class="graph-label">Wind Speed (km/h) — 24 hours</div>' +
+        svgLineGraph(hourly.map(h => ({ label: h.hour.substring(0,2), value: h.wind })), {
+          width: 620, height: 110, color: '#88ccff', fillBelow: true, minVal: 0,
+        });
+
+      // Humidity graph
+      document.getElementById('hourly-humidity-graph').innerHTML =
+        '<div class="graph-label">Humidity (%) — 24 hours</div>' +
+        svgLineGraph(hourly.map(h => ({ label: h.hour.substring(0,2), value: h.humidity })), {
+          width: 620, height: 110, color: '#66aacc', fillBelow: true, minVal: 0, maxVal: 100,
+        });
+
+      // Peak conditions
+      const maxTemp = Math.max(...hourly.map(h => h.temp));
+      const minTemp = Math.min(...hourly.map(h => h.temp));
+      const maxWind = Math.max(...hourly.map(h => h.wind));
+      const peakHour = hourly.find(h => h.temp === maxTemp);
+      const lowHour = hourly.find(h => h.temp === minTemp);
+      document.getElementById('peak-conditions').innerHTML =
+        `<strong class="text-gold">Peak High:</strong> ${maxTemp}°C at ${peakHour.hour}<br>` +
+        `<strong class="text-frost">Daily Low:</strong> ${minTemp}°C at ${lowHour.hour}<br>` +
+        `<strong class="text-warn">Max Wind:</strong> ${maxWind} km/h<br>` +
+        `<strong>Avg Humidity:</strong> ${Math.round(hourly.reduce((s,h) => s+h.humidity, 0) / 24)}%`;
+    })();
+  </script>
+</body>
+</html>

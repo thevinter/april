@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marine Forecast — Azeroth Weather Service</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>
+        <a href="index.html">Home</a> &middot;
+        <a href="alerts.html">All Alerts</a> &middot;
+        <a href="about.html">About AWS</a>
+      </div>
+      <div>
+        Server Time: <span id="server-time"></span> AST &middot; Realm Status: <span style="color:#66cc44;">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo">
+        <div class="logo-icon">⛈️</div>
+        <div class="logo-text">
+          <h1>Azeroth Weather Service</h1>
+          <div class="tagline">Official Meteorological Authority Since Year 24</div>
+        </div>
+      </div>
+      <div class="header-search">
+        <label for="zone-select-header" style="font-size:10px;color:#6a8bb5;">Zone:</label>
+        <select id="zone-select-header" class="zone-select"></select>
+        <button class="btn-go" onclick="document.getElementById('zone-select-header').dispatchEvent(new Event('change'))">Go</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">Forecast</a>
+      <a href="hourly.html" class="nav-link">Hourly</a>
+      <a href="alerts.html" class="nav-link">Severe Weather</a>
+      <a href="marine.html" class="nav-link active">Marine</a>
+      <a href="aviation.html" class="nav-link">Aviation</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- Ticker -->
+  <div class="ticker-strip">
+    <div class="ticker-content" id="ticker"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="page-full">
+
+    <div class="panel" style="margin-top:10px;">
+      <div class="panel-header" style="background:linear-gradient(to bottom,#c5daf0,#b8cce4);">
+        <h2>🌊 Marine &amp; Coastal Forecast</h2>
+        <span class="panel-link update-time" id="update-time"></span>
+      </div>
+      <div class="panel-body" style="padding:8px 12px;font-size:11px;color:#3a5575;line-height:1.6;">
+        Marine forecasts for all coastal zones of Azeroth. Issued by the AWS Maritime Division,
+        Booty Bay Regional Office. Landlocked zones include nearest water body advisories.
+        <strong>Disclaimer:</strong> The AWS is not responsible for naga attacks, pirate encounters,
+        or sea monster incidents occurring in forecast waters.
+      </div>
+    </div>
+
+    <!-- Tide Chart (simulated) -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Azeroth Tidal Pattern — Today</h2>
+      </div>
+      <div class="panel-body" style="padding:4px;">
+        <div class="graph-wrap" id="tide-chart"></div>
+      </div>
+    </div>
+
+    <!-- Sea Temperature Comparison -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Sea Surface Temperature — Coastal Zones</h2>
+      </div>
+      <div class="panel-body" style="padding:4px;">
+        <div class="graph-wrap" id="sea-temp-graph"></div>
+      </div>
+    </div>
+
+    <!-- Zone Marine Cards -->
+    <div id="marine-zones"></div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    Azeroth Weather Service &copy; Year 24–34 of the Third War. All rights reserved.<br>
+    A division of the Kirin Tor Meteorological Bureau — Maritime Division, Booty Bay.<br>
+    "We track the tides so you don't have to. Pirate encounters not included in forecast."<br>
+    <a href="about.html">About</a> &middot; <a href="alerts.html">Alerts</a> &middot;
+    <a href="index.html">Forecast</a>
+  </footer>
+
+  <script src="weather-data.js"></script>
+  <script>
+    (function() {
+      populateZoneSelects();
+
+      function updateServerTime() {
+        const now = new Date();
+        document.getElementById('server-time').textContent =
+          `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      }
+      updateServerTime();
+      setInterval(updateServerTime, 1000);
+
+      document.getElementById('ticker').innerHTML = buildTickerContent();
+      document.getElementById('update-time').textContent = getUpdateTime();
+
+      // Tide chart — fake sinusoidal tide pattern
+      const tideData = [];
+      for (let h = 0; h < 24; h++) {
+        // Two high tides, two low tides per day
+        const val = Math.round((Math.sin(h * Math.PI / 6) * 1.2 + Math.sin(h * Math.PI / 6.2 + 1) * 0.8) * 100) / 100;
+        tideData.push({ label: String(h).padStart(2,'0'), value: val });
+      }
+      document.getElementById('tide-chart').innerHTML =
+        '<div class="graph-label">Tide Height (m relative to mean) — White Lady & Blue Child dual tidal influence</div>' +
+        svgLineGraph(tideData, { width: 940, height: 130, color: '#4488cc', fillBelow: true });
+
+      // Sea temperature comparison for coastal zones
+      const coastalZones = [];
+      for (const [id, zone] of Object.entries(ZONES)) {
+        const marine = MARINE_DATA[id];
+        if (marine && marine.coastal) {
+          coastalZones.push({ id, zone, marine });
+        }
+      }
+      document.getElementById('sea-temp-graph').innerHTML =
+        '<div class="graph-label">Sea Surface Temperature (°C)</div>' +
+        svgBarGraph(coastalZones.map(c => ({
+          label: c.zone.name.length > 9 ? c.zone.name.substring(0,8) + '…' : c.zone.name,
+          value: c.marine.seaTemp,
+          color: c.marine.seaTemp > 30 ? '#ff4422' : c.marine.seaTemp > 20 ? '#ff8c4a' : c.marine.seaTemp > 10 ? '#ffd100' : '#88ccff',
+        })), { width: 940, height: 150, unit: '°C' });
+
+      // Zone marine cards
+      const container = document.getElementById('marine-zones');
+      ZONE_LIST.forEach(z => {
+        const zone = ZONES[z.id];
+        const marine = MARINE_DATA[z.id];
+        if (!marine) return;
+
+        const card = document.createElement('div');
+        card.className = 'marine-zone-card';
+
+        if (marine.coastal) {
+          card.innerHTML = `
+            <div class="marine-zone-header">
+              <h3>🌊 ${zone.name} — ${marine.seaName}</h3>
+              <span style="font-size:10px;color:#7a8ea5;">${zone.currentIcon} ${zone.currentTemp}°C</span>
+            </div>
+            <div class="marine-zone-body">
+              <div class="marine-stats">
+                <div class="marine-stat">
+                  <div class="ms-label">Sea Temp</div>
+                  <div class="ms-value ${marine.seaTemp > 25 ? 'warm' : 'cold'}">${marine.seaTemp}°C</div>
+                </div>
+                <div class="marine-stat">
+                  <div class="ms-label">Wave Height</div>
+                  <div class="ms-value">${marine.waveHeight}</div>
+                </div>
+                <div class="marine-stat">
+                  <div class="ms-label">Tide</div>
+                  <div class="ms-value" style="font-size:12px;">${marine.tideStatus}</div>
+                </div>
+                <div class="marine-stat">
+                  <div class="ms-label">Swell Dir</div>
+                  <div class="ms-value">${marine.swellDir}</div>
+                </div>
+                <div class="marine-stat">
+                  <div class="ms-label">Swell Period</div>
+                  <div class="ms-value">${marine.swellPeriod}</div>
+                </div>
+                <div class="marine-stat">
+                  <div class="ms-label">Visibility</div>
+                  <div class="ms-value" style="font-size:12px;">${marine.visibility}</div>
+                </div>
+              </div>
+              <div class="marine-advisory">
+                <strong style="color:#1a3050;">⚓ Marine Advisory:</strong> ${marine.currentAdvisory}
+              </div>
+            </div>`;
+        } else {
+          card.innerHTML = `
+            <div class="marine-zone-header">
+              <h3>🏔️ ${zone.name} — Landlocked</h3>
+              <span style="font-size:10px;color:#7a8ea5;">${zone.currentIcon} ${zone.currentTemp}°C</span>
+            </div>
+            <div class="marine-zone-body">
+              <div class="marine-advisory">
+                <strong style="color:#7a8ea5;">ℹ️ Note:</strong> ${marine.currentAdvisory}
+              </div>
+            </div>`;
+        }
+
+        container.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>

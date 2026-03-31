@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Azeroth Weather Service</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>
+        <a href="index.html">Home</a> &middot;
+        <a href="alerts.html">All Alerts</a> &middot;
+        <a href="about.html">About AWS</a>
+      </div>
+      <div>
+        Server Time: <span id="server-time"></span> AST &middot; Realm Status: <span style="color:#66cc44;">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo">
+        <div class="logo-icon">⛈️</div>
+        <div class="logo-text">
+          <h1>Azeroth Weather Service</h1>
+          <div class="tagline">Official Meteorological Authority Since Year 24</div>
+        </div>
+      </div>
+      <div class="header-search">
+        <label for="zone-select-header" style="font-size:10px;color:#5a7a9a;">Zone:</label>
+        <select id="zone-select-header" class="zone-select"></select>
+        <button class="btn-go" onclick="document.getElementById('zone-select-header').dispatchEvent(new Event('change'))">Go</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">Forecast</a>
+      <a href="hourly.html" class="nav-link">Hourly</a>
+      <a href="alerts.html" class="nav-link">Severe Weather</a>
+      <a href="marine.html" class="nav-link">Marine</a>
+      <a href="aviation.html" class="nav-link">Aviation</a>
+      <a href="about.html" class="nav-link active">About</a>
+    </div>
+  </nav>
+
+  <!-- About Content -->
+  <div class="page-wrap">
+    <div class="content-main">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>About the Azeroth Weather Service</h2>
+        </div>
+        <div class="panel-body about-content">
+
+          <div class="npc-portrait">
+            <img src="stormsong.png" alt="Chief Meteorologist Stormsong">
+          </div>
+
+          <h2>Our Mission</h2>
+          <p>
+            The <strong>Azeroth Weather Service</strong> (AWS) is the official meteorological authority
+            for the world of Azeroth and its connected realms. Established in <strong>Year 24 of the Third War</strong>
+            by a joint charter of the Kirin Tor and the Explorers' League, our mission is to provide accurate,
+            timely, and occasionally survivable weather information to the citizens of Azeroth, regardless of
+            faction affiliation.
+          </p>
+          <p>
+            We monitor weather conditions across <strong>four continents</strong>, <strong>fourteen major zones</strong>,
+            and an ever-increasing number of pocket dimensions, alternate timelines, and afterlife realms that
+            Azerothian adventurers insist on visiting.
+          </p>
+
+          <blockquote>
+            "Our forecast accuracy rate of approximately 12% may seem low, but consider that we are
+            forecasting weather on a planet where dragons can rearrange the climate, void entities corrupt
+            the atmosphere, and an entire continent was shattered by a dragon bursting through the ocean floor.
+            We're doing our best."
+            <br><br>
+            — <em>Chief Meteorologist Thaddeus Stormsong, addressing the Stormwind Senate, Year 31</em>
+          </blockquote>
+
+          <div style="clear:both;"></div>
+
+          <h2>Our History</h2>
+
+          <h3>Year 24 — Founding</h3>
+          <p>
+            Founded in the aftermath of the Third War, when it became clear that the existing weather prediction
+            methods (asking a shaman to sniff the wind) were insufficient for a world facing increasingly
+            apocalyptic weather events. The Kirin Tor provided arcane sensing equipment; the Explorers' League
+            provided dwarves willing to stand on mountaintops holding instruments.
+          </p>
+
+          <h3>Year 26 — The Burning Crusade Expansion</h3>
+          <p>
+            AWS expanded operations to Outland, a shattered planet floating in the Twisting Nether. Our meteorologists
+            reported that weather on Outland "doesn't really work the way weather should work" and requested
+            hazard pay. They did not receive it. The Zangarmarsh office has been requesting dehumidifiers since day one.
+          </p>
+
+          <div class="npc-portrait">
+            <img src="gnome.jpg" alt="Radar Technician Fizzlesprocket">
+          </div>
+
+          <h3>Year 27 — Wrath of the Lich King</h3>
+          <p>
+            Northrend operations began. Our Icecrown correspondent lasted four hours before requesting transfer.
+            We have gone through 347 Icecrown correspondents since then. The position is always open.
+            Our attempts to measure wind chill at the Frozen Throne were abandoned when the thermometer
+            achieved sentience and begged to be taken somewhere warm.
+          </p>
+
+          <h3>Year 28 — The Cataclysm</h3>
+          <p>
+            Deathwing's emergence fundamentally altered weather patterns across Azeroth. Thousand Needles flooded
+            permanently. Our entire canyon weather station was submerged. The Thousand Needles regional office
+            now operates from the Speedbarge, which we are told is "totally safe" by the goblins who own it.
+            Our forecast models had to be completely rebuilt. They are now slightly less wrong than before.
+          </p>
+
+          <h3>Year 30 — Mists of Pandaria</h3>
+          <p>
+            Discovery of Pandaria added an entire continent of weather systems we had never encountered, including
+            "sha-corrupted precipitation" and "mantid swarm fronts." Our Pandaria team reported the weather as
+            "beautiful but haunted" which is technically accurate for most of Azeroth.
+          </p>
+
+          <h3>Year 32 — The Burning of Teldrassil</h3>
+          <p>
+            The single worst weather event in AWS history. Our Darkshore office reported "fire" followed by
+            "more fire" followed by silence. The entire Darkshore forecast model was replaced with a single
+            entry that reads "fire." We have not had reason to update it since. Our condolences to the
+            night elf community. Our Darkshore correspondent position is also always open (must be fireproof).
+          </p>
+
+          <div style="clear:both;"></div>
+
+          <h2>Our Team</h2>
+
+          <div class="npc-portrait">
+            <img src="orc.jpg" alt="Field Reporter Grok'thar">
+          </div>
+
+          <p><strong>Chief Meteorologist Thaddeus Stormsong</strong> — Kul Tiran human. 30 years experience.
+          Has personally survived 14 hurricanes, 3 volcanic eruptions, 1 Cataclysm, and an encounter with
+          C'Thun that he refuses to discuss. His "feels like" temperature calculations incorporating Old God
+          proximity were initially mocked but have since been validated by the Kirin Tor.</p>
+
+          <p><strong>Radar Technician Trixie Fizzlesprocket</strong> — Gnome. Operates the Gnomeregan Remote
+          Sensing Array, our primary radar system. The radar works approximately 60% of the time. The other 40%,
+          it picks up transmissions from alternate timelines, which Fizzlesprocket insists are "also useful data."</p>
+
+          <p><strong>Field Reporter Grok'thar</strong> — Orc. Based in Durotar. Has reported the weather as
+          "hot" every single day for six years. His reports are always accurate. He has requested transfer
+          to Nagrand 847 times. Request pending.</p>
+
+          <div class="npc-portrait">
+            <img src="elf.png" alt="Marine Forecaster Tidehunter">
+          </div>
+
+          <p><strong>Marine Forecaster Elara Tidehunter</strong> — Night elf. Specializes in oceanic and
+          coastal weather. Was formerly stationed in Darkshore before the incident. Now operates from Booty Bay,
+          where she monitors tropical storms and "pirate-related weather disturbances." She is not okay but
+          she is professional.</p>
+
+          <p><strong>Undead Weather Specialist Mortuus</strong> — Forsaken. Tirisfal Glades correspondent.
+          Unique qualification: cannot be killed by plague winds. Reports the weather with clinical detachment.
+          His forecast style has been described as "accurate but deeply unsettling."</p>
+
+          <div style="clear:both;"></div>
+
+          <h2>Technology</h2>
+          <p>
+            Our weather monitoring infrastructure includes:
+          </p>
+          <ul style="margin-left:20px;margin-bottom:10px;line-height:2;">
+            <li><strong>Gnomeregan Remote Sensing Array</strong> — Arcane-powered radar system. Detects precipitation, magical energy fronts, and Old God corruption vectors. Operational status: "mostly."</li>
+            <li><strong>Kirin Tor Scrying Network</strong> — 47 scrying stations across Azeroth. Each station is maintained by a mage who has been told this is "important work" and "not a punishment posting."</li>
+            <li><strong>Earthen Ring Seismic Sensors</strong> — Shaman-operated tectonic monitoring. Particularly critical since the Cataclysm, when "is the ground going to explode" became a valid weather question.</li>
+            <li><strong>Explorer's League Mountaintop Stations</strong> — Dwarven weather stations on every major peak. Staffed by dwarves who describe the work as "cold, lonely, and there's not enough ale."</li>
+            <li><strong>Arcane Barometric Pressure Units (APU)</strong> — Our proprietary pressure measurement system, which accounts for both atmospheric pressure and ambient magical field strength.</li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+
+          <h3>Q: Why is your forecast accuracy only 12%?</h3>
+          <p>A: Because Azeroth's weather is influenced by dragon aspects, titan facilities, Old God corruption,
+          interdimensional rifts, demonic invasions, and the occasional warchief deciding to burn down a
+          world tree. We challenge you to do better.</p>
+
+          <h3>Q: Why does the "Feels Like" temperature account for Old God proximity?</h3>
+          <p>A: Peer-reviewed research published in the Dalaran Journal of Atmospheric Sciences (Year 29)
+          confirmed that proximity to Old God entities produces measurable temperature anomalies, typically
+          manifesting as an inexplicable chill, existential dread, and a vague sense that reality is thinner
+          than it should be. These factors meaningfully impact perceived temperature.</p>
+
+          <h3>Q: Will Darkshore ever stop being on fire?</h3>
+          <p>A: Our models suggest no. We have been wrong before (88% of the time), so there is hope.</p>
+
+          <h3>Q: Is Nagrand actually that perfect or is the weather station broken?</h3>
+          <p>A: We have replaced the Nagrand weather station four times. Every station reports the same thing:
+          23°C, gentle breeze, perfect visibility. We have no explanation. Our leading theory is that the
+          Titans specifically designed Nagrand to make everywhere else look bad.</p>
+
+          <h3>Q: How do I apply for a position?</h3>
+          <p>A: We are always hiring for Icecrown, Darkshore, and Tirisfal. No experience necessary.
+          Life insurance not provided. Resurrection services negotiable (Horde employees only, per HR policy).
+          Send inquiries to the Kirin Tor Meteorological Bureau, Dalaran (whichever version of Dalaran is
+          currently floating in the sky — check before mailing).</p>
+
+          <h2>Contact</h2>
+          <p>
+            <strong>Mailing Address:</strong> Kirin Tor Meteorological Bureau, Dalaran (Broken Isles), Level 3, Next to the Inscription Trainer<br>
+            <strong>Hearthstone Frequency:</strong> Channel 7 (Weather) — Note: frequently jammed by Barrens Chat bleed-through<br>
+            <strong>Emergency:</strong> Signal any Kirin Tor mage. If no mage is available, yell loudly. Someone will probably hear you.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="content-sidebar">
+
+      <!-- AD PLACEHOLDER -->
+      <div class="sidebar-ad">
+        <img src="dalaran].jpg" alt="Dalaran Portals Inc. — Skip the weather, teleport!">
+      </div>
+
+      <!-- Quick Facts -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">AWS Quick Facts</div>
+        <div class="mini-panel-body" style="font-size:10px;line-height:1.7;">
+          <strong class="text-gold">Founded:</strong> Year 24 of the Third War<br>
+          <strong class="text-gold">Headquarters:</strong> Dalaran<br>
+          <strong class="text-gold">Employees:</strong> 214 (47 deceased, still reporting)<br>
+          <strong class="text-gold">Zones Covered:</strong> 14 major, 60+ minor<br>
+          <strong class="text-gold">Radar Stations:</strong> 8 (5 operational)<br>
+          <strong class="text-gold">Accuracy Rate:</strong> ~12%<br>
+          <strong class="text-gold">Motto:</strong> "Probably accurate."<br>
+          <strong class="text-gold">Casualties (YTD):</strong> 3 (acceptable)<br>
+        </div>
+      </div>
+
+      <!-- AD PLACEHOLDER 2 -->
+      <div class="sidebar-ad-small sidebar-ad-contain">
+        <img src="noggen.jpg" alt="Noggenfogger Elixir — Refreshing in ANY climate!">
+      </div>
+
+      <!-- Awards -->
+      <div class="mini-panel">
+        <div class="mini-panel-header">Awards &amp; Recognition</div>
+        <div class="mini-panel-body" style="font-size:10px;line-height:1.7;color:#5a7a9a;">
+          🏆 "Least Inaccurate Weather Service" — Gadgetzan Times, Year 30<br>
+          🏆 "Most Entertaining Emergency Alerts" — Booty Bay Gazette, Year 31<br>
+          🏆 "Still Technically Operational" — Kirin Tor Annual Review, Year 33<br>
+          🏆 "Best Workplace for Undead Meteorologists" — Undercity Weekly (dissolved)
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    Azeroth Weather Service &copy; Year 24–34 of the Third War. All rights reserved.<br>
+    A division of the Kirin Tor Meteorological Bureau, Dalaran.<br>
+    "Probably accurate." &trade;<br>
+    <a href="index.html">Forecast</a> &middot; <a href="alerts.html">Alerts</a> &middot;
+    <a href="about.html">About</a>
+  </footer>
+
+  <script src="weather-data.js"></script>
+  <script>
+    (function() {
+      populateZoneSelects();
+
+      // Server time
+      function updateServerTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        document.getElementById('server-time').textContent = `${h}:${m}:${s}`;
+      }
+      updateServerTime();
+      setInterval(updateServerTime, 1000);
+    })();
+  </script>
+
+</body>
+</html>

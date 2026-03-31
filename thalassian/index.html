@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thalassian Rosetta Stone: Learn the Language of the Sin'dorei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --crimson: #A8201A;
+  --crimson-dark: #7A1510;
+  --crimson-light: #D4342C;
+  --gold: #C9A835;
+  --gold-light: #E8CC5A;
+  --gold-pale: #FFF3C4;
+  --gold-dark: #9E7F1B;
+  --sunwell-glow: #FFE066;
+  --arcane: #8B5CF6;
+  --arcane-light: #C4B5FD;
+  --void: #1E1B4B;
+  --bg: #FDFCF8;
+  --bg-warm: #FAF6EE;
+  --bg-card: #FFFFFF;
+  --text: #1A1207;
+  --text-muted: #6B5D3E;
+  --text-light: #9C8E6E;
+  --success: #16A34A;
+  --success-bg: #DCFCE7;
+  --error: #DC2626;
+  --error-bg: #FEE2E2;
+  --border: #E4DABD;
+  --border-light: #EDE6D2;
+  --shadow-sm: 0 1px 2px rgba(26,18,7,0.06), 0 1px 3px rgba(26,18,7,0.08);
+  --shadow-md: 0 2px 4px rgba(26,18,7,0.04), 0 6px 16px rgba(26,18,7,0.08);
+  --shadow-lg: 0 4px 8px rgba(26,18,7,0.04), 0 12px 32px rgba(26,18,7,0.1);
+  --shadow-glow: 0 0 24px rgba(201,168,53,0.25), 0 0 48px rgba(201,168,53,0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.font-display { font-family: 'Cinzel', serif; }
+h1, h2, h3, h4 { font-family: 'Cinzel', serif; line-height: 1.2; }
+
+/* ===== UTILITY ===== */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(135deg, var(--crimson-dark) 0%, var(--crimson) 100%);
+  border-bottom: 3px solid var(--gold);
+  padding: 0 24px;
+  box-shadow: 0 2px 12px rgba(122,21,16,0.25), 0 0 0 1px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px);
+}
+.navbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--gold-light);
+  transition: opacity 0.2s;
+}
+.nav-brand:hover { opacity: 0.9; }
+.nav-brand svg { flex-shrink: 0; }
+.nav-brand-text {
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px;
+  letter-spacing: 0.3px;
+}
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: var(--radius-sm);
+  color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 600;
+  transition: all 0.15s;
+}
+.nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.nav-link.active { background: rgba(255,255,255,0.15); color: #fff; }
+.nav-stats {
+  display: flex; align-items: center; gap: 14px;
+}
+.nav-stat {
+  display: flex; align-items: center; gap: 5px;
+  color: var(--gold-light); font-weight: 700; font-size: 14px;
+}
+.nav-stat svg { flex-shrink: 0; }
+.streak-flame { animation: flamePulse 2s ease-in-out infinite; }
+@keyframes flamePulse {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 2px rgba(255,149,0,0.3)); }
+  50% { filter: brightness(1.2) drop-shadow(0 0 6px rgba(255,149,0,0.5)); }
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(170deg, #5A0E0A 0%, var(--crimson) 35%, #B8342E 70%, #C8453F 100%);
+  padding: 56px 24px 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFE066' fill-opacity='0.035'%3E%3Cpath d='M30 0l30 30-30 30L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80%% 60%% at 70%% 40%%, rgba(255,224,102,0.08) 0%%, transparent 70%%);
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,53,0.3), transparent);
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+  position: relative; z-index: 1;
+}
+.hero-content { color: #fff; padding-bottom: 80px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,224,102,0.12); border: 1px solid rgba(255,224,102,0.25);
+  padding: 6px 14px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; color: var(--gold-light);
+  text-transform: uppercase; letter-spacing: 1.2px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 52px; font-weight: 900; line-height: 1.05;
+  margin-bottom: 10px;
+  background: linear-gradient(140deg, #fff 20%, var(--gold-light) 80%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 17px; color: var(--gold-light); font-weight: 600;
+  margin-bottom: 24px; letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+.hero p {
+  font-size: 16px; color: rgba(255,220,210,0.85); margin-bottom: 32px;
+  max-width: 460px; line-height: 1.7;
+}
+.hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px; border-radius: var(--radius-lg); font-weight: 700;
+  font-size: 15px; text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.15s var(--ease-out); font-family: inherit; line-height: 1;
+  position: relative;
+}
+.btn-primary {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  color: var(--crimson-dark);
+  box-shadow: 0 4px 0 var(--gold-dark), 0 4px 12px rgba(158,127,27,0.3);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #F0D868 0%, var(--gold-light) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 var(--gold-dark), 0 6px 16px rgba(158,127,27,0.35);
+}
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--gold-dark);
+  transition-duration: 0.06s;
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.08); color: #fff;
+  border: 2px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(4px);
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4);
+}
+.btn-sm { padding: 10px 20px; font-size: 13px; border-radius: var(--radius-md); }
+.btn-success { background: var(--success); color: #fff; box-shadow: 0 4px 0 #138A3E; }
+.btn-error { background: var(--error); color: #fff; }
+
+/* Hero image */
+.hero-image {
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.hero-image img {
+  width: 65%; height: auto; display: block;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 50%, transparent 100%);
+}
+
+/* Generic image placeholder */
+.img-placeholder {
+  background: var(--bg-warm);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px; text-align: center; color: var(--text-light);
+  font-size: 13px; gap: 8px;
+}
+.img-placeholder .placeholder-dims {
+  font-size: 11px; opacity: 0.6;
+  background: var(--border-light); padding: 3px 10px; border-radius: 100px;
+}
+
+/* ===== SOCIAL PROOF BAR ===== */
+.social-proof {
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--border-light);
+  padding: 18px 24px;
+  position: relative;
+}
+.social-proof::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.social-proof-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center; gap: 36px;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--text-muted); font-weight: 500;
+}
+.proof-number { font-weight: 800; color: var(--crimson); font-variant-numeric: tabular-nums; }
+
+/* ===== SECTION STYLES ===== */
+.section { padding: 88px 24px; }
+.section-dark {
+  background: linear-gradient(180deg, #1C0F0A 0%, #2A1510 100%);
+  color: #F5D0CE;
+  position: relative;
+}
+.section-warm { background: var(--bg-warm); }
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-header h2 {
+  font-size: 34px; font-weight: 700; margin-bottom: 14px; color: var(--crimson-dark);
+  letter-spacing: -0.3px;
+}
+.section-dark .section-header h2 { color: var(--gold-light); }
+.section-header p {
+  font-size: 16px; color: var(--text-muted); max-width: 560px; margin: 0 auto;
+  line-height: 1.6;
+}
+.section-dark .section-header p { color: #D4A8A4; }
+
+/* ===== COURSE PATH ===== */
+.course-path { max-width: 680px; margin: 0 auto; position: relative; }
+.course-path::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--gold), var(--border) 30%, var(--border) 70%, var(--border-light));
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+.path-unit {
+  position: relative; margin-bottom: 48px;
+}
+.path-unit:last-child { margin-bottom: 0; }
+.path-unit-header {
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-dark));
+  color: #fff; padding: 18px 28px;
+  border-radius: var(--radius-lg);
+  text-align: center; position: relative; z-index: 2;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,0,0,0.05);
+}
+.path-unit-header h3 { font-size: 17px; margin-bottom: 3px; letter-spacing: 0.2px; }
+.path-unit-header p { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.path-unit.locked .path-unit-header {
+  background: linear-gradient(135deg, #D4CDB8, #C8C0A8);
+  color: var(--text-muted);
+}
+.path-unit.locked .path-unit-header p { color: var(--text-light); }
+
+.path-lessons {
+  padding: 28px 0 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+
+.lesson-node {
+  width: 68px; height: 68px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800;
+  position: relative; z-index: 2; cursor: pointer;
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s;
+  border: 4px solid;
+}
+.lesson-node.completed {
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  border-color: var(--gold-dark); color: var(--crimson-dark);
+  box-shadow: 0 4px 0 var(--gold-dark), 0 2px 8px rgba(158,127,27,0.2);
+}
+.lesson-node.completed:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 var(--gold-dark), 0 4px 12px rgba(158,127,27,0.25);
+}
+.lesson-node.current {
+  background: linear-gradient(180deg, var(--crimson-light), var(--crimson));
+  border-color: var(--crimson-dark); color: #fff;
+  box-shadow: 0 4px 0 var(--crimson-dark), 0 0 0 6px rgba(168,32,26,0.15);
+  animation: nodePulse 2.5s ease-in-out infinite;
+}
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 4px 0 var(--crimson-dark), 0 0 0 6px rgba(168,32,26,0.15); }
+  50% { box-shadow: 0 4px 0 var(--crimson-dark), 0 0 0 14px rgba(168,32,26,0.06); }
+}
+.lesson-node.locked {
+  background: #E8DFC8; border-color: #D4CDB8; color: #B0A78C;
+  box-shadow: 0 4px 0 #C4BB9E;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.lesson-label {
+  position: absolute; top: 78px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  white-space: nowrap; letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+/* stagger nodes left-right */
+.path-lessons .lesson-node:nth-child(odd) { margin-left: -80px; }
+.path-lessons .lesson-node:nth-child(even) { margin-right: -80px; }
+
+/* ===== FLASHCARD MODULE ===== */
+.flashcard-area {
+  max-width: 520px; margin: 0 auto;
+}
+.flashcard-progress {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+}
+.flashcard-progress-bar {
+  flex: 1; height: 10px; background: var(--border-light);
+  border-radius: 5px; overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+}
+.flashcard-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crimson), var(--crimson-light) 40%, var(--gold));
+  border-radius: 5px; transition: width 0.5s var(--ease-out);
+  position: relative;
+}
+.flashcard-progress-fill::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+  border-radius: 5px;
+}
+.flashcard-progress-text {
+  font-size: 13px; font-weight: 700; color: var(--text-muted);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.flashcard-close {
+  width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--border);
+  background: var(--bg-card); color: var(--text-light); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  transition: all 0.15s;
+}
+.flashcard-close:hover { background: var(--error-bg); border-color: var(--error); color: var(--error); }
+
+.flashcard-container {
+  perspective: 1200px; margin-bottom: 24px;
+}
+.flashcard {
+  width: 100%; min-height: 360px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.02);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 44px 36px; text-align: center;
+}
+.flashcard-back { transform: rotateY(180deg); }
+.flashcard-level-badge {
+  position: absolute; top: 18px; left: 18px;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+}
+.badge-beginner { background: var(--success-bg); color: var(--success); }
+.badge-intermediate { background: #FEF3C7; color: #B45309; }
+.badge-advanced { background: #F3E8FF; color: #7C3AED; }
+.flashcard-audio {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(180deg, var(--crimson-light), var(--crimson));
+  color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; transition: all 0.15s;
+  box-shadow: 0 3px 0 var(--crimson-dark), 0 2px 8px rgba(122,21,16,0.2);
+}
+.flashcard-audio:hover { background: linear-gradient(180deg, #E04038, var(--crimson-light)); }
+.flashcard-audio:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--crimson-dark); }
+.flashcard-phrase {
+  font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700;
+  color: var(--crimson-dark); margin-bottom: 8px; line-height: 1.3;
+}
+.flashcard-pronunciation {
+  font-size: 14px; color: var(--text-light); font-style: italic; margin-bottom: 20px;
+}
+.flashcard-hint {
+  font-size: 13px; color: var(--text-light);
+  padding: 7px 16px; background: var(--bg-warm); border-radius: 100px;
+  border: 1px solid var(--border-light);
+}
+.flashcard-translation {
+  font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 14px;
+}
+.flashcard-context {
+  font-size: 14px; color: var(--text-muted); line-height: 1.65;
+  max-width: 380px; margin-bottom: 18px;
+}
+.flashcard-example {
+  background: var(--bg-warm); padding: 14px 20px; border-radius: var(--radius-md);
+  font-size: 13px; color: var(--text-muted); border-left: 3px solid var(--gold);
+  text-align: left; line-height: 1.6;
+}
+.flashcard-example em { color: var(--crimson); font-style: normal; font-weight: 700; }
+
+.flashcard-actions {
+  display: flex; gap: 12px; justify-content: center;
+}
+.flashcard-btn {
+  flex: 1; max-width: 200px; padding: 14px 24px;
+  border-radius: var(--radius-lg); border: none; cursor: pointer;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  transition: all 0.12s;
+}
+.flashcard-btn.know {
+  background: linear-gradient(180deg, #1DB851, var(--success));
+  color: #fff;
+  box-shadow: 0 4px 0 #138A3E;
+}
+.flashcard-btn.know:hover { filter: brightness(1.05); }
+.flashcard-btn.know:active { transform: translateY(3px); box-shadow: 0 1px 0 #138A3E; }
+.flashcard-btn.dont-know {
+  background: linear-gradient(180deg, #EF4444, var(--error));
+  color: #fff;
+  box-shadow: 0 4px 0 #B91C1C;
+}
+.flashcard-btn.dont-know:hover { filter: brightness(1.05); }
+.flashcard-btn.dont-know:active { transform: translateY(3px); box-shadow: 0 1px 0 #B91C1C; }
+.flashcard-btn.flip-btn {
+  background: var(--bg-card); color: var(--text); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 #D4CDB8;
+  flex: unset; max-width: 100%; width: 100%;
+}
+.flashcard-btn.flip-btn:hover { border-color: var(--gold); background: var(--gold-pale); color: var(--crimson-dark); }
+
+/* ===== SASS METER ===== */
+.sass-tracker {
+  max-width: 560px; margin: 0 auto;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+.sass-tracker::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, #86EFAC, #FDE047, #FB923C, #F472B6, #A855F7);
+}
+.sass-tracker-header {
+  text-align: center; margin-bottom: 28px;
+}
+.sass-tracker-header h3 { font-size: 22px; color: var(--crimson-dark); margin-bottom: 6px; }
+.sass-tracker-header p { font-size: 14px; color: var(--text-muted); }
+.sass-meter {
+  display: flex; align-items: center; gap: 5px; margin-bottom: 16px;
+}
+.sass-segment {
+  flex: 1; height: 14px; border-radius: 7px;
+  background: var(--border-light);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.sass-segment.filled { animation: fillIn 0.5s var(--ease-out) forwards; transform-origin: left center; }
+.sass-segment.filled::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 60%);
+  border-radius: 7px;
+}
+.sass-segment:nth-child(1).filled { background: #86EFAC; }
+.sass-segment:nth-child(2).filled { background: #4ADE80; }
+.sass-segment:nth-child(3).filled { background: #FBBF24; }
+.sass-segment:nth-child(4).filled { background: #FB923C; }
+.sass-segment:nth-child(5).filled { background: #F97316; }
+.sass-segment:nth-child(6).filled { background: #F472B6; }
+.sass-segment:nth-child(7).filled { background: #E879F9; }
+.sass-segment:nth-child(8).filled { background: #C084FC; }
+.sass-segment:nth-child(9).filled { background: #A855F7; }
+.sass-segment:nth-child(10).filled { background: #8B5CF6; }
+@keyframes fillIn {
+  from { transform: scaleX(0); } to { transform: scaleX(1); }
+}
+.sass-labels {
+  display: flex; justify-content: space-between; margin-bottom: 28px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.sass-labels span:first-child { color: #16A34A; }
+.sass-labels span:last-child { color: #7C3AED; }
+.sass-current {
+  text-align: center; padding: 24px 16px;
+  background: var(--bg-warm); border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  border: 1px solid var(--border-light);
+}
+.sass-current .level {
+  font-size: 52px; font-weight: 800; color: var(--crimson);
+  line-height: 1; font-family: 'Cinzel', serif;
+}
+.sass-current .title { font-size: 16px; font-weight: 700; color: var(--text); margin-top: 8px; }
+.sass-current .desc { font-size: 13px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+.sass-milestones { list-style: none; }
+.sass-milestones li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 0; border-bottom: 1px solid var(--border-light);
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+}
+.sass-milestones li:last-child { border-bottom: none; }
+.sass-milestones .level-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--border-light); color: var(--text-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+  margin-top: 1px;
+}
+.sass-milestones li.reached .level-num {
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  color: var(--crimson-dark);
+  box-shadow: 0 2px 4px rgba(158,127,27,0.2);
+}
+.sass-milestones .level-title { font-weight: 700; color: var(--text); }
+
+/* ===== LESSON TABS ===== */
+.lesson-tabs {
+  display: flex; gap: 4px; margin-bottom: 32px;
+  background: var(--border-light); padding: 4px; border-radius: var(--radius-lg);
+  max-width: 520px; margin-left: auto; margin-right: auto;
+}
+.lesson-tab {
+  flex: 1; padding: 10px 16px; border-radius: var(--radius-md);
+  border: none; background: transparent; cursor: pointer;
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  color: var(--text-muted); transition: all 0.15s;
+}
+.lesson-tab.active {
+  background: var(--bg-card); color: var(--crimson);
+  box-shadow: var(--shadow-sm);
+}
+.lesson-tab:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.4); }
+
+/* ===== PHRASE TABLE ===== */
+.phrase-grid {
+  display: grid; gap: 10px; max-width: 700px; margin: 0 auto;
+}
+.phrase-card {
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 18px 22px;
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  transition: all 0.15s;
+}
+.phrase-card:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.phrase-thal {
+  font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700;
+  color: var(--crimson-dark); margin-bottom: 3px; line-height: 1.3;
+}
+.phrase-eng { font-size: 14px; color: var(--text-muted); line-height: 1.4; }
+.phrase-pron { font-size: 12px; color: var(--text-light); font-style: italic; margin-top: 4px; }
+.phrase-audio-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--bg-warm); border: 2px solid var(--border);
+  color: var(--crimson); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.phrase-audio-btn:hover {
+  background: var(--crimson); color: #fff; border-color: var(--crimson);
+  transform: scale(1.05);
+}
+
+/* Sass phrase cards */
+.phrase-card.sass-low { border-left: 4px solid var(--success); }
+.phrase-card.sass-mid { border-left: 4px solid #F59E0B; }
+.phrase-card.sass-high { border-left: 4px solid var(--arcane); }
+.phrase-card.sass-max {
+  border-left: 4px solid var(--crimson);
+  background: linear-gradient(135deg, #FFFBF5, #FFF8EE);
+}
+
+/* ===== CULTURAL NOTES ===== */
+.culture-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;
+}
+.culture-card {
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px;
+  transition: all 0.2s;
+}
+.culture-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.culture-card-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 18px;
+}
+.culture-card-icon.warn { background: #FEF3C7; }
+.culture-card-icon.info { background: #DBEAFE; }
+.culture-card-icon.danger { background: var(--error-bg); }
+.culture-card-icon.tip { background: var(--success-bg); }
+.culture-card h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px; font-weight: 700; margin-bottom: 10px; line-height: 1.3;
+}
+.culture-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+.culture-card .warning-box {
+  margin-top: 14px; padding: 10px 14px;
+  background: #FEF3C7; border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 600; color: #92400E;
+  border: 1px solid #FDE68A;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.testimonial-card {
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px;
+  display: flex; flex-direction: column;
+}
+.testimonial-stars { color: var(--gold); margin-bottom: 14px; font-size: 15px; letter-spacing: 2px; }
+.testimonial-text {
+  font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 20px;
+  font-style: italic; flex: 1;
+}
+.testimonial-author {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 16px; border-top: 1px solid var(--border-light);
+}
+.testimonial-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--bg-warm); border: 2px solid var(--border-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.testimonial-name { font-size: 13px; font-weight: 700; }
+.testimonial-info { font-size: 12px; color: var(--text-muted); }
+
+/* ===== EXERCISE TYPES ===== */
+.exercise-demo {
+  max-width: 520px; margin: 0 auto;
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.exercise-topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; border-bottom: 1px solid var(--border-light);
+  background: var(--bg);
+}
+.exercise-topbar .close-x {
+  width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border);
+  background: none; cursor: pointer; color: var(--text-light);
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+  transition: all 0.15s;
+}
+.exercise-topbar .close-x:hover { border-color: var(--error); color: var(--error); }
+.exercise-progress-track {
+  flex: 1; height: 10px; background: var(--border-light);
+  border-radius: 5px; overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+}
+.exercise-progress-track .fill {
+  height: 100%; width: 35%;
+  background: linear-gradient(90deg, var(--crimson), var(--gold));
+  border-radius: 5px;
+  position: relative;
+}
+.exercise-progress-track .fill::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+  border-radius: 5px;
+}
+.exercise-hearts { display: flex; gap: 2px; color: var(--error); font-size: 14px; }
+.exercise-body { padding: 32px 24px; }
+.exercise-prompt {
+  font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 24px;
+}
+.exercise-source {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px;
+}
+.exercise-source .avatar-placeholder {
+  width: 60px; height: 60px; border-radius: var(--radius-md);
+  border: 2px dashed var(--border); background: var(--bg-warm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-light); flex-shrink: 0;
+}
+.exercise-source .speech-bubble {
+  background: var(--bg-warm); border: 2px solid var(--border);
+  border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg);
+  padding: 14px 20px;
+  font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600;
+  color: var(--crimson-dark);
+  position: relative;
+}
+.word-bank {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  margin-bottom: 24px;
+}
+.word-tile {
+  padding: 10px 18px; background: var(--bg-card);
+  border: 2px solid var(--border); border-radius: var(--radius-md);
+  font-size: 15px; font-weight: 600; color: var(--text);
+  cursor: pointer; transition: all 0.1s;
+  box-shadow: 0 3px 0 #D4CDB8;
+  user-select: none;
+}
+.word-tile:hover { border-color: var(--gold); background: var(--gold-pale); }
+.word-tile:active { transform: translateY(2px); box-shadow: 0 1px 0 #D4CDB8; transition-duration: 0.05s; }
+.word-tile.selected {
+  background: var(--crimson); color: #fff; border-color: var(--crimson-dark);
+  box-shadow: 0 3px 0 var(--crimson-dark);
+}
+.answer-area {
+  min-height: 52px; border-bottom: 2px solid var(--border);
+  margin-bottom: 24px; padding: 8px 0;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.answer-area .word-tile {
+  background: var(--gold-pale); border-color: var(--gold);
+  box-shadow: 0 3px 0 var(--gold-dark);
+}
+.exercise-footer {
+  padding: 16px 24px; background: var(--bg);
+  border-top: 1px solid var(--border-light);
+}
+.exercise-check-btn {
+  width: 100%; padding: 16px; border-radius: var(--radius-lg);
+  border: none; cursor: pointer;
+  font-size: 16px; font-weight: 800; font-family: inherit;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  color: var(--crimson-dark);
+  box-shadow: 0 4px 0 var(--gold-dark);
+  transition: all 0.12s;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.exercise-check-btn:hover { filter: brightness(1.05); }
+.exercise-check-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--gold-dark); }
+
+/* ===== MIDNIGHT BANNER ===== */
+.midnight-banner {
+  background: linear-gradient(135deg, #0A0720 0%, #1E1B4B 45%, #312E81 100%);
+  padding: 64px 24px; text-align: center;
+  border-top: 3px solid var(--arcane);
+  border-bottom: 1px solid rgba(139,92,246,0.2);
+  position: relative; overflow: hidden;
+}
+.midnight-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 70% at 25% 30%, rgba(139,92,246,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 75% 60%, rgba(99,102,241,0.1) 0%, transparent 70%),
+    radial-gradient(circle at 50% 120%, rgba(201,168,53,0.08) 0%, transparent 50%);
+}
+.midnight-banner::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+.midnight-banner-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.midnight-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.35);
+  padding: 6px 14px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; color: var(--arcane-light);
+  text-transform: uppercase; letter-spacing: 1.2px;
+  margin-bottom: 20px;
+}
+.midnight-banner h3 {
+  font-family: 'Cinzel', serif; font-size: 28px; color: #E0E7FF;
+  margin-bottom: 14px;
+}
+.midnight-banner p {
+  font-size: 15px; color: rgba(165,180,252,0.85); max-width: 600px;
+  margin: 0 auto 28px; line-height: 1.7;
+}
+.midnight-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.midnight-tag {
+  padding: 6px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,0.06); color: #C7D2FE;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.15s;
+}
+.midnight-tag:hover { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.3); }
+
+/* ===== PRICING ===== */
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; max-width: 920px; margin: 0 auto;
+  align-items: start;
+}
+.price-card {
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius-xl); padding: 32px 28px;
+  text-align: center; position: relative;
+  transition: all 0.2s;
+}
+.price-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.price-card.featured {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.04);
+  z-index: 1;
+}
+.price-card.featured:hover { transform: scale(1.05) translateY(-2px); }
+.price-card.featured::before {
+  content: 'Most Popular';
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  color: var(--crimson-dark);
+  padding: 5px 18px; border-radius: 100px;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;
+  box-shadow: 0 2px 8px rgba(158,127,27,0.3);
+}
+.price-card h4 { font-size: 20px; margin-bottom: 8px; }
+.price-amount {
+  font-size: 44px; font-weight: 800; color: var(--crimson);
+  margin-bottom: 4px; font-family: 'Cinzel', serif;
+}
+.price-amount span { font-size: 16px; font-weight: 600; color: var(--text-muted); font-family: 'Source Sans 3', sans-serif; }
+.price-period { font-size: 13px; color: var(--text-light); margin-bottom: 24px; line-height: 1.4; }
+.price-features { list-style: none; text-align: left; margin-bottom: 28px; }
+.price-features li {
+  font-size: 14px; color: var(--text-muted); padding: 7px 0;
+  display: flex; align-items: flex-start; gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+.price-features li.disabled { opacity: 0.4; }
+.price-features li.disabled::before { content: '—'; color: var(--text-light); }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: #1C0F0A; color: #A08060; padding: 56px 24px 28px;
+  border-top: 3px solid var(--gold-dark);
+  position: relative;
+}
+.site-footer::before {
+  content: '';
+  position: absolute; top: 3px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,53,0.15), transparent);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  margin-bottom: 44px;
+}
+.footer-brand {
+  font-family: 'Cinzel', serif; font-size: 17px; color: var(--gold);
+  margin-bottom: 14px; letter-spacing: 0.2px;
+}
+.footer-brand-desc { font-size: 13px; line-height: 1.7; color: #806040; }
+.footer-col h5 {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--gold-dark); margin-bottom: 16px;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.footer-col a {
+  display: block; font-size: 13px; color: #A08060; text-decoration: none;
+  padding: 5px 0; transition: color 0.15s;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-size: 12px; color: #604830;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-disclaimer {
+  max-width: 640px; font-size: 11px; color: #504030; line-height: 1.65;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero { padding: 64px 24px 56px; }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  .hero h1 { font-size: 36px; }
+  .hero p { margin: 0 auto 28px; }
+  .hero-cta-group { justify-content: center; }
+  .hero-image { max-width: 400px; margin: 0 auto; }
+  .section { padding: 64px 24px; }
+  .section-header { margin-bottom: 40px; }
+  .section-header h2 { font-size: 28px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .price-card.featured { transform: none; }
+  .price-card.featured:hover { transform: translateY(-2px); }
+  .path-lessons .lesson-node:nth-child(odd) { margin-left: -40px; }
+  .path-lessons .lesson-node:nth-child(even) { margin-right: -40px; }
+  .culture-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .flashcard-phrase { font-size: 22px; }
+  .midnight-banner { padding: 48px 24px; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 30px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .social-proof-inner { gap: 16px; flex-direction: column; }
+  .nav-stats { gap: 10px; }
+  .nav-brand-text { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="nav-brand">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14" stroke="#C9A835" stroke-width="2.5"/>
+        <path d="M16 6 L16 26 M8 12 L16 6 L24 12 M10 20 L16 26 L22 20" stroke="#C9A835" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-brand-text">Thalassian Rosetta Stone</span>
+    </a>
+    <div class="nav-links">
+      <a href="#learn" class="nav-link active">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z"/><path d="M8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"/></svg>
+        Learn
+      </a>
+      <a href="#flashcards" class="nav-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 7h6M5 9.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Flashcards
+      </a>
+      <a href="#culture" class="nav-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1l2 4 4.5.7-3.3 3.1.8 4.5L8 11.2l-4 2.1.8-4.5L1.5 5.7 6 5z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+        Culture
+      </a>
+      <a href="#pricing" class="nav-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#C9A835" stroke="#9E7F1B" stroke-width="1.2"/><circle cx="8" cy="8" r="5.5" stroke="#9E7F1B" stroke-width="0.6" fill="none"/><text x="8" y="11.5" text-anchor="middle" font-size="9" font-weight="bold" fill="#5A3E0A" font-family="serif">G</text></svg>
+        Pricing
+      </a>
+    </div>
+    <div class="nav-stats">
+      <div class="nav-stat">
+        <svg class="streak-flame" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 1C9 1 4 6 4 10.5C4 13.5 6.2 16 9 16C11.8 16 14 13.5 14 10.5C14 8 12 5 11 4C11 4 11 7 9 8C9 8 9 3 9 1Z" fill="#FF9500"/>
+          <path d="M9 8C9 8 7 10 7 12C7 13.7 8 15 9 15C10 15 11 13.7 11 12C11 10 9 8 9 8Z" fill="#FFD60A"/>
+        </svg>
+        <span>14</span>
+      </div>
+      <div class="nav-stat">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <polygon points="8,1 10,6 15,6 11,9.5 12.5,14.5 8,11 3.5,14.5 5,9.5 1,6 6,6" fill="#C9A835"/>
+        </svg>
+        <span>2,470 XP</span>
+      </div>
+      <div class="nav-stat" style="color: #F87171;">
+        <span>❤️</span>
+        <span>5</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M7 4v3l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Updated for Patch 12.0: Midnight
+      </div>
+      <h1>Learn Thalassian</h1>
+      <div class="hero-subtitle">Anu belore dela'na / The Sun Guides Us</div>
+      <p>The Silvermoon Academy of Linguistic Arts' only approved language course. Greetings, farewells, battle cries, and Sin'dorei passive aggression included. Go at your own pace.</p>
+      <div class="hero-cta-group">
+        <a href="#learn" class="btn btn-primary">Start Learning (It's Free)</a>
+        <a href="#flashcards" class="btn btn-secondary">Try a Flashcard</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="hero.png" alt="Thalassian scholar">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL PROOF ===== -->
+<div class="social-proof">
+  <div class="social-proof-inner">
+    <div class="proof-item"><span class="proof-number">847,000+</span> learners across Azeroth</div>
+    <div class="proof-item">⭐ <span class="proof-number">4.9</span> on the Silvermoon App Bazaar</div>
+    <div class="proof-item"><span class="proof-number">12</span> Thalassian Sass Levels</div>
+    <div class="proof-item">🏆 <span class="proof-number">#1</span> Elven language app since the Sundering</div>
+  </div>
+</div>
+
+<!-- ===== COURSE PATH ===== -->
+<section id="learn" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Your Learning Path</h2>
+      <p>One lesson at a time, from "Bal'a dash" to backhanded compliments.</p>
+    </div>
+
+    <div class="course-path reveal reveal-delay-1">
+      <!-- UNIT 1: Beginner -->
+      <div class="path-unit">
+        <div class="path-unit-header">
+          <h3>Unit 1: Greetings of the Sin'dorei</h3>
+          <p>Learn to greet, farewell, and not embarrass yourself at the Silvermoon gates</p>
+        </div>
+        <div class="path-lessons">
+          <div class="lesson-node completed" title="Bal'a dash">
+            ✓
+            <span class="lesson-label">Greetings</span>
+          </div>
+          <div class="lesson-node completed" title="Shorel'aran">
+            ✓
+            <span class="lesson-label">Farewells</span>
+          </div>
+          <div class="lesson-node completed" title="Anar'alah belore">
+            ✓
+            <span class="lesson-label">The Sun</span>
+          </div>
+          <div class="lesson-node current" title="Sinu a'manore">
+            4
+            <span class="lesson-label">Small Talk</span>
+          </div>
+          <div class="lesson-node locked">
+            5
+            <span class="lesson-label">Family</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNIT 2: Intermediate -->
+      <div class="path-unit">
+        <div class="path-unit-header" style="background: linear-gradient(135deg, #D97706, #B45309);">
+          <h3>Unit 2: Navigating Modern Silvermoon</h3>
+          <p>Practical phrases for the post-Midnight reconstruction era</p>
+        </div>
+        <div class="path-lessons">
+          <div class="lesson-node locked">6<span class="lesson-label">Directions</span></div>
+          <div class="lesson-node locked">7<span class="lesson-label">Commerce</span></div>
+          <div class="lesson-node locked">8<span class="lesson-label">Complaints</span></div>
+          <div class="lesson-node locked">9<span class="lesson-label">Mount Etiquette</span></div>
+          <div class="lesson-node locked">10<span class="lesson-label">Alliance Visitors</span></div>
+        </div>
+      </div>
+
+      <!-- UNIT 3: Advanced -->
+      <div class="path-unit locked">
+        <div class="path-unit-header" style="background: linear-gradient(135deg, var(--arcane), #6D28D9); color: rgba(255,255,255,0.6);">
+          <h3>Unit 3: The Art of Silvermoon Sass</h3>
+          <p style="color: rgba(255,255,255,0.4);">Backhanded compliments, transmog criticism, diplomatic ice</p>
+        </div>
+        <div class="path-lessons">
+          <div class="lesson-node locked">11<span class="lesson-label">Compliments(?)</span></div>
+          <div class="lesson-node locked">12<span class="lesson-label">Transmog Talk</span></div>
+          <div class="lesson-node locked">13<span class="lesson-label">Horde Politics</span></div>
+          <div class="lesson-node locked">14<span class="lesson-label">Sunwell Small Talk</span></div>
+          <div class="lesson-node locked">15<span class="lesson-label">Final Exam</span></div>
+        </div>
+      </div>
+
+      <!-- UNIT 4: Midnight -->
+      <div class="path-unit locked">
+        <div class="path-unit-header" style="background: linear-gradient(135deg, #1E1B4B, #312E81); color: rgba(255,255,255,0.6);">
+          <h3>Unit 4: Void Invasion Vocabulary</h3>
+          <p style="color: rgba(255,255,255,0.4);">Emergency Thalassian for the Xal'atath crisis. NEW for Patch 12.0</p>
+        </div>
+        <div class="path-lessons">
+          <div class="lesson-node locked" style="background: #312E81; border-color: #1E1B4B; color: #818CF8;">16<span class="lesson-label">Evacuation</span></div>
+          <div class="lesson-node locked" style="background: #312E81; border-color: #1E1B4B; color: #818CF8;">17<span class="lesson-label">Darkwell Warnings</span></div>
+          <div class="lesson-node locked" style="background: #312E81; border-color: #1E1B4B; color: #818CF8;">18<span class="lesson-label">Void Sass</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLASHCARD MODULE ===== -->
+<section id="flashcards" class="section section-warm">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Flashcard Practice</h2>
+      <p>Tap to flip. Learn the phrase, then move on. The sass builds over time.</p>
+    </div>
+
+    <!-- Lesson Tabs -->
+    <div class="lesson-tabs">
+      <button class="lesson-tab active" onclick="showDeck('beginner')">Beginner</button>
+      <button class="lesson-tab" onclick="showDeck('intermediate')">Intermediate</button>
+      <button class="lesson-tab" onclick="showDeck('advanced')">Advanced</button>
+    </div>
+
+    <div class="flashcard-area">
+      <!-- Progress -->
+      <div class="flashcard-progress">
+        <button class="flashcard-close" title="Exit practice">✕</button>
+        <div class="flashcard-progress-bar">
+          <div class="flashcard-progress-fill" id="cardProgressFill" style="width: 15%;"></div>
+        </div>
+        <div class="flashcard-progress-text" id="cardCount">1 / 8</div>
+      </div>
+
+      <!-- Flashcard -->
+      <div class="flashcard-container">
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-face flashcard-front">
+            <span class="flashcard-level-badge badge-beginner" id="cardBadge">Beginner</span>
+            <button class="flashcard-audio" onclick="event.stopPropagation()" title="Listen to pronunciation">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3.5L5.5 7H2.5a.5.5 0 00-.5.5v5a.5.5 0 00.5.5H5.5L10 16.5a.5.5 0 00.85-.35V3.85a.5.5 0 00-.85-.35zM13.5 7a4.5 4.5 0 010 6M15.5 5a7.5 7.5 0 010 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            </button>
+            <div class="flashcard-phrase" id="cardPhrase">Bal'a dash, malanore</div>
+            <div class="flashcard-pronunciation" id="cardPron">/bahl-ah dahsh, mahl-ah-NOR-ay/</div>
+            <div class="flashcard-hint" id="cardHint">Tap to reveal translation</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <span class="flashcard-level-badge badge-beginner" id="cardBadgeBack">Beginner</span>
+            <div class="flashcard-translation" id="cardTranslation">Greetings, traveler</div>
+            <div class="flashcard-context" id="cardContext">The standard Blood Elf greeting. Used with anyone you meet for the first time, or haven't seen in a while. "Malanore" means traveler or outsider, so using it with a local is mildly insulting.</div>
+            <div class="flashcard-example" id="cardExample">
+              <em>Usage:</em> When entering a Blood Elf inn, shop, or being approached by a guard at the Silvermoon gates.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flashcard-actions" id="cardActions">
+        <button class="flashcard-btn flip-btn" onclick="flipCard()">Tap to Flip</button>
+      </div>
+      <div class="flashcard-actions" id="cardRateActions" style="display: none;">
+        <button class="flashcard-btn dont-know" onclick="nextCard(false)">Still Learning</button>
+        <button class="flashcard-btn know" onclick="nextCard(true)">Got It!</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXERCISE DEMO ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Interactive Exercises</h2>
+      <p>Translate and build sentences in actual Thalassian.</p>
+    </div>
+
+    <div class="exercise-demo reveal reveal-delay-1" id="exerciseContainer">
+      <div class="exercise-topbar">
+        <button class="close-x">✕</button>
+        <div class="exercise-progress-track"><div class="fill" id="exerciseProgressFill"></div></div>
+        <div class="exercise-hearts" id="exerciseHearts">❤️❤️❤️❤️❤️</div>
+      </div>
+      <div class="exercise-body">
+        <div class="exercise-prompt" id="exercisePrompt">Translate this phrase:</div>
+        <div class="exercise-source">
+          <img src="portrait.png" alt="NPC" style="width: 60px; height: 60px; border-radius: var(--radius-md); object-fit: cover; flex-shrink: 0;">
+          <div class="speech-bubble" id="exerciseSpeech">Shorel'aran, malanore.</div>
+        </div>
+        <div class="answer-area" id="answerArea"></div>
+        <div class="word-bank" id="wordBank"></div>
+      </div>
+      <div class="exercise-footer">
+        <button class="exercise-check-btn" onclick="checkExercise()">CHECK</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PHRASE LIBRARY ===== -->
+<section class="section section-warm">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Phrase Library</h2>
+      <p>All phrases sorted by difficulty. Color shows sass level.</p>
+    </div>
+
+    <div class="lesson-tabs" style="margin-bottom: 32px;">
+      <button class="lesson-tab active" onclick="showPhrases('all')">All Phrases</button>
+      <button class="lesson-tab" onclick="showPhrases('beginner')">Beginner</button>
+      <button class="lesson-tab" onclick="showPhrases('intermediate')">Intermediate</button>
+      <button class="lesson-tab" onclick="showPhrases('advanced')">Advanced</button>
+    </div>
+
+    <div class="phrase-grid">
+      <!-- Beginner phrases -->
+      <div class="phrase-card sass-low" data-level="beginner" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Bal'a dash, malanore</div>
+          <div class="phrase-eng">Greetings, traveler</div>
+          <div class="phrase-pron">/bahl-ah dahsh, mahl-ah-NOR-ay/</div>
+        </div>
+        <button class="phrase-audio-btn" title="Play pronunciation">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-low" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Shorel'aran</div>
+          <div class="phrase-eng">Farewell</div>
+          <div class="phrase-pron">/shor-EL ah-RAHN/</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-low" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Anar'alah belore</div>
+          <div class="phrase-eng">By the light of the sun</div>
+          <div class="phrase-pron">/ah-NAR ah-LAH beh-LOR-ay/</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-low" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Selama ashal'anore</div>
+          <div class="phrase-eng">Justice for our people</div>
+          <div class="phrase-pron">/seh-LAH-mah ah-SHAHL ah-NOR-ay/</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-low" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Anu belore dela'na</div>
+          <div class="phrase-eng">The sun guides us</div>
+          <div class="phrase-pron">/AH-noo beh-LOR-ay DEH-la-nah/</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-low" data-level="beginner">
+        <div>
+          <div class="phrase-thal">Al diel shala</div>
+          <div class="phrase-eng">Safe travels</div>
+          <div class="phrase-pron">/ahl dee-EL SHAH-la/</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+
+      <!-- Intermediate phrases -->
+      <div class="phrase-card sass-mid" data-level="intermediate">
+        <div>
+          <div class="phrase-thal">Vendel'o shanal diel'roval mammoth anor'shola</div>
+          <div class="phrase-eng">Please stop parking your Mammoth in front of my auction house stall</div>
+          <div class="phrase-pron">/ven-DEL-oh shah-NAHL .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-mid" data-level="intermediate">
+        <div>
+          <div class="phrase-thal">Sinu a'manore, quel'dorei, thalas'din na shala rea</div>
+          <div class="phrase-eng">I understand you are from the Alliance but this is still our city</div>
+          <div class="phrase-pron">/SIN-oo ah-mah-NOR-ay .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-mid" data-level="intermediate">
+        <div>
+          <div class="phrase-thal">Shindu fallah Ban'dinoriel. Dalah sin Turalyon?</div>
+          <div class="phrase-eng">The barrier is failing. Did Turalyon touch it?</div>
+          <div class="phrase-pron">/SHIN-doo FAH-lah .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-mid" data-level="intermediate">
+        <div>
+          <div class="phrase-thal">Quel'Thalas belore'din felallan... aranal rea min ashal</div>
+          <div class="phrase-eng">We rebuilt this city once. Twice. We will do it again, I suppose.</div>
+          <div class="phrase-pron">/kwell-THAH-lahs .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-mid" data-level="intermediate">
+        <div>
+          <div class="phrase-thal">Noral'arkhana shola diel Haranir. Kim dorei thas'aran?</div>
+          <div class="phrase-eng">The Haranir wish to trade. Are mushroom people... trustworthy?</div>
+          <div class="phrase-pron">/nor-AHL ar-KAH-nah .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+
+      <!-- Advanced phrases -->
+      <div class="phrase-card sass-high" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Anu belore... shola'aran diel'melorn alar?</div>
+          <div class="phrase-eng">What a lovely transmog. Is that... intentional?</div>
+          <div class="phrase-pron">/AH-noo beh-LOR-ay .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-high" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Sinu a'manore. Sin'dorei rea? Anodun... kim'aran?</div>
+          <div class="phrase-eng">Oh, you're Horde too? How... recent.</div>
+          <div class="phrase-pron">/SIN-oo ah-mah-NOR-ay .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-high" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Doral ana'diel, Lor'themar? Alar'annalas belore'dore finel?</div>
+          <div class="phrase-eng">How fare you, Lor'themar? Finally the main character?</div>
+          <div class="phrase-pron">/dor-AHL ah-nah-dee-EL .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-max" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Belore'dorei min'da ann'da shola. Ren'dorei fale'aran?</div>
+          <div class="phrase-eng">My parents didn't flee the Scourge twice for Void Elves to waltz in and call this home</div>
+          <div class="phrase-pron">/beh-LOR-ay-DOR-ay .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-max" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Thalas'din shala, player housing aran bindel!</div>
+          <div class="phrase-eng">The homeland is secure. We finally have player housing!</div>
+          <div class="phrase-pron">/THAH-lahs-din .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+      <div class="phrase-card sass-max" data-level="advanced">
+        <div>
+          <div class="phrase-thal">Xal'atath min belore, shola'aran Sunwell finel... aranal rea?</div>
+          <div class="phrase-eng">Xal'atath corrupted the Sunwell. Again. Third time's the charm, yes?</div>
+          <div class="phrase-pron">/zal-ah-TATH .../</div>
+        </div>
+        <button class="phrase-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,2 13,8 3,14"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SASS TRACKER ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Your Sass Level</h2>
+      <p>The only fluency metric that actually matters in Silvermoon.</p>
+    </div>
+
+    <div class="sass-tracker reveal reveal-delay-1">
+      <div class="sass-tracker-header">
+        <h3>Thalassian Sass Level</h3>
+        <p>Overall Fluency Assessment</p>
+      </div>
+
+      <div class="sass-meter">
+        <div class="sass-segment filled"></div>
+        <div class="sass-segment filled"></div>
+        <div class="sass-segment filled"></div>
+        <div class="sass-segment filled"></div>
+        <div class="sass-segment"></div>
+        <div class="sass-segment"></div>
+        <div class="sass-segment"></div>
+        <div class="sass-segment"></div>
+        <div class="sass-segment"></div>
+        <div class="sass-segment"></div>
+      </div>
+      <div class="sass-labels">
+        <span>"Bal'a dash" (polite)</span>
+        <span>"Exquisite" (lethal)</span>
+      </div>
+
+      <div class="sass-current">
+        <div class="level">4</div>
+        <div class="title">Silvermoon Tourist</div>
+        <div class="desc">You can order at an inn without causing a diplomatic incident. Barely.</div>
+      </div>
+
+      <ul class="sass-milestones">
+        <li class="reached"><span class="level-num">1</span><div><span class="level-title">Absolute Beginner</span><br>Can say "hello" and "goodbye" without mispronouncing "belore." Congratulations.</div></li>
+        <li class="reached"><span class="level-num">2</span><div><span class="level-title">Cautious Visitor</span><br>Knows 10 phrases. Still visibly flinches when addressed in Thalassian.</div></li>
+        <li class="reached"><span class="level-num">3</span><div><span class="level-title">Tolerated Outsider</span><br>Silvermoon guards no longer reach for their weapons when you speak.</div></li>
+        <li class="reached"><span class="level-num">4</span><div><span class="level-title">Silvermoon Tourist</span><br>Can navigate the city, haggle at the bazaar, and complain about mammoths.</div></li>
+        <li><span class="level-num">5</span><div><span class="level-title">Conversational</span><br>Locals are surprised. "Your Thalassian is... adequate." (This is high praise.)</div></li>
+        <li><span class="level-num">6</span><div><span class="level-title">Socially Functional</span><br>Can attend a Silvermoon social function without anyone asking where you're "really" from.</div></li>
+        <li><span class="level-num">7</span><div><span class="level-title">Humor Unlocked</span><br>May now attempt Thalassian humor. Results may vary. The Academy is not liable.</div></li>
+        <li><span class="level-num">8</span><div><span class="level-title">Passive-Aggressive Proficient</span><br>Can deliver a devastating compliment that takes 10 minutes to realize was an insult.</div></li>
+        <li><span class="level-num">9</span><div><span class="level-title">Magistrix-Adjacent</span><br>Your eyebrow does the talking before your mouth opens. Lor'themar is concerned.</div></li>
+        <li><span class="level-num">10</span><div><span class="level-title">Exquisitely Insufferable</span><br>You have achieved native-level condescension. Alleria herself would feel judged. You may now teach.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CULTURAL NOTES ===== -->
+<section id="culture" class="section section-warm">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Cultural Notes</h2>
+      <p>Read these before you accidentally start a diplomatic crisis.</p>
+    </div>
+
+    <div class="culture-grid">
+      <div class="culture-card">
+        <h4>Do NOT Attempt Humor Before Level 7</h4>
+        <p>Thalassian humor depends on tone, context, and exactly how much you raise your left eyebrow. If you try a joke at Level 3, you will get escorted from the Bazaar. At Level 1, you will cause an international incident.</p>
+        <div class="warning-box">The Silvermoon Academy of Linguistic Arts has documented 47 "incidents" this year alone. Three involved the Horde embassy.</div>
+      </div>
+      <div class="culture-card">
+        <h4>The Silvermoon Reconstruction Sensitivity</h4>
+        <p>Silvermoon was a flat, low-polygon embarrassment for twenty years. Now it's the most beautiful city on Azeroth. Do NOT mention the "old" Silvermoon. Blood Elves have collectively agreed it never existed. Saying "wasn't this place kind of... flat?" will get you socially exiled on the spot.</p>
+      </div>
+      <div class="culture-card">
+        <h4>The Void Elf Situation</h4>
+        <p>The Ren'dorei (Void Elves) are allowed back in Silvermoon now, part of the unified elven defense against Xal'atath. Officially, everyone is fine with this. Unofficially, restaurant seating has become a contact sport. When a Blood Elf says "How delightful that you're here," the word "delightful" is doing a lot of heavy lifting.</p>
+      </div>
+      <div class="culture-card">
+        <h4>Transmog Compliments: A Field Guide</h4>
+        <p>In Silvermoon, commenting on someone's transmog is either the highest compliment or a declaration of war. No middle ground. "What a bold choice" means they hate it. "Very classic" means it's outdated. "Interesting" means they're drafting a formal complaint. "I wish I could wear that" is the only genuinely positive one, and even that only lands about 60% of the time.</p>
+      </div>
+      <div class="culture-card">
+        <h4>The Sunwell: Conversational Minefield</h4>
+        <p>Destroyed by Arthas. Reignited by M'uru's sacrifice. Now corrupted into the "Darkwell" by Xal'atath. If you treat this as a fun fact, the conversation is over. Acceptable reactions: solemn nod, hand over heart, quiet sigh. Do not say "third time's the charm" (even though everyone is thinking it).</p>
+      </div>
+      <div class="culture-card">
+        <h4>Mount Etiquette in the Bazaar</h4>
+        <p>The rebuilt Silvermoon supports flying mounts now. That does not mean you should land your Mammoth on the auction house steps. "Vendel'o shanal diel'roval mammoth" exists in Thalassian for a reason. It's the third most commonly spoken sentence in the city, right after "Bal'a dash" and "Where is the barber shop?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MIDNIGHT EXPANSION BANNER ===== -->
+<div class="midnight-banner">
+  <div class="midnight-banner-content">
+    <div class="midnight-badge reveal">🌑 New Content</div>
+    <h3>Midnight Emergency Phrasebook</h3>
+    <p>Xal'atath's Voidstorm has reached Quel'Thalas. We fast-tracked an emergency vocab module: void invasion etiquette, Darkwell safety warnings, and how to politely tell Turalyon's Vanguard of the Light that you didn't need rescuing, thank you very much.</p>
+    <div class="midnight-tags">
+      <span class="midnight-tag">Voidstorm Vocabulary</span>
+      <span class="midnight-tag">Devouring Host Insults</span>
+      <span class="midnight-tag">Evacuation Phrases</span>
+      <span class="midnight-tag">Haranir Diplomatic Terms</span>
+      <span class="midnight-tag">"We're Fine" (We Are Not Fine)</span>
+      <span class="midnight-tag">Darkwell Safety Protocol</span>
+    </div>
+
+    <div style="margin-top: 32px;">
+      <img src="midnight.png" alt="Midnight Module Illustration" style="width: 100%; height: 360px; object-fit: cover; border-radius: var(--radius-lg);">
+    </div>
+  </div>
+</div>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>What Our Learners Say</h2>
+      <p>Reviews from (fictional) students across Azeroth.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"I used to just nod when Blood Elves spoke to me in Silvermoon. Now I can nod while understanding exactly how much they're judging my armor. Truly life-changing."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🧝</div>
+          <div>
+            <div class="testimonial-name">Thràkk</div>
+            <div class="testimonial-info">Orc Warrior, Sass Level 3</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Reached Sass Level 8 in three weeks. My guild leader asked me to stop 'doing the Blood Elf thing' in raid chat. I consider this a graduation."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🧛</div>
+          <div>
+            <div class="testimonial-name">Sylvannis</div>
+            <div class="testimonial-info">Void Elf Warlock, Sass Level 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★☆</div>
+        <div class="testimonial-text">"Excellent course. Lost one star because the advanced module taught me a phrase that got me uninvited from a Silvermoon dinner party. The phrase was 'What a lovely vintage. Is it... local?' Apparently this implies their wine cellar survived Arthas. It did not."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🧙</div>
+          <div>
+            <div class="testimonial-name">Jennifyr</div>
+            <div class="testimonial-info">Human Mage, Sass Level 6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="section section-warm">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Choose Your Path</h2>
+      <p>Basic pleasantries or weapons-grade passive aggression. Your call.</p>
+    </div>
+
+    <div class="pricing-grid reveal reveal-delay-1">
+      <div class="price-card">
+        <h4>Free Tier</h4>
+        <div class="price-amount">0<span>g</span></div>
+        <div class="price-period">Free forever, just like the Sunwell's energy (sort of)</div>
+        <ul class="price-features">
+          <li>Unit 1: Basic Greetings & Farewells</li>
+          <li>20 flashcards</li>
+          <li>5 hearts per session</li>
+          <li>Sass Level 1–3 content</li>
+          <li class="disabled">Intermediate phrases</li>
+          <li class="disabled">Advanced sass module</li>
+          <li class="disabled">Midnight emergency phrasebook</li>
+        </ul>
+        <a href="#" class="btn btn-secondary" style="width: 100%; color: var(--text); border-color: var(--border);">Start Free</a>
+      </div>
+
+      <div class="price-card featured">
+        <h4>Sin'dorei Plus</h4>
+        <div class="price-amount">500<span>g</span></div>
+        <div class="price-period">per month, paid in gold, as is civilized</div>
+        <ul class="price-features">
+          <li>All 4 units including Midnight module</li>
+          <li>Unlimited flashcards</li>
+          <li>Unlimited hearts</li>
+          <li>Sass Level 1–10 full content</li>
+          <li>Pronunciation feedback</li>
+          <li>Cultural notes & etiquette guide</li>
+          <li class="disabled">Live tutor sessions</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe, Anar'alah!</a>
+      </div>
+
+      <div class="price-card">
+        <h4>Magistrix Tier</h4>
+        <div class="price-amount">2,000<span>g</span></div>
+        <div class="price-period">per month, includes a complimentary eyebrow raise tutorial</div>
+        <ul class="price-features">
+          <li>Everything in Sin'dorei Plus</li>
+          <li>Live 1-on-1 with a Silvermoon tutor</li>
+          <li>Custom sass calibration</li>
+          <li>Exclusive Magistrix badge</li>
+          <li>Priority seating at Silvermoon cafes</li>
+          <li>"How Recent" certification</li>
+          <li>We write your passive-aggressive mail</li>
+        </ul>
+        <a href="#" class="btn btn-secondary" style="width: 100%; color: var(--text); border-color: var(--border);">Apply (Interview Required)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="section-dark section" style="text-align: center;">
+  <div class="container">
+    <h2 style="color: var(--gold-light); font-size: 32px; margin-bottom: 12px;">Ready to Begin?</h2>
+    <p style="color: #D4A8A4; font-size: 16px; max-width: 500px; margin: 0 auto 28px; line-height: 1.7;">
+      847,000 learners started as confused tourists. Most of them are exquisitely insufferable native speakers now.
+    </p>
+    <div class="hero-cta-group" style="justify-content: center;">
+      <a href="#learn" class="btn btn-primary" style="font-size: 18px; padding: 18px 40px;">Bal'a Dash, Let's Go</a>
+    </div>
+    <p style="color: #806050; font-size: 12px; margin-top: 16px;">No credit card required. Payment accepted in gold, Apexis Crystals, or one (1) sincere compliment.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Thalassian Rosetta Stone</div>
+      <p class="footer-brand-desc">A product of the Silvermoon Academy of Linguistic Arts, est. Year 1 of the Sin'dorei Calendar. Updated for Midnight. Not affiliated with the actual Rosetta Stone (which, unlike us, teaches languages people <em>need</em>).</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="#">Beginner Thalassian</a>
+      <a href="#">Intermediate Sass</a>
+      <a href="#">Advanced Judgment</a>
+      <a href="#">Midnight Emergency</a>
+      <a href="#">Darnassian for Heretics</a>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <a href="#">Phrase Library</a>
+      <a href="#">Cultural Notes</a>
+      <a href="#">Pronunciation Guide</a>
+      <a href="#">Etiquette Handbook</a>
+      <a href="#">Incident Reports</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About the Academy</a>
+      <a href="#">Our Tutors</a>
+      <a href="#">Sass Certification</a>
+      <a href="#">Careers (must be Level 7+)</a>
+      <a href="#">Contact (in Thalassian only)</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-disclaimer">
+      This is a parody website, not a real product. World of Warcraft, Thalassian, Blood Elves, Silvermoon City, and all related content are trademarks of Blizzard Entertainment. No real language was learned in the making of this website. Side effects of Thalassian fluency may include spontaneous eyebrow raising, involuntary condescension, and an inability to enter Orgrimmar without sighing.
+    </div>
+    <div>© Year 38 of the Sin'dorei Calendar · Shorel'aran</div>
+  </div>
+</footer>
+
+<script>
+// ===== FLASHCARD DATA =====
+const decks = {
+  beginner: [
+    {
+      phrase: "Bal'a dash, malanore",
+      pron: "/bahl-ah dahsh, mahl-ah-NOR-ay/",
+      translation: "Greetings, traveler",
+      context: "The standard Blood Elf greeting. Used with anyone you meet for the first time. 'Malanore' means traveler or outsider, so using it with a local is mildly insulting.",
+      example: "Usage: When entering a Blood Elf inn, shop, or being approached by a guard at the Silvermoon gates.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Shorel'aran",
+      pron: "/shor-EL ah-RAHN/",
+      translation: "Farewell",
+      context: "The standard goodbye. 'Shorel' means departure and 'aran' means fair or well. Keep it simple. Overthinking your goodbye in Thalassian is considered gauche.",
+      example: "Usage: Leaving any conversation, shop, or social situation. Also used sarcastically before combat ('Prepare to say farewell').",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Anar'alah belore",
+      pron: "/ah-NAR ah-LAH beh-LOR-ay/",
+      translation: "By the light of the sun",
+      context: "A common oath and exclamation. 'Belore' (the sun) is central to Sin'dorei culture. Works as both a prayer and a mild exclamation. Basically the Thalassian 'Oh my God.'",
+      example: "Usage: Expressing surprise, reverence, or mild exasperation. Also a battle cry.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Selama ashal'anore",
+      pron: "/seh-LAH-mah ah-SHAHL ah-NOR-ay/",
+      translation: "Justice for our people",
+      context: "Prince Kael'thas Sunstrider's iconic declaration. Used as both a vow and a farewell. Carries real emotional weight. This is the phrase that named the Sin'dorei identity after Quel'Thalas fell.",
+      example: "Usage: Solemn occasions, memorials, or when someone really needs to end a conversation with gravitas.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Sinu a'manore",
+      pron: "/SIN-oo ah-mah-NOR-ay/",
+      translation: "Well met",
+      context: "A casual friendly greeting, warmer than 'Bal'a dash.' Used between people who already know each other. Think of it as the difference between 'Hello' and 'Hey!'",
+      example: "Usage: Running into a friend at the Silvermoon Bazaar. Not appropriate for formal settings.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Al diel shala",
+      pron: "/ahl dee-EL SHAH-la/",
+      translation: "Safe travels",
+      context: "A farewell wishing safety on the road. 'Diel' means travel and 'shala' means safe. More caring than 'Shorel'aran.' You'd use this with people you actually like.",
+      example: "Usage: Saying goodbye to someone embarking on a journey. Very common among Farstriders and rangers.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Anu belore dela'na",
+      pron: "/AH-noo beh-LOR-ay DEH-la-nah/",
+      translation: "The sun guides us",
+      context: "A cultural in-group greeting used specifically between Blood Elves and High Elves. Using this with a non-elf is considered presumptuous. Using it with a Night Elf is considered hostile.",
+      example: "Usage: Between Sin'dorei meeting in shared purpose. Often heard in the Blood Knight order.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    },
+    {
+      phrase: "Doral ana'diel?",
+      pron: "/dor-AHL ah-nah-dee-EL/",
+      translation: "How fare you?",
+      context: "A polite inquiry greeting. Literally asks about your travels or wellbeing. Keep your answer short. This is not an invitation to share your life story.",
+      example: "Usage: Polite conversation starter. If asked by a Silvermoon noble, the correct answer is always 'Well, thank you' regardless of reality.",
+      badge: "Beginner", badgeClass: "badge-beginner"
+    }
+  ],
+  intermediate: [
+    {
+      phrase: "Vendel'o shanal diel'roval mammoth anor'shola",
+      pron: "/ven-DEL-oh shah-NAHL dee-EL ROH-vahl/",
+      translation: "Please stop parking your Mammoth in front of my auction house stall",
+      context: "The third most commonly spoken sentence in modern Silvermoon. The city's new vertical design was not built for Traveler's Tundra Mammoths. And yet, here we are.",
+      example: "Usage: Shouted across the Bazaar approximately 400 times per day.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    },
+    {
+      phrase: "Sinu a'manore, quel'dorei, thalas'din na shala rea",
+      pron: "/SIN-oo ah-mah-NOR-ay, kwell-DOR-ay/",
+      translation: "I understand you are from the Alliance but this is still our city",
+      context: "Since Midnight, two-thirds of Silvermoon is now a neutral zone accessible to Alliance players. This phrase has become essential for Blood Elves processing their complicated feelings about humans in their restaurants.",
+      example: "Usage: When a human Death Knight sits at the table next to you at the Wayfarer's Rest.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    },
+    {
+      phrase: "Shindu fallah Ban'dinoriel. Dalah sin Turalyon?",
+      pron: "/SHIN-doo FAH-lah bahn-DIN-or-ee-el/",
+      translation: "The barrier is failing. Did Turalyon touch it?",
+      context: "Turalyon's Vanguard of the Light arrived to help defend Quel'Thalas. Not everyone is grateful. Ban'dinoriel is the magical barrier protecting Silvermoon, and blaming Turalyon for anything that goes wrong has become a local pastime.",
+      example: "Usage: Any time anything breaks in Silvermoon. The mailbox is down? Turalyon.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    },
+    {
+      phrase: "Quel'Thalas belore'din felallan... aranal rea min ashal",
+      pron: "/kwell-THAH-lahs beh-LOR-ay-din/",
+      translation: "We rebuilt this city once. Twice. We will do it again, I suppose.",
+      context: "The eternal Blood Elf mood. Quel'Thalas was destroyed by Arthas, rebuilt, attacked by the Scourge again, and now faces a void invasion. At this point, urban planning is a martial art.",
+      example: "Usage: Staring at void corruption on your favorite building with a resigned sigh.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    },
+    {
+      phrase: "Anaria shola, player housing diel'aran finel!",
+      pron: "/ah-NAR-ee-ah SHOH-la/",
+      translation: "Speak your business. Did you say player housing is real?!",
+      context: "Player housing was requested for twenty years. It arrived with Midnight. The phrase captures the genuine shock. Even the most composed Magistrix was seen weeping.",
+      example: "Usage: The first time someone tells you the feature is real and not a datamined hoax.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    },
+    {
+      phrase: "Noral'arkhana shola diel Haranir. Kim dorei thas'aran?",
+      pron: "/nor-AHL ar-KAH-nah SHOH-la/",
+      translation: "The Haranir wish to trade. Are mushroom people trustworthy?",
+      context: "The Haranir are a new allied race from a bioluminescent fungal jungle. Blood Elves are trying to be diplomatic about their new fungus-dwelling allies. They are not succeeding.",
+      example: "Usage: Whispered to another Blood Elf after a Haranir delegation enters the room.",
+      badge: "Intermediate", badgeClass: "badge-intermediate"
+    }
+  ],
+  advanced: [
+    {
+      phrase: "Anu belore... shola'aran diel'melorn alar?",
+      pron: "/AH-noo beh-LOR-ay .../",
+      translation: "What a lovely transmog. Is that... intentional?",
+      context: "The quintessential Silvermoon passive-aggressive phrase. The pause before 'intentional' should last exactly 1.5 seconds. Any longer is openly hostile; any shorter and the barb is lost.",
+      example: "Usage: When someone transmogged Wrath-era greens and thought nobody would notice.",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    },
+    {
+      phrase: "Sinu a'manore. Sin'dorei rea? Anodun... kim'aran?",
+      pron: "/SIN-oo ah-mah-NOR-ay .../",
+      translation: "Oh, you're Horde too? How... recent.",
+      context: "Delivered to any non-Blood Elf Horde member who has opinions about Silvermoon. The word 'recent' implies they are a newcomer to the Horde, regardless of when they actually joined. The Blood Elves were technically one of the last races to join the Horde. Do not mention this.",
+      example: "Usage: When a Tauren asks if Silvermoon 'was always this fancy.'",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    },
+    {
+      phrase: "Doral ana'diel, Lor'themar? Alar'annalas belore'dore finel?",
+      pron: "/dor-AHL ah-nah-dee-EL .../",
+      translation: "How fare you, Lor'themar? Finally the main character?",
+      context: "Lor'themar Theron went from the most forgotten Horde leader to starring in the Midnight expansion. Twenty years of Blood Elf players watched their faction leader be irrelevant. Say it with affection. He earned this.",
+      example: "Usage: Upon seeing Lor'themar do literally anything in a cutscene.",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    },
+    {
+      phrase: "Belore'dorei min'da ann'da shola. Ren'dorei fale'aran?",
+      pron: "/beh-LOR-ay-DOR-ay .../",
+      translation: "My parents didn't flee the Scourge twice for Void Elves to waltz in and call this home",
+      context: "The Void Elf reintegration into Silvermoon society is... ongoing. This phrase is considered Level 9 sass. It weaponizes family trauma, immigration politics, and real estate anxiety in a single sentence.",
+      example: "Usage: Never out loud. Only muttered. Preferably into a wine glass.",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    },
+    {
+      phrase: "Thalas'din shala. Devourer diel'melorn quel'aran?",
+      pron: "/THAH-lahs-din SHAH-la .../",
+      translation: "The homeland endures. Are those Devourers wearing better armor than us?",
+      context: "The new Devourer Demon Hunter spec channels void energy. Blood Elf Demon Hunters are experiencing an identity crisis. Do they remain loyal to fel aesthetics? Is void fashionable now? The discourse is splitting guilds.",
+      example: "Usage: In hushed tones at the Blood Knight headquarters.",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    },
+    {
+      phrase: "Xal'atath min belore, shola'aran Sunwell finel... aranal rea?",
+      pron: "/zal-ah-TATH min beh-LOR-ay .../",
+      translation: "Xal'atath corrupted the Sunwell. Again. Third time's the charm, yes?",
+      context: "Destroyed by Arthas in Warcraft III. Reignited with M'uru's sacrifice in Burning Crusade. Now corrupted into the 'Darkwell' by Xal'atath. Worst homeowner's insurance record on Azeroth. This phrase is technically a coping mechanism.",
+      example: "Usage: When you need to laugh to keep from crying. (Sass Level 10. Handle with care.)",
+      badge: "Advanced", badgeClass: "badge-advanced"
+    }
+  ]
+};
+
+let currentDeck = 'beginner';
+let currentIndex = 0;
+
+function showDeck(deck) {
+  currentDeck = deck;
+  currentIndex = 0;
+  document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderCard();
+}
+
+function renderCard() {
+  const cards = decks[currentDeck];
+  const card = cards[currentIndex];
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+
+  document.getElementById('cardPhrase').textContent = card.phrase;
+  document.getElementById('cardPron').textContent = card.pron;
+  document.getElementById('cardBadge').textContent = card.badge;
+  document.getElementById('cardBadge').className = 'flashcard-level-badge ' + card.badgeClass;
+  document.getElementById('cardBadgeBack').textContent = card.badge;
+  document.getElementById('cardBadgeBack').className = 'flashcard-level-badge ' + card.badgeClass;
+  document.getElementById('cardTranslation').textContent = card.translation;
+  document.getElementById('cardContext').textContent = card.context;
+  document.getElementById('cardExample').innerHTML = '<em>Usage:</em> ' + card.example.replace('Usage: ', '');
+  document.getElementById('cardCount').textContent = (currentIndex + 1) + ' / ' + cards.length;
+  document.getElementById('cardProgressFill').style.width = ((currentIndex + 1) / cards.length * 100) + '%';
+
+  document.getElementById('cardActions').style.display = 'flex';
+  document.getElementById('cardRateActions').style.display = 'none';
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.toggle('flipped');
+  if (fc.classList.contains('flipped')) {
+    document.getElementById('cardActions').style.display = 'none';
+    document.getElementById('cardRateActions').style.display = 'flex';
+  } else {
+    document.getElementById('cardActions').style.display = 'flex';
+    document.getElementById('cardRateActions').style.display = 'none';
+  }
+}
+
+function nextCard(known) {
+  const cards = decks[currentDeck];
+  if (currentIndex < cards.length - 1) {
+    currentIndex++;
+    renderCard();
+  } else {
+    // Wrap around
+    currentIndex = 0;
+    renderCard();
+  }
+}
+
+// ===== EXERCISE SYSTEM =====
+const exercises = [
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Shorel'aran, malanore.",
+    answer: ['Farewell,', 'traveler.'],
+    bank: ['sun', 'traveler.', 'justice', 'Farewell,', 'me']
+  },
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Bal'a dash, malanore.",
+    answer: ['Greetings,', 'traveler.'],
+    bank: ['Greetings,', 'farewell,', 'traveler.', 'sun', 'light']
+  },
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Anar'alah belore.",
+    answer: ['By', 'the', 'light', 'of', 'the', 'sun.'],
+    bank: ['sun.', 'By', 'justice', 'the', 'of', 'light', 'the', 'guides']
+  },
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Selama ashal'anore.",
+    answer: ['Justice', 'for', 'our', 'people.'],
+    bank: ['our', 'Justice', 'travels', 'for', 'safe', 'people.']
+  },
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Al diel shala.",
+    answer: ['Safe', 'travels.'],
+    bank: ['Safe', 'sun', 'farewell', 'travels.', 'justice']
+  },
+  {
+    prompt: 'Translate this phrase:',
+    speech: "Anu belore dela'na.",
+    answer: ['The', 'sun', 'guides', 'us.'],
+    bank: ['guides', 'light', 'The', 'us.', 'people', 'sun']
+  }
+];
+
+let currentExercise = 0;
+let hearts = 5;
+
+function loadExercise() {
+  const ex = exercises[currentExercise];
+  document.getElementById('exercisePrompt').textContent = ex.prompt;
+  document.getElementById('exerciseSpeech').textContent = ex.speech;
+  document.getElementById('exerciseProgressFill').style.width = ((currentExercise / exercises.length) * 100) + '%';
+
+  const area = document.getElementById('answerArea');
+  const bank = document.getElementById('wordBank');
+  area.innerHTML = '';
+  bank.innerHTML = '';
+
+  // Shuffle the bank words
+  const shuffled = [...ex.bank].sort(() => Math.random() - 0.5);
+  shuffled.forEach(word => {
+    const tile = document.createElement('div');
+    tile.className = 'word-tile';
+    tile.textContent = word;
+    tile.onclick = function() { addWord(this); };
+    bank.appendChild(tile);
+  });
+
+  // Reset button
+  const btn = document.querySelector('.exercise-check-btn');
+  btn.textContent = 'CHECK';
+  btn.style.background = '';
+  btn.style.boxShadow = '';
+  btn.style.color = '';
+}
+
+function addWord(el) {
+  const area = document.getElementById('answerArea');
+  const clone = el.cloneNode(true);
+  clone.onclick = function() { removeWord(this); };
+  area.appendChild(clone);
+  el.style.visibility = 'hidden';
+}
+
+function removeWord(el) {
+  if (el.parentElement.id === 'answerArea') {
+    const bank = document.getElementById('wordBank');
+    const tiles = bank.querySelectorAll('.word-tile');
+    tiles.forEach(t => {
+      if (t.textContent === el.textContent && t.style.visibility === 'hidden') {
+        t.style.visibility = 'visible';
+      }
+    });
+    el.remove();
+  }
+}
+
+function checkExercise() {
+  const area = document.getElementById('answerArea');
+  const words = Array.from(area.querySelectorAll('.word-tile')).map(t => t.textContent).join(' ');
+  const btn = document.querySelector('.exercise-check-btn');
+  const ex = exercises[currentExercise];
+  const correct = ex.answer.join(' ');
+
+  if (words === correct) {
+    btn.textContent = currentExercise < exercises.length - 1 ? '✓ Correct! Next →' : '✓ All complete! Anar\'alah!';
+    btn.style.background = 'var(--success)';
+    btn.style.boxShadow = '0 4px 0 #138A3E';
+    btn.style.color = '#fff';
+    if (currentExercise < exercises.length - 1) {
+      btn.onclick = function() {
+        currentExercise++;
+        loadExercise();
+        btn.onclick = function() { checkExercise(); };
+      };
+    } else {
+      document.getElementById('exerciseProgressFill').style.width = '100%';
+    }
+  } else {
+    hearts = Math.max(0, hearts - 1);
+    document.getElementById('exerciseHearts').textContent = '❤️'.repeat(hearts) + (hearts < 5 ? '🖤'.repeat(5 - hearts) : '');
+    btn.textContent = 'Not quite, try again!';
+    btn.style.background = 'var(--error)';
+    btn.style.boxShadow = '0 4px 0 #B91C1C';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = 'CHECK';
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+      btn.style.color = '';
+    }, 1500);
+  }
+}
+
+loadExercise();
+
+// Initialize
+renderCard();
+
+// ===== PHRASE FILTER =====
+function showPhrases(filter) {
+  document.querySelectorAll('.lesson-tabs')[1]?.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+  if (event?.target) event.target.classList.add('active');
+  document.querySelectorAll('.phrase-card').forEach(card => {
+    if (filter === 'all' || card.dataset.level === filter) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// ===== SCROLL REVEAL =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
