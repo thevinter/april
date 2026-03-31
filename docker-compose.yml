@@ -1,0 +1,18 @@
+services:
+  static-sites:
+    image: nginx:alpine
+    restart: always
+    volumes:
+      - ./asmr:/var/www/asmr:ro
+      - ./counseling:/var/www/counseling:ro
+      - ./energy:/var/www/energy:ro
+      - ./insurance:/var/www/insurance:ro
+      - ./meteo:/var/www/meteo:ro
+      - ./thalassian:/var/www/thalassian:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - npm_default
+
+networks:
+  npm_default:
+    external: true
